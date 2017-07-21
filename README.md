@@ -1,14 +1,17 @@
 # Copenhagen
 
-PhD course in analyses of genotyping and next-generation sequencing data in medical and population genetics 2015/2016
+PhD course in analysis of genotyping and next-generation sequencing data in medical and population genetics 2017
 
-Tuesday -  Introduction to NGS data:
- - Lecture 4: Allele frequencies, genotypes and SNPs.
- - Computer Exercises IV
+Tuesday - Introduction to NGS data
+ - 1pm - 2.15pm: Lecture 4: Allele frequencies, genotypes, SNPs, and imputation.
+ - 2.30pm - 4pm: Computer Exercises IV
 
-Friday – Detecting selection and genetic load:
- - Lecture 9: Detecting natural selection.
- - Computer Exercise IX
+Wednesday - Research lecture
+ - 4.15pm - 5pm
+
+Friday – Detecting selection and advanced inference of population structure
+ - 9am - 10.15am: Lecture 9: Detecting natural selection.
+ - 10.30am - 12.00pm: Computer Exercise IX
 
 ## Material
 
@@ -139,6 +142,6 @@ Write the paper!
 
 ## Credits
 
-Some materials have been borrowed (and then adapted) from [Thorfinn Korneliussen](http://scholar.google.co.uk/citations?user=-YNWF4AAAAAJ&hl=en), [Anders Albrechtsen](http://popgen.dk/albrecht/web/WelcomePage.html), [Tyler Linderoth](http://scholar.google.com/citations?user=dTuxmzkAAAAJ&hl=en), [Filipe G. Vieira](http://scholar.google.com/citations?user=gvZmPNQAAAAJ&hl=en), [Dean Ousby](https://www.linkedin.com/in/deanousby), [Javier Mendoza](https://www.ucl.ac.uk/candela/candela-news/new-fellow-javiermendoza) and possibly many more. Many thanks to [Ryan Waples](http://www1.bio.ku.dk/english/Staff/?pure=en/persons/545443) for feedbacks.
+Some materials have been borrowed (and then adapted) from [Thorfinn Korneliussen](http://scholar.google.co.uk/citations?user=-YNWF4AAAAAJ&hl=en), [Anders Albrechtsen](http://popgen.dk/albrecht/web/WelcomePage.html), [Tyler Linderoth](http://scholar.google.com/citations?user=dTuxmzkAAAAJ&hl=en), [Filipe G. Vieira](http://scholar.google.com/citations?user=gvZmPNQAAAAJ&hl=en), [Dean Ousby](https://www.linkedin.com/in/deanousby), [Javier Mendoza](https://www.ucl.ac.uk/candela/candela-news/new-fellow-javiermendoza) and possibly many more. Many thanks to [Ryan Waples](http://www1.bio.ku.dk/english/Staff/?pure=en/persons/545443) for feedback.
 
 
