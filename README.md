@@ -34,16 +34,15 @@ More information on this project can be found [here](http://www.1000genomes.org/
 Please set the path for all programs and data we will be using.
 ```
 # mandatory
-ANGSD=/home/ricco/github/angsd
-NGSTOOLS=/home/ricco/github/ngsTools
-NGSDIST=$NGSTOOLS/ngsDist
-MS=/home/ricco/bin/msdir/ms
-SS=/home/ricco/github/selscan/bin/linux
+ANGSD=/ricco/data/matteo/Software/angsd
+NGSTOOLS=/ricco/data/matteo/Software/ngsTools
+MS=/ricco/data/matteo/Software/ms
+SS=/ricco/data/matteo/Software/selscan/bin/linux
 # optional
-NGSADMIX=/home/ricco/github/angsd/misc/NGSadmix
-FASTME=/home/ricco/bin/fastme-2.1.5/binaries/fastme-2.1.5-linux64
+NGSADMIX=/ricco/data/matteo/Software/NGSadmix
+FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
 ```
-You also need to provide the location of data and sequences:
+You also need to provide the location of scripts, data and sequences:
 ```
 DIR=/home/matteo/Copenhagen
 DATA=/ricco/data/matteo/Data
@@ -55,6 +54,7 @@ Finally, create a folder where you will put all the results and some temporary d
 mkdir Results
 mkdir Data
 ```
+That's it.
 
 ## Case study
 
