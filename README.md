@@ -120,7 +120,7 @@ Write the paper!
 
 #### Research lecture
 
-* Evolutionary genetics in the high-throughput sequencing era
+* The conquest of the Arctic: a genetic journey
 
 ### Friday morning -  detecting selection
 
