@@ -23,7 +23,7 @@ mkdir Results
 Rscript Scripts/getUnrelated.R
 
 # download BAM files
-bash Scripts/getBams.sh $CHROM $START $END
+bash Scripts/getBams.sh $CHROM $START $END $SAMTOOLS
 # this creates files and folders in Data/PEL.BAMs/* and TSI and LWK and CHB
 
 # create file with list of BAMs
