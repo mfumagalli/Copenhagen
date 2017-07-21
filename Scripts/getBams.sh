@@ -36,7 +36,7 @@ do
 	do
 		NAME=`echo -n $i | tail -c 58`
 		echo $NAME
-		samtools view -s 1 -h -b ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/$i $CHROM:$START-$END > Data/$POP.BAMs$NAME 2> /dev/null
+		samtools view -s 0.25 -h -b ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/$i $CHROM:$START-$END > Data/$POP.BAMs$NAME 2> /dev/null
 	done
 done
 
