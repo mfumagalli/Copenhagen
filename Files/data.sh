@@ -1,6 +1,8 @@
 
 ## Pipeline to download and process the data to be used for this workshop
 
+## Ignore it unless you know what you are doing!
+
 # set path
 SAMTOOLS=/data/data/Software/samtools-1.4.1/samtools
 #SAMTOOLS=samtools
@@ -35,6 +37,16 @@ ls Data/CHB.BAMs/*.bam > Data/CHB.bamlist
 ls Data/PEL.BAMs/*.bam > Data/PEL.bamlist
 ls Data/NAM.BAMs/*.bam > Data/NAM.bamlist
 mv *.txt Data/. # bam and names lists
+
+# perhaps use only 10 samples per population (these files are called .bams)
+# also change their labels to human-readable
+# also remove PEL from ALL
+ls Data/LWK.BAMs/*.bam | head -n 10 > Data/AFR.bams
+ls Data/TSI.BAMs/*.bam | head -n 10 > Data/EUR.bams
+ls Data/CHB.BAMs/*.bam | head -n 10 > Data/EAS.bams
+ls Data/PEL.BAMs/*.bam | head -n 10 > Data/LAT.bams
+ls Data/NAM.BAMs/*.bam | head -n 10 > Data/NAM.bams
+cat Data/AFR.bams Data/EUR.bams Data/EAS.bams Data/NAM.bams > Data/ALL.bams
 
 # download ancestral sequence
 echo Downloading and processing ancestral sequence...

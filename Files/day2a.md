@@ -66,8 +66,8 @@ do
         echo $POP
         $ANGSD/angsd -b $DATA/$POP.bamlist -ref $REF -anc $ANC -out Results/$POP \
                 -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-                -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 15 -setMaxDepth 150 -doCounts 1 \
-                -GL 1 -doSaf 1 &> /dev/null
+                -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+                -GL 1 -doSaf 1
 done
 ```
 
@@ -79,8 +79,10 @@ These values represent the sample allele frequency likelihoods at each site, as 
 So the first value (after the chromosome and position columns) is the likelihood of having 0 copies of the derived allele, the second indicates the probability of having 1 copy and so on.
 Note that these values are in log format and scaled so that the maximum is 0.
 
+**QUESTION**
 Can you spot any site which is likely to be variable?
-What does this mean? It means that you should look for sites where the highest likelihood does not correspond to allele frequencies of 0 or 1.
+What does this mean? 
+It means that you should look for sites where the highest likelihood does not correspond to allele frequencies of 0 or 100%.
 
 The next step would be to use these likelihoods and estimate the overall SFS.
 This is achieved by the program `realSFS`.
@@ -122,7 +124,7 @@ Therefore, this command will estimate the SFS for each population separately:
 for POP in LWK TSI CHB NAM
 do
         echo $POP
-        $ANGSD/misc/realSFS Results/$POP.saf.idx 2> /dev/null > Results/$POP.sfs
+        $ANGSD/misc/realSFS Results/$POP.saf.idx > Results/$POP.sfs
 done
 ```
 The output will be saved in `Results/POP.sfs` files.
@@ -133,11 +135,13 @@ cat Results/LWK.sfs
 ```
 The first value represent the expected number of sites with derived allele frequency equal to 0, the second column the expected number of sites with frequency equal to 1 and so on.
 
+**QUESTION**
 How many values do you expect?
+
 ```
 awk -F' ' '{print NF; exit}' Results/LWK.sfs
 ```
-Indeed this represents the unfolded spectrum, so it has 2N+1 values with N diploid individuals.
+Indeed this represents the unfolded spectrum, so it has `2N+1` values with N diploid individuals.
 
 Why is it so bumpy?
 
@@ -148,8 +152,8 @@ Nevertheless, these SFS should be a reasonable prior to be used for estimation o
 
 Let us plot the SFS for each pop using this simple R script.
 ```
-Rscript $DIR/Scripts/plotSFS.R Results/LWK.sfs Results/TSI.sfs Results/CHB.sfs Results/NAM.sfs
-evince Results/LWK_TSI_CHB_NAM.pdf
+Rscript $NGSTOOLS/Scripts/plotSFS.R Results/LWK.sfs-Results/TSI.sfs-Results/CHB.sfs-Results/NAM.sfs LWK-TSI-CHB-NAM 0 Results/ALL.sfs.pdf
+evince Results/ALL.sfs.pdf
 ```
 
 Do they behave like expected?

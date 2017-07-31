@@ -12,6 +12,24 @@ According to its website *ANGSD is a software for analyzing next generation sequ
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
 
+```
+ANGSD=/ricco/data/matteo/Software/angsd
+NGSTOOLS=/ricco/data/matteo/Software/ngsTools
+MS=/ricco/data/matteo/Software/ms
+SS=/ricco/data/matteo/Software/selscan/bin/linux
+
+NGSADMIX=/ricco/data/matteo/Software/NGSadmix
+FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
+
+DIR=/home/matteo/Copenhagen
+DATA=/ricco/data/matteo/Data
+REF=$DATA/ref.fa.gz
+ANC=$DATA/anc.fa.gz
+
+mkdir Results
+mkdir Data
+```
+
 --------------------------------------------------------------------------
 
 #### Data filtering
@@ -77,8 +95,8 @@ These filters are based on:
 
 Have a look at our list of BAM files:
 ```
-cat $DATA/ALL.bamlist
-wc -l $DATA/ALL.bamlist
+cat $DATA/ALL.bams
+wc -l $DATA/ALL.bams
 ```
 
 If the input file is in BAM format, the possible options are:
@@ -119,7 +137,7 @@ Some basic filtering consists in removing, for instance, read with low quality a
 Let us build such command line.
 First we need to define input and output files:
 ```
-# $ANGSD/angsd -b ALL.bamlist -ref $REF -out Results/ALL \
+# $ANGSD/angsd -b ALL.bams -ref $REF -out Results/ALL \
 ...
 ```
 with `-b` we give the file including paths to all BAM files we need to analyse.
@@ -129,7 +147,7 @@ with `-b` we give the file including paths to all BAM files we need to analyse.
 Next we need to define some basic filtering options.
 First we define filters based on reads quality.
 ```
-# $ANGSD/angsd -b ALL.bamlist -ref $REF -out Results/ALL \
+# $ANGSD/angsd -b ALL.bams -ref $REF -out Results/ALL \
 #        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
 ...
 ```
@@ -145,16 +163,16 @@ To make things faster, we are using only 20 samples from European samples (TSI, 
 
 We first derive the distribution of quality scores and depth on our data set using ```-doQsDist 1 -doDepth 1```.
 ```
-$ANGSD/angsd -b $DATA/TSI.bamlist -ref $REF -out Results/ALL.qc \
+$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/ALL.qc \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-        -doQsDist 1 -doDepth 1 -doCounts 1 -maxDepth 200 -minQ 0
+        -doQsDist 1 -doDepth 1 -doCounts 1 -maxDepth 100 -minQ 0
 ```
-As an illustration here, ```-maxDepth 200``` corresponds to a per-sample average depth of 10.
+As an illustration here, ```-maxDepth 100``` corresponds to a per-sample average depth of 10.
 This option means that all sites with depth equal or greater than 200 will be binned together.
 
 Have a look at the files generated:
 ```
-ls Results/*
+ls Results/ALL.qc.*
 ...
 -> Output filenames:
 		->"Results/ALL.qc.arg"
@@ -163,6 +181,7 @@ ls Results/*
 		->"Results/ALL.qc.depthGlobal"
 ...
 ```
+
 ```
 # counts of quality scores
 less -S Results/ALL.qc.qs
@@ -183,25 +202,28 @@ less -S Results/ALL.qc.info
 evince Results/ALL.qc.pdf
 ``` 
 
-Which values would you choose as sensible thresholds on quality score and global depth (min and max)?
-We may also want to remove sites where half of the individual have no data. This is achieved by the -minInd option.
+**QUESTION**
+Which values would you choose as sensible thresholds on quality score and depth (minimum and maximum)?
+
+We may also want to remove sites where half of the individual have no data. 
+This is achieved by the -minInd option.
 A possible command line would contain the following filtering:
 ```
 ...
 #        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-#        -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+#        -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 ...
 ```
 which corresponds to the following scenario:
 
 Parameter | Meaning |
 --- | --- |
--minInd 10 | use only sites with data from at least N individuals |
--setMinDepth 10 | minimum total depth |
--setMaxDepth 100 | maximum total depth |
+-minInd 5 | use only sites with data from at least N individuals |
+-setMinDepth 7 | minimum total depth |
+-setMaxDepth 30 | maximum total depth |
 
 Specifically here we analyse only reads with a minimum mapping quality of 20, and bases with a minimum quality of 20 (the values are in phred scores).
-Also we specify that we are analysing only sites where we have data for half of the individuals and minimum and maximum TOTAL depth of 10 and 100, respectively.
+Also we specify that we are analysing only sites where we have data for half of the individuals and minimum and maximum TOTAL depth of 7 and 30, respectively.
 `-doCounts 1` simply forces the calculation of depth.
 
 ANGSD can also compute more sophisticated metrics to filter out SNPs, as described [here](http://popgen.dk/angsd/index.php/SnpFilters), mostly based on:
@@ -218,7 +240,7 @@ We have now seen how to build a command line in ANGSD with the example of doing 
 
 #### Estimation of allele frequencies and SNP calling
 
-We now want to estimate allele frequencies at each site, for the whole sample.
+We now want to estimate allele frequencies at each site, for the European samples.
 In other words, at each site we want to to estimate (or count) how many copies of different alleles (two in case of biallelic variants) we observe in our sample (across all sequenced individuals).
 However with low depth data direct counting of individually assigned genotypes can lead to biased allele frequencies.
 
@@ -294,9 +316,9 @@ For most applications and data, GATK and SAMtools models should give similar res
 
 Therefore a possible command line to estimate allele frequencies might be (this may take 1 min to run):
 ```
-$ANGSD/angsd -b $DATA/TSI.bamlist -ref $REF -out Results/ALL \
+$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-        -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+        -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
         -GL 1 -doMajorMinor 4 -doMaf 1 -skipTriallelic 1
 ```
 where we specify:
@@ -306,32 +328,32 @@ where we specify:
 
 What are the output files?
 ```
-->"Results/ALL.arg"
-->"Results/ALL.mafs.gz"
+->"Results/EUR.arg"
+->"Results/EUR.mafs.gz"
 ```
 `.args` file is a summary of all options used, while `.mafs.gz` file shows the allele frequencies computed at each site.
 
 Have a look at this file which contains estimates of allele frequency values.
 ```
-zcat Results/ALL.mafs.gz | head
+zcat Results/EUR.mafs.gz | head
 ```
 and you may see something like
 ```
 chromo	position	major	minor	ref	knownEM	nInd
-2	108999932	G	A	G	0.000003	10
-2	108999933	T	A	T	0.000004	10
-2	108999934	A	C	A	0.000003	10
-2	108999935	T	A	T	0.000004	11
-2	108999936	T	A	T	0.000002	11
-2	108999937	C	A	C	0.000002	11
-2	108999938	T	A	T	0.000005	11
-2	108999939	C	A	C	0.000003	11
-2	108999940	T	A	T	0.000003	11
+2	108999945	C	A	C	0.000004	5
+2	108999946	T	A	T	0.000004	5
+2	108999947	T	A	T	0.000004	5
+2	108999948	C	A	C	0.000004	5
+2	108999949	T	A	T	0.000004	5
+2	108999950	A	C	A	0.000004	5
+2	108999951	T	A	T	0.000004	5
+2	108999952	G	A	G	0.000004	5
+2	108999953	A	C	A	0.000002	5
 ```
 where `knownEM` specifies the algorithm used to estimate the allele frequency which is given under that column.
 Please note that this refers to the allele frequency of the allele labelled as `minor`.
 The columns are: chromosome, position, major allele, minor allele, reference allele, allele frequency, p-value for SNP calling (if -SNP-pval was called), number of individuals with data.
-The last column gives the number of samples with data (you can see that this never lower than 40 given our filtering).
+The last column gives the number of samples with data (you can see that this never below 5 given our filtering).
 
 You can notice that many sites have low allele frequency, probably reflecting the fact that that site is monomorphic.
 We may be interested in looking at allele frequencies only for sites that are actually variable in our sample.
@@ -343,21 +365,22 @@ There are two main ways to call SNPs using ANGSD with these options:
 ```
 Therefore we can consider assigning as SNPs sites whose estimated allele frequency is above a certain threhsold (e.g. the frequency of a singleton) or whose probability of being variable is above a specified value.
 
-As an illustration, let us call SNPs by computing:
+**EXERCISE**
+As an illustration, call SNPs by computing:
  - genotype likelihoods using GATK method;
  - major and minor alleles inferred from genotype likelihoods;
  - frequency from known major allele but unknown minor;
- - SNPs as those having MAF=>0.01.
+ - SNPs as those having MAF=>0.05.
 
-Try to write down this command by yourself...
+Try to write down this command by yourself.
 
 Here is the solution (this may take a couple of minutes to run, be patient...):
 ```
-$ANGSD/angsd -b $DATA/TSI.bamlist -ref $REF -out Results/ALL \
+$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/ALL \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-        -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+        -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
         -GL 2 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1  \
-        -minMaf 0.01
+        -minMaf 0.05
 ```
 
 You can have a look at the results:

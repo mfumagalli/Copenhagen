@@ -22,7 +22,7 @@ These instructions, including all relevant files and scripts, can be found at `/
 
 ## Data
 
-As an illustration, we will use 80 BAM files of human samples (of African, European, East Asian, and Native American descent), a reference genome, and putative ancestral sequence.
+As an illustration, we will use 40 BAM files of human samples (of African, European, East Asian, and Native American descent), a reference genome, and putative ancestral sequence.
 *To make things more interesting, we have downsampled our data to an average mean depth of 2X!*.
 
 We will also use VCF files for 120 individuals from the same populations.
@@ -109,7 +109,7 @@ Write the paper!
 * Genotype likelihoods
 * Allele frequencies, SNPs and genotypes calling
 * Brief notes on experimental design
-* EM algorithm - Imputation - Phasing (Anders)
+* Imputation and phasing
 
 #### [Practical](Files/day1.md) 2.30-4pm
 
@@ -120,7 +120,7 @@ Write the paper!
 
 #### Research lecture
 
-* The conquest of the Arctic: a genetic journey
+* Of bears and men: genetic adaptation to extreme environments
 
 ### Friday morning -  detecting selection
 
