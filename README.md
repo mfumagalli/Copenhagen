@@ -23,6 +23,7 @@ These instructions, including all relevant files and scripts, can be found at `/
 ## Data
 
 As an illustration, we will use 40 BAM files of human samples (of African, European, East Asian, and Native American descent), a reference genome, and putative ancestral sequence.
+We will also use 10 BAM files of Latinos in one example.
 *To make things more interesting, we have downsampled our data to an average mean depth of 2X!*.
 
 We will also use VCF files for 120 individuals from the same populations.

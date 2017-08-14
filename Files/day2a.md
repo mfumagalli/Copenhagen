@@ -1,11 +1,11 @@
 
-Here you will learn how to perform a scan for selection by calculating PBS (population branch statistic) in windows from low-depth data.
+Here you will learn how to perform a scan for positive selection by calculating PBS (population branch statistic) in windows from low-depth data.
 
 As reference, these are the labelling for each population:
 
-- LWK: Africans
-- TSI: Europeans
-- CHB: East Asians
+- AFR: Africans
+- EUR: Europeans
+- EAS: East Asians
 - NAM: Native Americans
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
@@ -29,7 +29,7 @@ ANC=$DATA/anc.fa.gz
 
 ### Allele frequency differentiation
 
-The joint-SFS can be considered as a summary statistics for the level of genetic differentiation between populations.
+The joint Site Frequency Spectrum (SFS) can be considered as a summary statistics for the level of genetic differentiation between populations.
 We have seen how it can be used as prior information when computing FST (and related metrics) without relying on genotype calling.
 
 Here we see how to compute the 2D-SFS, FST, PBS, and other summary statistics from low-depth data using ANGSD.
@@ -38,8 +38,6 @@ Our final goal is to detect signatures of selection in our data, with the specif
 To compute FST/PBS we first need to estimate the marginal and joint sites frequency spectra for our populations.
 
 -------------------------------
-
-**IMPORTANT NOTE**: Please skim this part if already covered during other practicals BUT be sure to run the commands as you will need these output files to perform the remaining analyses.
 
 One of the most important aspect of data analysis for population genetics is the estimate of the Site Frequency Spectrum (SFS).
 SFS records the proportions of sites at different allele frequencies. It can be folded or unfolded, and the latter case implies the use of an outgroup species to define the ancestral state.
@@ -78,12 +76,12 @@ Also, we want to estimate the unfolded SFS and we use a putative ancestral seque
 
 We cycle across all populations and compute SAF files:
 ```
-for POP in LWK TSI CHB NAM
+for POP in AFR EUR EAS NAM
 do
         echo $POP
-        $ANGSD/angsd -b $DATA/$POP.bamlist -ref $REF -anc $ANC -out Results/$POP \
+        $ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
                 -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-                -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+                -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
                 -GL 1 -doSaf 1
 done
 ```
