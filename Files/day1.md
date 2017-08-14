@@ -791,12 +791,12 @@ We assume 4 ancestral populations making up the genetic diversity of our samples
 Therefore we compute admixture proportions with 4 ancestral components.
 ```
 K=4
-$NGSADMIX -likes Results/ALL.beagle.gz -K $K -outfiles Results/ALL.admix.K$K -P 4 -minMaf 0.02
+$NGSADMIX -likes Results/ALL.beagle.gz -K $K -outfiles Results/ALL.admix.K$K -minMaf 0.05
 ```
 
 We now combine samples IDs with admixture proportions and inspect the results.
 ```
-paste $DATA/ALL.bamlist Results/ALL.admix.K$K.qopt > Results/ALL.admix.K$K.txt
+paste $DATA/ALL.bams Results/ALL.admix.K$K.qopt > Results/ALL.admix.K$K.txt
 less -S Results/ALL.admix.K$K.txt
 ```
 
@@ -818,16 +818,16 @@ Again, we need more sites to have power to detect putative clusters.
 **IMPORTANT NOTE**: These commands are given as a mere example as, in practise, such analyses should be performed on larger genomic regions.
 
 Genotype probabilities can be used also to infer the structure of your population.
-For instance, in our example, they can used to assess whether PEL samples are indeed admixed.
+For instance, in our example, they can used to assess whether NAM samples are admixed or not.
 
 We can compute genetic distances as a basis for population clustering driectly from genotype probabilities, and not from assigned genotypes as we have seen how problematic these latters can be at low-depth.
 
 First, we compute genotype posterior probabilities jointly for all samples:
 ```
 # Assuming HWE, without filtering based on probabilities, with SNP calling
-$ANGSD/angsd -b $DATA/ALL.bamlist -ref $REF -out Results/ALL \
+$ANGSD/angsd -b $DATA/ALL.bams -ref $REF -out Results/ALL \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-        -minMapQ 20 -minQ 20 -minInd 40 -setMinDepth 50 -setMaxDepth 200 -doCounts 1 \
+        -minMapQ 20 -minQ 20 -minInd 20 -setMinDepth 30 -setMaxDepth 120 -doCounts 1 \
         -GL 1 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
         -SNP_pval 1e-3 \
         -doGeno 8 -doPost 1
@@ -841,13 +841,14 @@ echo $NSITES
 
 Then we create a file with labels indicating the population of interest for each sample.
 ```
-Rscript -e 'cat(paste(rep(c("LWK","TSI","CHB","NAM"),each=20), rep(1:20, 4), sep="_"), sep="\n", file="Data/pops.label")'
+Rscript -e 'cat(paste(rep(c("AFR","EUR","EAS","NAM"),each=10), rep(1:10, 4), sep="_"), sep="\n", file="Data/pops.label")'
 cat Data/pops.label
+#_
 ```
 
 With [ngsDist](https://github.com/fgvieira/ngsDist) we can compute pairwise genetic distances without relying on individual genotype calls.
 ```
-$NGSTOOLS/ngsDist/ngsDist -verbose 1 -geno Results/ALL.geno.gz -probs -n_ind 80 -n_sites $NSITES -labels Data/pops.label -o Results/ALL.dist -n_threads 4
+$NGSTOOLS/ngsDist/ngsDist -verbose 1 -geno Results/ALL.geno.gz -probs -n_ind 40 -n_sites $NSITES -labels Data/pops.label -o Results/ALL.dist
 
 less -S Results/ALL.dist
 ```
