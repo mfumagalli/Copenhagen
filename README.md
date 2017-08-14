@@ -96,8 +96,6 @@ Goal day 2:
 - Assess statistical significance of selection signatures through simulations
 - Test for extended haplotype homozygosity on high-depth sequencing data
 
-Write the paper!
-
 ## Agenda
 
 ### Tuesday afternoon -  introduction to NGS data:

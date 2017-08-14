@@ -8,6 +8,23 @@ As reference, these are the labelling for each population:
 - CHB: East Asians
 - NAM: Native Americans
 
+Please make sure to follow the preparatory instructions on the main page before running these examples.
+```
+ANGSD=/ricco/data/matteo/Software/angsd
+NGSTOOLS=/ricco/data/matteo/Software/ngsTools
+MS=/ricco/data/matteo/Software/ms
+SS=/ricco/data/matteo/Software/selscan/bin/linux
+
+NGSADMIX=/ricco/data/matteo/Software/NGSadmix
+FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
+
+DIR=/home/matteo/Copenhagen
+DATA=/ricco/data/matteo/Data
+REF=$DATA/ref.fa.gz
+ANC=$DATA/anc.fa.gz
+
+```
+
 -----------------------------
 
 ### Allele frequency differentiation

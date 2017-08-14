@@ -11,7 +11,6 @@ More information about its rationale and implemented methods can be found [here]
 According to its website *ANGSD is a software for analyzing next generation sequencing data. The software can handle a number of different input types from mapped reads to imputed genotype probabilities. Most methods take genotype uncertainty into account instead of basing the analysis on called genotypes. This is especially useful for low and medium depth data. The software is written in C++ and has been used on large sample sizes. This program is not for manipulating BAM/CRAM files, but solely a tool to perform various kinds of analysis. We recommend the excellent program SAMtools for outputting and modifying bamfiles.*
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
-
 ```
 ANGSD=/ricco/data/matteo/Software/angsd
 NGSTOOLS=/ricco/data/matteo/Software/ngsTools
@@ -34,7 +33,7 @@ mkdir Data
 
 #### Data filtering
 
-First, we will learn how to build a command line in ANGSD, with the specific example of doing a basic post mapping filtering.
+First, we will learn **how to build a command line in ANGSD**, with the specific example of doing a basic post mapping filtering.
 
 To see a full list of options in ANGSD type:
 ```
@@ -97,6 +96,7 @@ Have a look at our list of BAM files:
 ```
 cat $DATA/ALL.bams
 wc -l $DATA/ALL.bams
+ls $DATA/*.bams
 ```
 
 If the input file is in BAM format, the possible options are:
@@ -135,7 +135,8 @@ Examples for region specification:
 
 Some basic filtering consists in removing, for instance, read with low quality and/or with multiple hits, and this can be achieved using the parameters ```-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1```.
 Let us build such command line.
-First we need to define input and output files:
+
+First we need to define input and output files (please note that here we do not run these intermediate steps, as you can see thare is a ```#``` in the front):
 ```
 # $ANGSD/angsd -b ALL.bams -ref $REF -out Results/ALL \
 ...
@@ -158,55 +159,58 @@ Also, you may want to remove reads with low mapping quality and sites with low q
 Under these circumnstances, the assignment of individual genotypes and SNPs is problematic, and can lead to errors. 
 
 However, it is necessary to know the overall distribution of per-site depth, in order to avoid filtering too many (or few) sites.
-
-To make things faster, we are using only 20 samples from European samples (TSI, Italians, of course...).
+To make things faster, we are using only 10 samples from European samples (EUR), specifically Italians (of course...).
 
 We first derive the distribution of quality scores and depth on our data set using ```-doQsDist 1 -doDepth 1```.
 ```
-$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/ALL.qc \
+$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR.qc \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -doQsDist 1 -doDepth 1 -doCounts 1 -maxDepth 100 -minQ 0
 ```
-As an illustration here, ```-maxDepth 100``` corresponds to a per-sample average depth of 10.
-This option means that all sites with depth equal or greater than 200 will be binned together.
+Please ignore any message stating: `No data for chromoId=0 chromoname=1
+This could either indicate that there really is no data for this chromosome`
+
+As an illustration, ```-maxDepth 100``` corresponds to a per-sample average depth of 10.
+This option means that all sites with depth equal or greater than 100 will be binned together.
 
 Have a look at the files generated:
 ```
-ls Results/ALL.qc.*
+ls Results/EUR.qc.*
 ...
 -> Output filenames:
-		->"Results/ALL.qc.arg"
-		->"Results/ALL.qc.qs"
-		->"Results/ALL.qc.depthSample"
-		->"Results/ALL.qc.depthGlobal"
+		->"Results/EUR.qc.arg"
+		->"Results/EUR.qc.qs"
+		->"Results/EUR.qc.depthSample"
+		->"Results/EUR.qc.depthGlobal"
 ...
 ```
 
 ```
 # counts of quality scores
-less -S Results/ALL.qc.qs
+less -S Results/EUR.qc.qs
 # counts of per-sample depth
-less -S Results/ALL.qc.depthSample 
-wc -l Results/ALL.qc.depthSample
+less -S Results/EUR.qc.depthSample 
+wc -l Results/EUR.qc.depthSample
 # counts of global depth
-less -S Results/ALL.qc.depthGlobal 
+less -S Results/EUR.qc.depthGlobal 
 ```
 
 It is convenient to compute the percentiles of these distributions (and visualize them) in order to make an informative decision on the threshold values we will use for our filtering.
 ```
-Rscript $NGSTOOLS/Scripts/plotQC.R Results/ALL.qc 2> /dev/null
+Rscript $NGSTOOLS/Scripts/plotQC.R Results/EUR.qc 2> /dev/null
 ```
+The part ```2> /dev/null``` simply indicates that the standard output (i.e. messages on the screen) will not appear.
 Have a look at the output files:
 ```
-less -S Results/ALL.qc.info
-evince Results/ALL.qc.pdf
+less -S Results/EUR.qc.info
+evince Results/EUR.qc.pdf
 ``` 
 
 **QUESTION**
 Which values would you choose as sensible thresholds on quality score and depth (minimum and maximum)?
 
-We may also want to remove sites where half of the individual have no data. 
-This is achieved by the -minInd option.
+We may also want to remove sites where a fraction (half?) of the individuals have no data. 
+This is achieved by the ```-minInd``` option.
 A possible command line would contain the following filtering:
 ```
 ...
@@ -224,7 +228,7 @@ Parameter | Meaning |
 
 Specifically here we analyse only reads with a minimum mapping quality of 20, and bases with a minimum quality of 20 (the values are in phred scores).
 Also we specify that we are analysing only sites where we have data for half of the individuals and minimum and maximum TOTAL depth of 7 and 30, respectively.
-`-doCounts 1` simply forces the calculation of depth.
+Please note that `-doCounts 1` simply forces the calculation of depth.
 
 ANGSD can also compute more sophisticated metrics to filter out SNPs, as described [here](http://popgen.dk/angsd/index.php/SnpFilters), mostly based on:
 * strand bias
@@ -366,6 +370,7 @@ There are two main ways to call SNPs using ANGSD with these options:
 Therefore we can consider assigning as SNPs sites whose estimated allele frequency is above a certain threhsold (e.g. the frequency of a singleton) or whose probability of being variable is above a specified value.
 
 **EXERCISE**
+
 As an illustration, call SNPs by computing:
  - genotype likelihoods using GATK method;
  - major and minor alleles inferred from genotype likelihoods;
@@ -374,9 +379,11 @@ As an illustration, call SNPs by computing:
 
 Try to write down this command by yourself.
 
-Here is the solution (this may take a couple of minutes to run, be patient...):
+...
+
+Here is a possible solution:
 ```
-$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/ALL \
+$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
         -GL 2 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1  \
@@ -385,23 +392,24 @@ $ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/ALL \
 
 You can have a look at the results:
 ```
-zcat Results/ALL.mafs.gz | head
-...
+zcat Results/EUR.mafs.gz | head
+```
+```
 chromo	position	major	minor	ref	knownEM	nInd
-2	108999951	T	G	T	0.048648	13
-2	109000064	C	T	C	0.045999	16
-2	109000113	C	T	C	0.035418	17
-2	109000117	G	T	G	0.036939	17
-2	109000122	T	C	T	0.039408	17
-2	109000135	T	A	T	0.035312	18
-2	109000160	C	A	C	0.037070	18
-2	109000181	G	A	G	0.042162	17
-2	109000285	A	C	A	0.049312	13
+2	109000113	C	T	C	0.060517	10
+2	109000117	G	T	G	0.062740	10
+2	109000122	T	C	T	0.064025	10
+2	109000160	C	A	C	0.074944	9
+2	109000285	A	C	A	0.153066	5
+2	109000483	C	T	C	0.120045	6
+2	109000505	A	T	A	0.109368	7
+2	109000539	G	T	G	0.110355	7
+2	109000688	A	T	A	0.401350	7
 ```
 
 How many entries (potential SNPs) you have?
 ```
-zcat Results/ALL.mafs.gz | tail -n+2 | wc -l
+zcat Results/EUR.mafs.gz | tail -n +2 | wc -l
 ```
 
 As a general guidance, `-GL 1`, `-doMaf 1/2` and `-doMajorMinor 1` should be the preferred choice when data uncertainty is high.
@@ -410,41 +418,50 @@ When accurate information on reference sequence or outgroup are available, one c
 Also, detecting variable sites based on their probability of being SNPs is generally a better choice than defining a threshold on the allele frequency.
 However, various cutoffs and a dedicated filtering should be perform to assess robustness of your called SNPs.
 
+Finally, one can even calculate genotype likelihoods from BAM files and then use them for (most of) all subsequent analyses.
+This can be achieved with ```-doGlf 1```:
+```
+$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
+	-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
+	-minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
+	-GL 1 -doGlf 1
+```
+and the output file is ```Results/EUR.glf.gz```.
+
 -----------------------------------------------
 
 **EXERCISE**
 
 Try varying the cutoff for SNP calling and record how many sites are predicted to be variable for each scenario.
 Identify which sites are not predicted to be variable anymore with a more stringent cutoff (e.g. between a pair of scenario), and plot their allele frequencies.
-
+Use the previously calculated genotype likelihoods as input file (use ```-glf ? -fai ? -nInd ?```).
 ```
 # iterate over some cutoffs (you can change these)
 for PV in 0.05 1e-2 1e-4 1e-6
 do
         if [ $PV == 0.05 ]; then echo SNP_pval NR_SNPs; fi
-        $ANGSD/angsd -b $DATA/TSI.bamlist -ref $REF -out Results/ALL.$PV \
-		-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-		-minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
-		-GL 1 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
+        $ANGSD/angsd -glf Results/EUR.glf.gz -nInd 10 -fai $REF.fai -out Results/EUR.$PV \
+		-doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
 		-SNP_pval $PV &> /dev/null
-	echo $PV `zcat Results/ALL.$PV.mafs.gz | tail -n+2 | wc -l`
+	echo $PV `zcat Results/EUR.$PV.mafs.gz | tail -n+2 | wc -l`
 done
 ```
 
 A possible output is (your numbers may be different):
 ```
 SNP_pval NR_SNPs
-0.05 5848
-1e-2 3475
-1e-4 1825
-1e-6 1502
+0.05 4405
+1e-2 2950
+1e-4 1428
+1e-6 1084
 ```
 
 Which sites differ from 0.05 and 0.01? What is their frequency?
 This script will also print out the first 20 discordant sites (pK.EM is the p-value for the SNP calling test).
 ```
-Rscript -e 'mafs1 <- read.table(gzfile("Results/ALL.1e-2.mafs.gz"), he=T, strings=F); mafs5 <- read.table(gzfile("Results/ALL.0.05.mafs.gz"), header=T, stringsAsFact=F); mafs5[!(mafs5[,2] %in% mafs1[,2]),][1:20,]; pdf(file="Results/diffSnpCall.pdf"); par(mfrow=c(1,2)); hist(as.numeric(mafs5[!(mafs5[,2] %in% mafs1[,2]),][,6]), main="Discordant SNPs", xlab="MAF", xlim=c(0,0.5)); hist(as.numeric(mafs5[(mafs5[,2] %in% mafs1[,2]),][,6]), main="Concordant SNPs", xlab="MAF", xlim=c(0,0.5)); dev.off();'
-
+Rscript -e 'mafs1 <- read.table(gzfile("Results/EUR.1e-2.mafs.gz"), he=T, row.names=NULL, strings=F); mafs5 <- read.table(gzfile("Results/EUR.0.05.mafs.gz"), header=T, row.names=NULL, stringsAsFact=F); mafs5[!(mafs5[,2] %in% mafs1[,2]),][1:20,]; pdf(file="Results/diffSnpCall.pdf"); par(mfrow=c(1,2)); hist(as.numeric(mafs5[!(mafs5[,2] %in% mafs1[,2]),][,6]), main="Discordant SNPs", xlab="MAF", xlim=c(0,0.5)); hist(as.numeric(mafs5[(mafs5[,2] %in% mafs1[,2]),][,6]), main="Concordant SNPs", xlab="MAF", xlim=c(0,0.5)); dev.off();'
+```
+```
 evince Results/diffSnpCall.pdf
 ```
 
@@ -476,21 +493,24 @@ We are interested in calculating the derived allele frequencies, so are using th
 We also want to compute the allele frequencies for each population separately.
 We need to use a different file for each population, with a different list of BAM files, as provided: 
 ```
-ls $DATA/*.bamlist
-#* ALL.bamlist  ALL2.bamlist  CHB.bamlist  LWK.bamlist  PEL.bamlist  TSI.bamlist NAM.bamlist
+ls $DATA/*.bams
 ```
+```
+/ricco/data/matteo/Data/AFR.bams  /ricco/data/matteo/Data/EAS.bams  /ricco/data/matteo/Data/LAT.bams
+/ricco/data/matteo/Data/ALL.bams  /ricco/data/matteo/Data/EUR.bams  /ricco/data/matteo/Data/NAM.bams
+```
+We retain only these populations: AFR (Africans), EUR (Europeans), EAS (East Asians), LAT (Latinos), NAM (Native Americans).
 
 Now we can run ANGSD.
-Note that we are interested in calculating the derived allele frequency, so we need to specify a putative ancestral sequence.
-Finally, since we know analyse single populations, we can filter sites if they deviate from HWE.
-Please note that we also add PEL samples, admixed individuals from Peru.
+Note that we are interested in calculating the **derived** allele frequency, so we need to specify a putative ancestral sequence.
+Please finally note that we want to relax out filtering to make sure to have results. 
 ```
-for POP in LWK TSI CHB PEL NAM
+for POP in AFR EUR EAS LAT NAM
 do
         echo $POP
-        $ANGSD/angsd -b $DATA/$POP.bamlist -ref $REF -anc $ANC -out Results/$POP \
+        $ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
                 -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-                -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 -doHWE 1 \
+                -minMapQ 20 -minQ 20 -minInd 1 -doHWE 1 \
                 -GL 1 -doMajorMinor 5 -doMaf 1 -skipTriallelic 1 \
                 -sites Data/snp.txt
 done
@@ -499,15 +519,15 @@ An assessment of the deviation from HWE will be print out in files with extensio
 
 You can inspect the results.
 ```
-zcat Results/LWK.mafs.gz Results/TSI.mafs.gz Results/CHB.mafs.gz Results/NAM.mafs.gz Results/PEL.mafs.gz
+zcat Results/AFR.mafs.gz Results/EUR.mafs.gz Results/EAS.mafs.gz Results/LAT.mafs.gz Results/NAM.mafs.gz
 ```
 
-Can you comment on these results?
+Can you comment these results?
 Do you see any allele frequency differentiation in the derived state?
 
 Indeed, in the original paper, Authors state that *The G allele at rs3827760 is not present in Europeans and Africans but is seen at high frequency in East Asians and is essentially fixed in Native Americans.*
 
-Why is it not fixed in our Peruvians sample? 
+Why is it not at high frequency in our Latinos sample? 
 
 ------------------------------------------
 
@@ -557,11 +577,11 @@ $ANGSD/angsd -doPost
 `-doPost 1` uses the estimate per-site allele frequency as a prior for genotype proportions, assuming Hardy Weinberg Equilibrium.
 When the assumption of HWE is not valid, you can use an estimate of the inbreeding coefficient, for instance calculated using [ngsF](https://github.com/fgvieira/ngsF).
 
-A typical command for genotype calling assuming HWE is (assuming we analyse our PEL samples):
+A typical command for genotype calling assuming HWE is (assuming we analyse our EUR samples):
 ```
-$ANGSD/angsd -b $DATA/PEL.bamlist -ref $REF -out Results/PEL \
+$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
 	-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-	-minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+	-minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 	-GL 1 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
 	-SNP_pval 1e-4 \
 	-doGeno 3 -doPost 1 -postCutoff 0
@@ -569,22 +589,22 @@ $ANGSD/angsd -b $DATA/PEL.bamlist -ref $REF -out Results/PEL \
 
 Have a look at the output file:
 ```
-less -S Results/PEL.geno.gz
+less -S Results/EUR.geno.gz
 ```
 The columns are: chromosome, position, major allele, minor allele, genotypes is 0,1,2 format.
 
 How many sites have at least one missing genotype?
 ```
-zcat Results/PEL.geno.gz | grep -1 - | wc -l
+zcat Results/EUR.geno.gz | grep -1 - | wc -l
 ```
 Why is that?
 
 You can control how to set missing genotype when their confidence is low with `-postCutoff`.
 For instance, we can set as missing genotypes when their (highest) genotype posterior probability is below 0.95:
 ```
-$ANGSD/angsd -b $DATA/PEL.bamlist -ref $REF -out Results/PEL \
+$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
 	-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-	-minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+	-minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 	-GL 1 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
 	-SNP_pval 1e-4 \
 	-doGeno 3 -doPost 1 -postCutoff 0.95
@@ -593,8 +613,8 @@ $ANGSD/angsd -b $DATA/PEL.bamlist -ref $REF -out Results/PEL \
 How many sites do we have in total?
 How many sites have at least one missing genotype now?
 ```
-zcat Results/PEL.geno.gz | wc -l
-zcat Results/PEL.geno.gz | grep -1 - | wc -l
+zcat Results/EUR.geno.gz | wc -l
+zcat Results/EUR.geno.gz | grep -1 - | wc -l
 ```
 
 Why are there some many sites with missing genotypes?
@@ -614,12 +634,12 @@ Finally we will calculate allele frequencies based on assigned genotypes.
 
 As previously done, let us perform a genotype calling in ANGSD:
 ```
-for POP in LWK TSI CHB NAM PEL
+for POP in AFR EUR EAS NAM
 do
         echo $POP
-        $ANGSD/angsd -b $DATA/$POP.bamlist -ref $REF -anc $ANC -out Results/$POP \
+        $ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
                 -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-                -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+                -minMapQ 20 -minQ 20 -minInd 1 \
                 -GL 1 -doMajorMinor 5 -doMaf 1 -skipTriallelic 1 \
 		-doGeno 3 -doPost 2 -postCutoff 0.50 \
                 -sites Data/snp.txt
@@ -629,7 +649,7 @@ Note that, as an illustration, here we used a uniform prior (not HWE) with `-doP
 
 Open the output files:
 ```
-for POP in LWK TSI CHB NAM PEL
+for POP in AFR EUR EAS NAM
 do
 	echo $POP
 	zcat Results/$POP.geno.gz
@@ -639,35 +659,33 @@ done
 What is the derived allele frequency for each population?
 
 We have a lot of missing data.
-Try to calculate allele frequencies in PEL by using a HWE-prior and comment on the results (e.g. which are the genotypic states more difficult to assign?).
+Try to calculate allele frequencies in PEL by using a HWE-prior and comment on the results (e.g. which genotypes are more difficult to assign?).
 
 ```
 # with HWE-prior
-for POP in LWK TSI CHB NAM PEL
+for POP in AFR EUR EAS NAM
 do
 	echo $POP
-	$ANGSD/angsd -b $DATA/$POP.bamlist -ref $REF -anc $ANC -out Results/$POP \
+	$ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
                 -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-                -minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+                -minMapQ 20 -minQ 20 -minInd 1 \
                 -GL 1 -doMajorMinor 5 -doMaf 1 -skipTriallelic 1 \
-                -doGeno 3 -doPost 1 -postCutoff 0.50 \
+                -doGeno 3 -doPost 1 -postCutoff 0.80 \
                 -sites Data/snp.txt
 done
 ```
 
 Open the files:
 ```
-for POP in LWK TSI CHB NAM PEL
+for POP in AFR EUR EAS NAM
 do
         echo $POP
         zcat Results/$POP.geno.gz
 done
 ```
 
-For instance, you may have 0/40 in LWK and TSI, 40/40 in CHB, and 14/20=0.70 in PEL.
-Recall that we previously estimated a minor allele frequency of 0.55 in PEL without assigning individuals.
-
-Why do we observe such a difference in the estimates?
+For instance, you may have 0/20 in AFR and EUR, 20/20 in EAS, while there are only 4 called genotypes in NAM.
+Recall that we previously estimated a minor allele frequency of 0.84% in NAM without assigning individuals.
 
 ----------------------------
 
@@ -683,15 +701,14 @@ More specifically, the next program we are going to use (ngsTools) takes as inpu
 Also, we are using a HWE-based prior with `-doPost 1`.
 
 ```
-$ANGSD/angsd -b $DATA/ALL.bamlist -ref $REF -out Results/ALL \
+$ANGSD/angsd -b $DATA/ALL.bams -ref $REF -out Results/ALL \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-        -minMapQ 20 -minQ 20 -minInd 40 -setMinDepth 70 -setMaxDepth 300 -doCounts 1 \
+        -minMapQ 20 -minQ 20 -minInd 20 -setMinDepth 30 -setMaxDepth 120 -doCounts 1 \
         -GL 1 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
-        -SNP_pval 1e-2 \
+        -SNP_pval 1e-3 \
         -doGeno 32 -doPost 1
-```
-Unzip the results but you cannot open it since it is in binary format:
-```
+
+# unzip the results
 gunzip Results/ALL.geno.gz
 ```
 
@@ -710,15 +727,16 @@ less -S Results/ALL.mafs.gz
 ```
 How many sites do we have?
 ```
-NSITES=`zcat Results/ALL.mafs.gz | tail -n+2 | wc -l`
+NSITES=`zcat Results/ALL.mafs.gz | tail -n +2 | wc -l`
 echo $NSITES
 ```
 Now we can perform a PCA by estimating the covariance matrix using:
 ```
-$NGSTOOLS/ngsPopGen/ngsCovar -probfile Results/ALL.geno -outfile Results/ALL.covar -nind 80 -nsites $NSITES -call 0 -norm 0
+$NGSTOOLS/ngsPopGen/ngsCovar -probfile Results/ALL.geno -outfile Results/ALL.covar -nind 40 -nsites $NSITES -call 0 -norm 0
 ```
 with the options `-call 0` meaning that we do not perform genotype calling and `-norm 0` that we are not normalising by allele frequency.
 The latter may give more weight to low frequency variants which are harder to estimate.
+Ignore the message on the screen you get.
 
 Look at the output file:
 ```
@@ -730,7 +748,7 @@ Note that this matrix is symmetric.
 Finally, we perform an eigenvector decomposition and plot the resulting map:
 ```
 # create a cluster-like file defining the labelling (population) for each sample
-Rscript -e 'write.table(cbind(rep(seq(1,20),4),rep(seq(1,20),4),c(rep("CHB",20),rep("LWK",20),rep("NAM",20),rep("TSI",20))), row.names=F, sep="\t", col.names=c("FID","IID","CLUSTER"), file="Results/ALL.clst", quote=F)'
+Rscript -e 'write.table(cbind(rep(seq(1,10),4),rep(seq(1,10),4),c(rep("AFR",10),rep("EUR",10),rep("EAS",10),rep("NAM",10))), row.names=F, sep="\t", col.names=c("FID","IID","CLUSTER"), file="Results/ALL.clst", quote=F)'
 # run and plot
 Rscript $NGSTOOLS/Scripts/plotPCA.R -i Results/ALL.covar -a Results/ALL.clst -c 1-2 -o Results/ALL.pca.pdf
 ```
@@ -743,16 +761,8 @@ Finally, you can open the produced image:
 evince Results/ALL.pca.pdf
 ```
 
-You can inspect other components:
-```
-Rscript $NGSTOOLS/Scripts/plotPCA.R -i Results/ALL.covar -a Results/ALL.clst -c 2-3 -o Results/ALL.pca2.pdf
-evince Results/ALL.pca2.pdf
-```
-
-Therefore, NAM samples appear very close to EUR but separated. although we need to perform this analysis on many more sites.
-Indeed, among all Latin American populations present in the 1000G project, Peruvians are the least admixed population.
-We can either use all these samples or compute admixture proportions in order to select a subset of putative Native American (unadmixed) samples.
-However with such limited data set we cannot refine the structure between NAM and CHB.
+You can inspect other components by varying the values for `-c`.
+Note that you need more data (samples/coverage/depth) to perform such analysis in real cases.
 
 -----------------------------------
 
@@ -762,16 +772,16 @@ However with such limited data set we cannot refine the structure between NAM an
 
 **IMPORTANT NOTE**: These commands are given as a mere example as, in practise, such analyses should be performed on larger genomic regions.
 
-We want to select only a subset of PEL samples with high Native American ancestry, or check the level of admixture in our NAM samples.
+We want to check the level of admixture in our NAM samples.
 We use ngsAdmix, which again works on genotype probabilities and not on individual calls.
 This is suitable for low-depth data.
 
 ngsAdmix requires genotype likelihoods in BEAGLE format as input.
 We can compute these quantities with ANGSD with `-doGlf 2`.
 ```
-$ANGSD/angsd -b $DATA/ALL.bamlist -ref $REF -out Results/ALL \
+$ANGSD/angsd -b $DATA/ALL.bams -ref $REF -out Results/ALL \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-        -minMapQ 20 -minQ 20 -minInd 40 -setMinDepth 50 -setMaxDepth 200 -doCounts 1 \
+        -minMapQ 20 -minQ 20 -minInd 20 -setMinDepth 30 -setMaxDepth 120 -doCounts 1 \
         -GL 1 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
         -SNP_pval 1e-4 \
         -doGlf 2

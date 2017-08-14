@@ -10,6 +10,22 @@ A figure representing this model is depicted [here](https://github.com/mfumagall
 Our goal here is to add the history of Native Americans to this model, roughly following estimates reported in [this](http://www.ncbi.nlm.nih.gov/pubmed/26198033) paper.
 Thus, we will assume that Native Americans (their ancestors) splitted from East Asians 20kya and their effective population size is 2,000 from the split until present.
 
+Please make sure to follow the preparatory instructions on the main page before running these examples.
+```
+ANGSD=/ricco/data/matteo/Software/angsd
+NGSTOOLS=/ricco/data/matteo/Software/ngsTools
+MS=/ricco/data/matteo/Software/ms
+SS=/ricco/data/matteo/Software/selscan/bin/linux
+
+NGSADMIX=/ricco/data/matteo/Software/NGSadmix
+FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
+
+DIR=/home/matteo/Copenhagen
+DATA=/ricco/data/matteo/Data
+REF=$DATA/ref.fa.gz
+ANC=$DATA/anc.fa.gz
+```
+
 ----------------------------------------
 
 Let us build the ms command that implements the previously mentioned model.
