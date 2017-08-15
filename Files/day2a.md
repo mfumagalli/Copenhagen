@@ -1,12 +1,10 @@
 
 Here you will learn how to perform a scan for positive selection by calculating PBS (population branch statistic) in windows from low-depth data.
 
-As reference, these are the labelling for each population:
-
-- AFR: Africans
-- EUR: Europeans
-- EAS: East Asians
-- NAM: Native Americans
+Specifically, you will learn how to estimate:
+- site frequency spectrum
+- population genetic differentiation
+- nucleotide diversity
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
 ```
@@ -24,6 +22,12 @@ REF=$DATA/ref.fa.gz
 ANC=$DATA/anc.fa.gz
 
 ```
+
+As reference, these are the labelling for each population:
+- AFR: Africans
+- EUR: Europeans
+- EAS: East Asians
+- NAM: Native Americans
 
 -----------------------------
 
@@ -95,8 +99,11 @@ So the first value (after the chromosome and position columns) is the likelihood
 Note that these values are in log format and scaled so that the maximum is 0.
 
 **QUESTION**
-Can you spot any site which is likely to be variable?
+
+Can you spot any site which is likely to be variable (i.e. polymorphic)?
+
 What does this mean? 
+
 It means that you should look for sites where the highest likelihood does not correspond to allele frequencies of 0 or 100%.
 
 The next step would be to use these likelihoods and estimate the overall SFS.
@@ -136,7 +143,7 @@ $ANGSD/misc/realSFS
 
 Therefore, this command will estimate the SFS for each population separately:
 ```
-for POP in LWK TSI CHB NAM
+for POP in AFR EUR EAS NAM
 do
         echo $POP
         $ANGSD/misc/realSFS Results/$POP.saf.idx > Results/$POP.sfs
@@ -144,17 +151,18 @@ done
 ```
 The output will be saved in `Results/POP.sfs` files.
 
-You can now have a look at the output file, for instance for the African (LWK) samples:
+You can now have a look at the output file, for instance for the African samples:
 ```
-cat Results/LWK.sfs
+cat Results/AFR.sfs
 ```
 The first value represent the expected number of sites with derived allele frequency equal to 0, the second column the expected number of sites with frequency equal to 1 and so on.
 
 **QUESTION**
+
 How many values do you expect?
 
 ```
-awk -F' ' '{print NF; exit}' Results/LWK.sfs
+awk -F' ' '{print NF; exit}' Results/AFR.sfs
 ```
 Indeed this represents the unfolded spectrum, so it has `2N+1` values with N diploid individuals.
 
@@ -165,14 +173,16 @@ However, for practical reasons, here we could not use large genomic regions.
 Also, as we will see later, this region is not really a proxy for neutral evolution so the SFS is not expected to behave neutrally for some populations.
 Nevertheless, these SFS should be a reasonable prior to be used for estimation of summary statistics.
 
-Let us plot the SFS for each pop using this simple R script.
+Optionally, one can even plot the SFS for each pop using this simple R script.
 ```
-Rscript $NGSTOOLS/Scripts/plotSFS.R Results/LWK.sfs-Results/TSI.sfs-Results/CHB.sfs-Results/NAM.sfs LWK-TSI-CHB-NAM 0 Results/ALL.sfs.pdf
+Rscript $NGSTOOLS/Scripts/plotSFS.R Results/AFR.sfs-Results/EUR.sfs-Results/EAS.sfs-Results/NAM.sfs AFR-EUR-EAS-NAM 0 Results/ALL.sfs.pdf
 evince Results/ALL.sfs.pdf
 ```
 
 Do they behave like expected?
+
 Which population has more SNPs?
+
 Which population has a higher proportion of common (not rare) variants?
 
 ---------------------------------------
@@ -200,33 +210,33 @@ However, here we are interested in estimating the 2D-SFS as prior information fo
 An important issue when doing this is to be sure that we are comparing the exactly same corresponding sites between populations.
 ANGSD does that automatically and considers only a set of overlapping sites.
 
-We are performing PBS assuming NAM (Native Americans) being the targeted population.
-The 2D-SFS between all populations and NAM are computed with:
+We are performing PBS assuming NAM (Native Americans) being the targeted population, and AFR and EUR as reference populations.
+All 2D-SFS between such populations and NAM are computed with:
 ```
 POP2=NAM
-for POP in LWK TSI CHB
+for POP in AFR EUR
 do
         echo $POP
-        $ANGSD/misc/realSFS Results/$POP.saf.idx Results/$POP2.saf.idx 2> /dev/null > Results/$POP.$POP2.sfs
+        $ANGSD/misc/realSFS Results/$POP.saf.idx Results/$POP2.saf.idx > Results/$POP.$POP2.sfs
 done
-# we also need the comparison between LWK and TSI as we will see later 
-$ANGSD/misc/realSFS Results/LWK.saf.idx Results/TSI.saf.idx 2> /dev/null > Results/LWK.TSI.sfs
+# we also need the comparison between AFR and EUR 
+$ANGSD/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx > Results/AFR.EUR.sfs
 ```
 
 The output file is a flatten matrix, where each value is the count of sites with the corresponding joint frequency ordered as [0,0] [0,1] and so on.
 ```
-less -S Results/LWK.NAM.sfs
+less -S Results/AFR.NAM.sfs
 ```
-You can plot it, but you need to define how many samples you have per population.
+You can plot it, but you need to define how many samples (individuals) you have per population.
 ```
-Rscript $DIR/Scripts/plot2DSFS.R Results/LWK.NAM.sfs 20 20
-evince Results/LWK.NAM.sfs.pdf
+Rscript $DIR/Scripts/plot2DSFS.R Results/AFR.NAM.sfs 10 10
+evince Results/AFR.NAM.sfs.pdf
 ```
 
 You can even estimate SFS with higher order of magnitude.
 This command may take some time and you should skip it if not interested.
 ```
-# $ANGSD/misc/realSFS Results/LWK.saf.idx Results/TSI.saf.idx Results/NAM.saf.idx 2> /dev/null > Results/LWK.TSI.NAM.sfs
+# $ANGSD/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.idx > Results/AFR.EUR.NAM.sfs
 ```
 
 ------------------------------------
@@ -236,59 +246,35 @@ Again, we can achieve this by avoid genotype calling using ANGSD.
 From the sample allele frequencies likelihoods (.saf files) we can estimate PBS using the following pipeline.
 
 Note that here we use the previously calculated SFS as prior information.
-Also, PEL is our target population, while CHB and TSI are reference populations.
+Also, NAM is our target population, while AFR and EUR are reference populations.
 If not already done, you should calculate .saf.idx files for each population, as explained in the section above.
 
-Therefore, we need to use the 2D-SFS between TSI and CHB and NAM (already done).
-
-If we also assume CHB being the target population, as a possible separate analysis is (you don't have to run this if not interested):
-```
-POP2=CHB
-for POP in LWK TSI
-do
-        echo $POP
-        $ANGSD/misc/realSFS Results/$POP.saf.idx Results/$POP2.saf.idx 2> /dev/null > Results/$POP.$POP2.sfs
-done
-```
-
 The 2D-SFS will be used as prior information for the joint allele frequency probabilities at each site.
-From these probabilities we will calculate the population branch statistic (PBS) using the NAM (and/or CHB) as target population and LWK and TSI as reference populations.
-Our goal is to detect selection in NAM (and/or CHB) in terms of allele frequency differentiation.
+From these probabilities we will calculate the population branch statistic (PBS) using the NAM as target population and AFR and EUR as reference populations.
+Our goal is to detect selection in NAM in terms of allele frequency differentiation.
 
 Specifically, we are computing a slinding windows scan, with windows of 50kbp and a step of 10kbp.
 This can be achieved using the following commands.
 
 1) This command will compute per-site FST indexes (please note the order of files):
 ```
-# NAM
-$ANGSD/misc/realSFS fst index Results/LWK.saf.idx Results/TSI.saf.idx Results/NAM.saf.idx -sfs Results/LWK.TSI.sfs -sfs Results/LWK.NAM.sfs -sfs Results/TSI.NAM.sfs -fstout Results/NAM.pbs &> /dev/null
-# CHB
-$ANGSD/misc/realSFS fst index Results/LWK.saf.idx Results/TSI.saf.idx Results/CHB.saf.idx -sfs Results/LWK.TSI.sfs -sfs Results/LWK.CHB.sfs -sfs Results/TSI.CHB.sfs -fstout Results/CHB.pbs &> /dev/null
+$ANGSD/misc/realSFS fst index Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.idx -sfs Results/AFR.EUR.sfs -sfs Results/AFR.NAM.sfs -sfs Results/EUR.NAM.sfs -fstout Results/NAM.pbs -whichFst 1
 ```
 and you can have a look at their values:
 ```
-# NAM
 $ANGSD/misc/realSFS fst print Results/NAM.pbs.fst.idx | less -S
-# CHB
-$ANGSD/misc/realSFS fst print Results/CHB.pbs.fst.idx | less -S
 ```
 where columns are: chromosome, position, (a), (a+b) values for the three FST comparisons, where FST is defined as a/(a+b).
 Note that FST on multiple SNPs is calculated as sum(a)/sum(a+b).
 
 2) The next command will perform a sliding-window analysis:
 ```
-# NAM
-$ANGSD/misc/realSFS fst stats2 Results/NAM.pbs.fst.idx -win 50000 -step 10000 > Results/NAM.pbs.txt 2> /dev/null
-# CHB
-$ANGSD/misc/realSFS fst stats2 Results/CHB.pbs.fst.idx -win 50000 -step 10000 > Results/CHB.pbs.txt 2> /dev/null
+$ANGSD/misc/realSFS fst stats2 Results/NAM.pbs.fst.idx -win 50000 -step 10000 > Results/NAM.pbs.txt
 ```
 
 Have a look at the output file:
 ```
-# NAM
 less -S Results/NAM.pbs.txt
-# CHB
-less -S Results/CHB.pbs.txt
 ```
 The header is:
 ```
@@ -301,27 +287,26 @@ We are also provided with the individual FST values.
 You can see that high values of PBS2 are indeed associated with high values of both Fst02 and Fst12 but not Fst01.
 We can plot the results along with the gene annotation.
 ```
-# NAM
 Rscript $DIR/Scripts/plotPBS.R Results/NAM.pbs.txt Results/NAM.pbs.pdf
-# CHB
-Rscript $DIR/Scripts/plotPBS.R Results/CHB.pbs.txt Results/CHB.pbs.pdf
 ```
 
 It will also print out the maximum PBS value observed as this value will be used in the next part.
-This script will also plot the PBS variation in LWK as a control comparison.
+This script will also plot the PBS variation in AFR as a control comparison.
 ```
-# NAM
 evince Results/NAM.pbs.pdf
-# CHB
-evince Results/CHB.pbs.pdf
 ```
-Comment on the results.
+
+
+**EXERCISE**
+
+Calculate PBS assuming EAS as target population.
+Can you reproduce previous claims of selection EDAR using this approach?
 
 -------------------------
 
 **OPTIONAL**
 
-We are also interested in assessing whether an increase in allele frequency differentiation is also associated with a change of **nucleotide diversity** in CHB.
+We are also interested in assessing whether an increase in allele frequency differentiation is also associated with a change of **nucleotide diversity** in NAM (or EAS).
 Again, we can achieve this using ANGSD by estimating levels of diversity without relying on called genotypes.
 
 The procedure is similar to what done for PBS, and the SFS is again used as a prior to compute allele frequencies probabilities.
@@ -330,32 +315,27 @@ This can be achieved using the following pipeline.
 
 First we compute the allele frequency posterior probabilities and associated statistics (-doThetas) using the SFS as prior information (-pest)
 ```
-POP=CHB
-echo $POP
-$ANGSD/angsd -b $DATA/$POP.bamlist -ref $REF -anc $ANC -out Results/$POP \
+POP=NAM
+$ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
 	-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-	-minMapQ 20 -minQ 20 -minInd 10 -setMinDepth 10 -setMaxDepth 100 -doCounts 1 \
+	-minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 	-GL 1 -doSaf 1 \
-	-doThetas 1 -pest Results/$POP.sfs &> /dev/null
+	-doThetas 1 -pest Results/$POP.sfs
 ```
 Then we need to index thess file and perform a sliding windows analysis using a window length of 50kbp and a step size of 10kbp.
 ```
-POP=CHB
-echo $POP
-# index files
-$ANGSD/misc/thetaStat make_bed Results/$POP.thetas.gz &> /dev/null
+POP=EAS
+# estimate for the whole region
+$ANGSD/misc/thetaStat do_stat Results/$POP.thetas.idx
 # perform a sliding-window analysis
-$ANGSD/misc/thetaStat do_stat Results/$POP.thetas.gz -nChr 1 -win 50000 -step 10000 -outnames Results/$POP.thetas &> /dev/null
+$ANGSD/misc/thetaStat do_stat Results/$POP.thetas.idx -nChr 20 -win 50000 -step 10000 -outnames Results/$POP.thetas.windows
+
 ```
 
 Look at the results:
 ```
-less -S Results/CHB.thetas.pestPG
-```
-and plot the sliding windows scan for nucleotide diversity:
-```
-Rscript $DIR/Scripts/plotSS.R
-evince Results/CHB.ss.pdf
+cat -S Results/NAM.thetas.idx.pestPG
+less -S Results/NAM.thetas.windows.pestPG
 ```
 
 ------------------------
