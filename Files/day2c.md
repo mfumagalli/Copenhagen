@@ -189,7 +189,7 @@ less -S Results/EDAR.fa
 ```
 We are using [pegas](https://bioinformatics.oxfordjournals.org/content/26/3/419.full) package in R to draw haplotype network.
 ```
-Rscript $DIR/Scripts/plotNet.R Results/EDAR.fa Results/NAM.edar.snp Results/EDAR.pdf 2> /dev/null > Results/EDAR.diff
+Rscript $DIR/Scripts/plotNet.R Results/EDAR.fa Results/NAM.edar.snp Results/EDAR.pdf > Results/EDAR.diff
 ```
 Open the plot:
 ```
