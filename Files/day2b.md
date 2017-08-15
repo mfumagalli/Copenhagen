@@ -12,13 +12,7 @@ Thus, we will assume that Native Americans (their ancestors) splitted from East 
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
 ```
-ANGSD=/ricco/data/matteo/Software/angsd
-NGSTOOLS=/ricco/data/matteo/Software/ngsTools
 MS=/ricco/data/matteo/Software/ms
-SS=/ricco/data/matteo/Software/selscan/bin/linux
-
-NGSADMIX=/ricco/data/matteo/Software/NGSadmix
-FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
 
 DIR=/home/matteo/Copenhagen
 DATA=/ricco/data/matteo/Data
@@ -31,7 +25,7 @@ ANC=$DATA/anc.fa.gz
 Let us build the ms command that implements the previously mentioned model.
 The basic command line consists of `ms nsam nreps -t theta`.
 
-The first thing we need to define is how many samples we have (nsam, 80 chromosomes) and how many repetitions we want (nreps, for instance 1,000).
+The first thing we need to define is how many samples we have (nsam, 80 chromosomes if we have 40 diploids) and how many repetitions we want (nreps, for instance 1,000).
 Next we need to define the mutation parameter Theta which is equal to `4*Ne*mu*L` where:
 * `Ne`: reference effective population size (7310, according to the model we are using)
 * `mu`: mutation rate per bp per generation (2.35e-8, a bit outdated for humans but let us stick to the model used)
@@ -63,6 +57,9 @@ Therefore we need to set the following parameters:
 * current effective population size in Native Americans `-n 4 ???`.
 
 Assume that it is equal to 2,000. All population sizes are scaled to `Ne` reference, which here is equal to 7310.
+
+**QUESTION**
+
 Which value should you insert in `-n 4 ???`?
 
 Think...
@@ -82,7 +79,6 @@ Thus, our command would be: `... -n 4 0.24 ... -ej 0.027 4 3`.
 Our complete command line is:
 ```
 $MS 80 1000 -t 34 -r 22 50000 -I 4 20 20 20 20 -n 1 1.68 -n 2 3.73 -n 3 7.29 -n 4 0.25 -eg 0 2 116 -eg 0 3 160 -ma x 0.88 0.56 0.00 0.88 x 2.79 0.00 0.56 2.79 x 0.00 0.00 0.00 0.00 x -ej 0.027 4 3 -ej 0.029 3 2 -en 0.029 2 0.29 -en 0.30 1 1 > Results/ALL.ms
-rm seedms
 ```
 Look at the results:
 ```
@@ -95,7 +91,7 @@ From these simulations, we now need to calculate summary statistics.
 In other words, we want to retrieve the distribution of PBS under neutral evolution.
 We are then going to test whether our observed value falls within or outside such distribution.
 
-First, let us compute some summary statistics for each replication.
+First, let us compute some summary statistics for each replication (this may take a while with 1,000 repetitions):
 ```
 Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms > Results/ALL.ms.txt
 ```
@@ -108,7 +104,7 @@ less -S Results/ALL.ms.txt
 Now we can plot the expected distribution of PBS under neutrality and assess whether our observed value (for instance the top PBS value) is higher than a specific percentile (e.g. 95th or 99th).
 Replace `OBS` with the PBS you want to test for significance and plot the neutral distribution.
 ```
-OBS=0.62
+OBS=0.63
 Rscript $DIR/Scripts/plotSim.R Results/ALL.ms.txt $OBS Results/NAM.pbs.hist.pdf
 ```
 Inspect the plot:
