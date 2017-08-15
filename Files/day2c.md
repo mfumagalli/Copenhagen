@@ -6,23 +6,14 @@ Therefore, we did not have the power, for instance, to identify the causal varia
 It is usual to then perform a targeted deep resequencing of our region of interest, to further refine our selection analysis and highlight putative causal variants.
 Here we can even include more samples (as the experimental cost will be lower anyway).
 
-Therefore, we are now using high-depth phased data (in VCF format) for 80 samples from TSI, CHB, NAM and CLM (Colombians) to assess whether selection signatures are shared across other populations.
+Therefore, we are now using high-depth phased data (in VCF format) for 80 samples from LWK (Africans), CHB (Chinese, East Asians), NAM and CLM (Colombians) to assess whether selection signatures are shared across other populations.
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
 ```
-ANGSD=/ricco/data/matteo/Software/angsd
-NGSTOOLS=/ricco/data/matteo/Software/ngsTools
-MS=/ricco/data/matteo/Software/ms
 SS=/ricco/data/matteo/Software/selscan/bin/linux
-
-NGSADMIX=/ricco/data/matteo/Software/NGSadmix
-FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
 
 DIR=/home/matteo/Copenhagen
 DATA=/ricco/data/matteo/Data
-REF=$DATA/ref.fa.gz
-ANC=$DATA/anc.fa.gz
-
 ```
 
 --------------------------
