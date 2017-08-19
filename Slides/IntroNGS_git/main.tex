@@ -1,0 +1,73 @@
+\documentclass{beamer}
+%%%%%% UNOFFICIAL ICL BEAMER TEMPLATE V.0.1 %%%%%%
+% This is a basic LaTeX Beamer template that I customised to have the logo of ICL and a background picture. Mind that this is NOT an official ICL template but it may still be useful for informal presentations.
+% The official ICL graphical identity resources can be found here: http://www3.imperial.ac.uk/graphicidentity
+% Please drop me an e-mail or comment via Twitter @AJunyentFerre if you found this was useful or have any suggestion to improve it.
+%%%%%%
+
+\usepackage[english]{babel}
+
+%%%%%% THE FOLLOWING FILE CONTAINS THE STYLE DEFINITIONS %%%%%%
+\input{header.tex}
+%%%%%%
+
+%%%%%% TITLE, AUTHOR, DATE DEFINITIONS %%%%%%
+\title{Introduction to NGS data}
+\subtitle{{\it Principles of genotype and SNP calling\\ and estimation of allele frequencies}}
+\author{Matteo Fumagalli}
+\date{$22^{nd}$ August 2017}
+%%%%%%
+
+\begin{document}
+
+\frame{\titlepage} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+
+	\begin{figure}
+		\includegraphics[scale=0.35]{Pics/bioinfo}
+	\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Presentation outline}\tableofcontents}
+
+%\section{Introduction}
+
+%\section{Genotype likelihoods}
+
+%\section{Genotype calling}
+
+%\section{Estimation of allele frequencies}
+
+%\section{SNP calling}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{introduction}
+
+% Genotype likelihoods
+\include{likelihoods}
+
+% Genotype calling
+\include{genotype}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% SCRATCH
+
+\section*{ }
+\frame{
+ 	\vbox{}
+% 	\vfill
+	\begin{centering}
+	{\LARGE \usebeamercolor[fg]{title} Thank you for your attention}
+	\par
+	\end{centering}
+}
+
+\end{document}
