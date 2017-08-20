@@ -132,4 +132,64 @@
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{SNP calling}
+
+	\begin{block}{Challenges}
+	\begin{itemize}
+	\item If high levels of missing data, then genotypes can be lost.
+    \item Rare variants are hard to detect.
+    \item Trade off between false positive and false negative rates.
+	\end{itemize}
+	\end{block}
+
+	\begin{block}{How to call SNPs?}
+	\begin{itemize}
+	\item If at least one heterozygous genotype has been called.
+    \item If the estimated allele frequency is above a certain threshold.
+	\end{itemize}
+	\end{block}
+
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{SNP calling}
+
+Call a SNP if
+\begin{equation*}
+	\hat{f} \geq t
+\end{equation*}
+where $t$ can be the minimum sample allele frequency detectable (e.g. $t=1/2N$ with $N$ diploids).
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Likelihood Ratio Test}
+
+A Likelihood Ratio Test (LRT) compares the goodness	of fit between the null and the alternative model:
+\begin{itemize}
+\item Null model: $f=0$
+\item Alternative model: $f \neq 0$
+\end{itemize}
+
+\begin{equation*}
+T = -2 \log \frac{L(f=0)}{L(f=\hat{f}_{MLE})}
+\end{equation*}
+
+where $T$ is $\chi^2$ distributed with 1 degree of freedom.
+
+}
+
+
+
+
 
