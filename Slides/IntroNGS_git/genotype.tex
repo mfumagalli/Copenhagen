@@ -325,10 +325,143 @@ p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec
 
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{
+\frametitle{Genotype posterior probability}
 
+	AAAG \& $\epsilon=0.01$ \& A,G alleles
 
+	\begin{center}
+		\begin{tabular}{c | c | c | c}
+		Genotype & Likelihood (log) & Prior & Posterior\\
+    	\hline
+	    AA & -5.73 & 1/3 & 0.05\\
+    	AG & -2.80 & 1/3 & 0.95\\
+    	GG & -17.12 & 1/3 & ~0\\
+        \hline
+		\end{tabular}
+	\end{center}
 
+	Only call genotypes if the largest probability is above a certain threshold (e.g. 0.95).
 
+}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Genotype posterior probability}
+
+	AAAG \& $\epsilon=0.01$ \& A,G alleles
+
+	\begin{center}
+		\begin{tabular}{c | c | c | c}
+		Genotype & Likelihood (log) & Prior & Posterior\\
+    	\hline
+	    AA & -5.73 & 1/3 & 0.05\\
+    	AG & -2.80 & 1/3 & 0.95\\
+    	GG & -17.12 & 1/3 & ~0\\
+        \hline
+		\end{tabular}
+	\end{center}
+
+	Only call genotypes if the largest probability is above a certain threshold (e.g. 0.95).
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Genotype posterior probability}
+
+	AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{A is the reference allele}
+
+	$P(AA) > P(AG) > P(GG)$
+
+	\begin{center}
+		\begin{tabular}{c | c | c | c}
+		Genotype & Likelihood (log) & Prior & Posterior\\
+    	\hline
+	    AA & -5.73 & 0.80 & 0.22\\
+    	AG & -2.80 & 0.15 & 0.78\\
+    	GG & -17.12 & 0.05 & ~0\\
+        \hline
+		\end{tabular}
+	\end{center}
     
+
+	The reference allele is just one of the possible alleles, often chosen arbitrarily: why give it so much weight?
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Genotype posterior probability}
+
+	AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.7$} from a reference panel
+
+	$P(AA)=?$;
+    $P(AG)=?$;
+    $P(GG)=?$
+
+	\begin{center}
+		\begin{tabular}{c | c | c | c}
+		Genotype & Likelihood (log) & Prior & Posterior\\
+    	\hline
+	    AA & -5.73 & 0.49 & 0.06\\
+    	AG & -2.80 & 0.42 & 0.94\\
+    	GG & -17.12 & 0.09 & ~0\\
+        \hline
+		\end{tabular}
+	\end{center}
+
+	If the assumption of HWE can be reasonably met.
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Empirical Bayesian inference}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=8cm]{Pics/statEB.png}
+\end{figure}
+
+
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Genotype posterior probability}
+
+	AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.6$} from the data itself
+
+	$P(AA)=?$;
+    $P(AG)=?$;
+    $P(GG)=?$
+
+	\begin{center}
+		\begin{tabular}{c | c | c | c}
+		Genotype & Likelihood (log) & Prior & Posterior\\
+    	\hline
+	    AA & -5.73 & 0.49 & 0.04\\
+    	AG & -2.80 & 0.42 & 0.96\\
+    	GG & -17.12 & 0.09 & ~0\\
+        \hline
+		\end{tabular}
+	\end{center}
+
+	\begin{itemize}
+	\item if the assumption of HWE can be reasonably met
+    \item if you have enough samples to have a robust estimate of the allele frequencies
+	\end{itemize}
+
+	How can we estimate allele frequencies?
+	
+
+}
+
+
