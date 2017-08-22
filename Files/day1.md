@@ -659,7 +659,7 @@ done
 What is the derived allele frequency for each population?
 
 We have a lot of missing data.
-Try to calculate allele frequencies in PEL by using a HWE-prior and comment on the results (e.g. which genotypes are more difficult to assign?).
+Try to calculate allele frequencies by using a HWE-prior and comment on the results.
 
 ```
 # with HWE-prior
