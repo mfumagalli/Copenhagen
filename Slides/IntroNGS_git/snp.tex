@@ -107,9 +107,13 @@
 	\end{tabular}
 	\end{center}
     
-    \begin{equation*}
-		\hat{n_A} = \sum_{i=1}^N (1-\epsilon)n_{A,i} + \epsilon n_{G,i} - \epsilon n_{A,i} - (1-\epsilon)n_{G,i} = \sum_{i=1}^N (1-\epsilon)(n_{A,i}-n_{G,i}) + \epsilon(n_{G,i}-n_{A,i})
+    	\begin{equation*}
+		\hat{n_A} = \sum_{i=1}^N (1-\epsilon)n_{A,i} + \epsilon n_{G,i} - \epsilon n_{A,i} - (1-\epsilon)n_{G,i}
 	\end{equation*}
+	
+	%\begin{equation*}
+	%	\hat{n_A}=\sum_{i=1}^N (1-\epsilon)(n_{A,i}-n_{G,i}) + \epsilon(n_{G,i}-n_{A,i})
+	%\end{equation*}
     
     $\hat{f}=0.77$
 }
@@ -122,13 +126,28 @@
 
 	\begin{block}{Maximum Likelihood estimator}
 		\begin{equation*}
-			P(D|f) = \prod_{i=1}^N \sum_{g \in \{0,1,2\}} P(D|G=g) P(G=g,f)
+			P(D|f) = \prod_{i=1}^N \sum_{g \in \{0,1,2\}} P(D|G=g) P(G=g|f)
 		\end{equation*}
 	\end{block}
 
-	$P(D|G=g)$ is the genotype likelihood and $P(G=g,f)$ is given by HWE (for instance).
+}
 
-	In our previous example, $\hat{f}=0.46$ much closer to the true value than previous estimators.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Estimating allele frequencies}
+
+        \begin{block}{Maximum Likelihood estimator}
+                \begin{equation*}
+                        P(D|f) = \prod_{i=1}^N \sum_{g \in \{0,1,2\}} P(D|G=g) P(G=g|f)
+                \end{equation*}
+        \end{block}
+
+        $P(D|G=g)$ is the genotype likelihood and $P(G=g|f)$ is given by HWE (for instance).
+
+	\begin{center}
+        In our previous example, $\hat{f}=0.46$ which is much closer to the true value than previous estimators.
+	\end{center}
 
 }
 

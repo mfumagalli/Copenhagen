@@ -87,7 +87,7 @@
 
 	\begin{block}{Likelihood function}
 		\begin{equation*}
-			P(D|G=A) = \sum_{i=1}^R \log L_{A_j,i}
+			\log P(D|G=A) = \sum_{i=1}^R \log L_{A_j,i}
 		\end{equation*}
 	\end{block}
 
@@ -158,11 +158,13 @@
 
 	i.e. $t=1$ meaning that the most likely genotype is 10 times more likely than the second most likely one
 
-	Pros and cons?
- 	\begin{itemize}
- 	\item Yes: genotype are called with higher \textbf{confidence}
-    \item No: more \textbf{missing} data
- 	\end{itemize}
+	\begin{center}
+		Pros and cons?
+ 		\begin{itemize}
+ 		\item Yes: genotype are called with higher \textbf{confidence}
+    		\item No: more \textbf{missing} data
+ 		\end{itemize}
+	\end{center}
 
 }
 
@@ -299,7 +301,7 @@ If $D$ is the data and $\theta$ is your unknown parameter, then
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=7cm]{Pics/bayesian.png}
+\includegraphics[width=8cm]{Pics/bayesian.png}
 \end{figure}
 
 }
@@ -336,14 +338,13 @@ p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec
 		\begin{tabular}{c | c | c | c}
 		Genotype & Likelihood (log) & Prior & Posterior\\
     	\hline
-	    AA & -5.73 & 1/3 & 0.05\\
-    	AG & -2.80 & 1/3 & 0.95\\
-    	GG & -17.12 & 1/3 & ~0\\
+	    AA & -5.73 &  & \\
+    	AG & -2.80 &  & \\
+    	GG & -17.12 &  & \\
         \hline
 		\end{tabular}
 	\end{center}
 
-	Only call genotypes if the largest probability is above a certain threshold (e.g. 0.95).
 
 }
 
@@ -402,25 +403,50 @@ p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec
 	AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.7$} from a reference panel
 
 	$P(AA)=?$;
-    $P(AG)=?$;
-    $P(GG)=?$
+	$P(AG)=?$;
+    	$P(GG)=?$
 
 	\begin{center}
 		\begin{tabular}{c | c | c | c}
 		Genotype & Likelihood (log) & Prior & Posterior\\
     	\hline
-	    AA & -5.73 & 0.49 & 0.06\\
-    	AG & -2.80 & 0.42 & 0.94\\
-    	GG & -17.12 & 0.09 & ~0\\
+	AA & -5.73 &  & \\
+    	AG & -2.80 &  & \\
+    	GG & -17.12 &  & \\
         \hline
 		\end{tabular}
 	\end{center}
 
-	If the assumption of HWE can be reasonably met.
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{
+\frametitle{Genotype posterior probability}
+
+        AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.7$} from a reference panel
+
+        $P(AA)=?$;
+    $P(AG)=?$;
+    $P(GG)=?$
+
+        \begin{center}
+                \begin{tabular}{c | c | c | c}
+                Genotype & Likelihood (log) & Prior & Posterior\\
+        \hline
+            AA & -5.73 & 0.49 & 0.06\\
+        AG & -2.80 & 0.42 & 0.94\\
+        GG & -17.12 & 0.09 & ~0\\
+        \hline
+                \end{tabular}
+        \end{center}
+
+        If the assumption of HWE can be reasonably met.
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \frame{\frametitle{Empirical Bayesian inference}
 

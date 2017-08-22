@@ -3,15 +3,15 @@
 PhD course in analysis of genotyping and next-generation sequencing data in medical and population genetics 2017
 
 Tuesday - Introduction to NGS data
- - 1pm - 2.15pm: Lecture 4: Allele frequencies, genotypes, SNPs, and imputation.
+ - 1pm - 2.15pm: Lecture 4: Allele frequencies, genotypes, SNPs and imputation.
  - 2.30pm - 4pm: Computer Exercises IV
 
 Wednesday - Research lecture
  - 4.15pm - 5pm
 
 Friday – Detecting selection and advanced inference of population structure
- - 9am - 10.15am: Lecture 9: Detecting natural selection.
- - 10.30am - 12.00pm: Computer Exercise IX
+ - 1pm - 2.15pm: Lecture: Detecting natural selection.
+ - 2.30pm - 4pm: Computer Exercise
 
 ## Material
 
