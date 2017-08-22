@@ -119,11 +119,11 @@ Goal day 2:
 
 #### Research lecture
 
-* Of bears and men: genetic adaptation to extreme environments
+* Of bears and men: genetic adaptation in isolation
 
-### Friday morning -  detecting selection
+### Friday afternoon -  detecting selection
 
-#### Lecture 9-10.15pm
+#### Lecture 1-2.15pm
 
 * The effect of selection on the genome
 * Methods to detect selection signals
@@ -131,7 +131,7 @@ Goal day 2:
 * Bias introduced by NGS data
 * Summary statistics from low-depth data
 
-#### Practical 10:30-12
+#### Practical 2.30-4pm
 
 * Selection scan based on genetic [differentiation](Files/day2a.md) from low-depth data
 * Assessing significance through [simulations](Files/day2b.md)
