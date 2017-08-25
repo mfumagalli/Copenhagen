@@ -23,7 +23,7 @@ We are going to use the software [selscan](https://github.com/szpiech/selscan), 
 According to its manual *[these] statistics are designed to use phased genotypes to identify putative regions of recent or ongoing positive selection in genomes. They are all based on the model of a hard selective sweep, where a de novo adaptive mutation arises on a haplotype that quickly sweeps toward fixation, reducing diversity around the locus. If selection is strong enough, this occurs faster than recombination or mutation can act to break up the haplotype, and thus a signal of high haplotype homozygosity can be observed extending from an adaptive locus.*
 
 A powerful statistic to delect selection from hard sweeps is XP-EHH, which measures the differential decay of haplotype homozygosity. 
-We assume that our target population is NAM (or CHB) and our reference population is TSI.
+We assume that our target population is NAM (or CHB, East Asians) and our reference population is TSI (Europeans).
 
 First, look at the options in selscan:
 ```
@@ -46,7 +46,13 @@ Rscript $DIR/Scripts/getGenMap.R $DATA/genetic_map_chrom2.map $DATA/NAM.chr2.vcf
 ```
 
 Now we can run XP-EHH giving the resulting file as input.
-This may take some time...choose one population...
+This may take some time...choose one population!...
+
+If you really cannot wait, then I provided you with the output file for CHB and NAM in Files, so you can run something like:
+```
+cp $DIR/Files/*.xpehh.out Results/.
+```
+or run it yourself:
 ```
 # NAM
 $SS/selscan --xpehh --vcf $DATA/NAM.chr2.vcf --vcf-ref $DATA/TSI.chr2.vcf --map Results/genetic.map --out Results/NAM --threads 1
@@ -94,7 +100,7 @@ less -S Results/CHB.xpehh.out.norm
 ```
 
 In order to perform a sliding window scan we can assign the maximum XP-EHH score to each window and plot it.
-Please note that here we are using unstandardised values as we are focusing on one small region.
+Please note that here we may be better off using unstandardised values here as we are focusing on one small region.
 ```
 # NAM
 Rscript $DIR/Scripts/plotXPEHH.R Results/NAM.xpehh.out.norm Results/NAM.xpehh.pdf
@@ -112,7 +118,7 @@ evince Results/LWK.xpehh.pdf
 
 ----------------------------------------------------------
 
-**OPTIONAL**
+**VERY OPTIONAL**
 
 As a further illustration, we are here calculating nSL statistic.
 Note that we have already performed a filtering on these VCF files.
@@ -172,7 +178,7 @@ Therefore the standardisation into bins of "non-reference" allele frequency is w
 To overcome this issue, either you should use absolute values of nSL and perform a normalisation on the minor allele frequency rather than the non-reference allele frequency.
 This exercise stresses the importance of knowing that the reference sequence is just an arbitrary choice of alleles and should NOT be used for evolutionary inferences.
 
------------------------------
+-------------------------------
 
 Finally, we are interested in investigating the **haplotype distribution** in this region.
 Specifically, we want to draw a haplotype network, where all (unique) haplotypes are clustered based on their mutual genetic distance.
