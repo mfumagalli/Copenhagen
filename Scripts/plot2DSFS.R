@@ -22,7 +22,7 @@ fout=paste(fin,".pdf", sep="", collapse="")
 
 pdf(file=fout)
 
-hist3D(x = seq(0,1,length.out = nrow(ANGSD.2D.SFS)), y = seq(0,1,length.out=ncol(ANGSD.2D.SFS)), ANGSD.2D.SFS, cex.lab=1.2, xlab="LWK",ylab="TSI",zlab="SFS", main=paste("2D-SFS"),pin=c(10,0), cex.main=1.4, zlim=c(0,max(ANGSD.2D.SFS)))
+hist3D(x = seq(0,1,length.out = nrow(ANGSD.2D.SFS)), y = seq(0,1,length.out=ncol(ANGSD.2D.SFS)), ANGSD.2D.SFS, cex.lab=1.2, xlab="pop1",ylab="pop2",zlab="Frequency", main=paste("2D-SFS"),pin=c(10,0), cex.main=1.4, zlim=c(0,max(ANGSD.2D.SFS)))
 
 dev.off()
 

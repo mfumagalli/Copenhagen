@@ -5,7 +5,6 @@ We are using the commonly used software [ms](http://home.uchicago.edu/rhudson1/s
 Please follow the link to get the manual, if interested (but not required).
 
 We also use a model previously estimated [here](http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000695) for the evolution of Africans, Europeans and East Asians.
-A figure representing this model is depicted [here](https://github.com/mfumagalli/Weggis/tree/master/Files/gutenkunst.png) and parameter values are reported [here](https://github.com/mfumagalli/Weggis/tree/master/Files/gutenkunst_table.png).
 
 Our goal here is to add the history of Native Americans to this model, roughly following estimates reported in [this](http://www.ncbi.nlm.nih.gov/pubmed/26198033) paper.
 Thus, we will assume that Native Americans (their ancestors) splitted from East Asians 20kya and their effective population size is 2,000 from the split until present.
