@@ -1,17 +1,15 @@
 # Copenhagen
 
-PhD course in analysis of genotyping and next-generation sequencing data in medical and population genetics 2017
+PhD course in analysis of genotyping and next-generation sequencing data in medical and population genetics 2018
 
-Tuesday - Introduction to NGS data
- - 1pm - 2.15pm: Lecture 4: Allele frequencies, genotypes, SNPs and imputation.
- - 2.30pm - 4pm: Computer Exercises IV
+Tuesday - Analysis of NGS data
+ - 9am - 12pm: Estimation of allele frequencies, SNP calling and genotype calling from NGS data (theory + practical)
 
 Wednesday - Research lecture
- - 4.15pm - 5pm
+ - 4.15pm - 5pm: Research lecture
 
-Friday – Detecting selection and advanced inference of population structure
- - 1pm - 2.15pm: Lecture: Detecting natural selection.
- - 2.30pm - 4pm: Computer Exercise
+Friday – Detecting selection
+ - 1pm - 4pm: Detecting natural selection (theory + practical)
 
 ## Material
 
@@ -39,7 +37,7 @@ ANGSD=/ricco/data/matteo/Software/angsd
 NGSTOOLS=/ricco/data/matteo/Software/ngsTools
 MS=/ricco/data/matteo/Software/ms
 SS=/ricco/data/matteo/Software/selscan/bin/linux
-# optional
+# very optional
 NGSADMIX=/ricco/data/matteo/Software/NGSadmix
 FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
 ```
@@ -79,6 +77,7 @@ Recently, a genome-wide association study found the same functional variant in E
 *CHALLENGES*
 - Admixed population
 - Low-depth sequencing data
+- Effect of genetif drift
 - ...
 
 *PLAN OF ACTION*
@@ -101,16 +100,14 @@ Goal day 2:
 
 ### Tuesday afternoon -  introduction to NGS data:
 
-#### Lecture 1-2.15pm
+#### Lecture
 
 * Basics of data handling and filtering
 * Maximum likelihood and Bayesian estimation
 * Genotype likelihoods
 * Allele frequencies, SNPs and genotypes calling
-* Brief notes on experimental design
-* Imputation and phasing
 
-#### [Practical](Files/day1.md) 2.30-4pm
+#### [Practical](Files/day1.md)
 
 * Basic data filtering
 * Estimation of allele frequencies and SNP calling
@@ -119,11 +116,11 @@ Goal day 2:
 
 #### Research lecture
 
-* Of bears and men: genetic adaptation in isolation
+* Deep learning in evolutionary genomics
 
-### Friday afternoon -  detecting selection
+### Friday afternoon - detecting selection
 
-#### Lecture 1-2.15pm
+#### Lecture
 
 * The effect of selection on the genome
 * Methods to detect selection signals
@@ -131,7 +128,7 @@ Goal day 2:
 * Bias introduced by NGS data
 * Summary statistics from low-depth data
 
-#### Practical 2.30-4pm
+#### Practical
 
 * Selection scan based on genetic [differentiation](Files/day2a.md) from low-depth data
 * Assessing significance through [simulations](Files/day2b.md)
