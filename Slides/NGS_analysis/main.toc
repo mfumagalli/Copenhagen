@@ -1,5 +1,5 @@
 \beamer@endinputifotherversion {3.36pt}
-\select@language {english}
+\select@language {UKenglish}
 \beamer@sectionintoc {1}{Introduction}{4}{0}{1}
 \beamer@sectionintoc {2}{Genotype likelihoods}{12}{0}{2}
 \beamer@sectionintoc {3}{Genotype calling}{21}{0}{3}

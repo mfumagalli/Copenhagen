@@ -1,0 +1,118 @@
+% This scheme has been created by Jan Eichstaedt, Imperial College London, June 2017
+
+% Imperial Core colors
+\definecolor{imperialblue}{RGB}{0 62 116}
+\definecolor{lightblue}{RGB}{212 239 252}
+\definecolor{lightgrey}{RGB}{235 238 238}
+\definecolor{navy}{RGB}{0 33 71}
+
+% cool support colors
+\definecolor{blue}{RGB}{0 110 175}
+\definecolor{processblue}{RGB}{0 133 202}
+\definecolor{poolblue}{RGB}{12 161 205}
+\definecolor{darkteal}{RGB}{15 130 145}
+\definecolor{seaglass}{RGB}{55 159 159}
+\definecolor{darkgreen}{RGB}{2 137 59}
+\definecolor{kermitgreen}{RGB}{102 164 10}
+\definecolor{lime}{RGB}{169 214 0}
+
+% warm support colors
+\definecolor{tangerine}{RGB}{236 115 0}
+\definecolor{violet}{RGB}{150 0 120}
+\definecolor{red}{RGB}{221 37 1}
+
+
+% ---------------------------------------------------------------------------
+\setbeamercolor{footline1}{fg=white, bg=processblue}
+\setbeamercolor{footline2}{fg=white, bg=imperialblue}
+\setbeamercolor{footline3}{fg=white, bg=white}
+\setbeamercolor{section in head/foot}{fg=white, bg=black}
+\setbeamercolor{frametitle}{bg=white, fg=processblue}
+\setbeamercolor{title}{bg=white, fg=imperialblue}
+\setbeamercolor{subtitle}{bg=white, fg=black}
+\setbeamercolor{date}{bg=white, fg=imperialblue}
+
+\setbeamercolor{block body}{bg=lightgrey}
+\setbeamercolor{block title}{fg=navy, bg=poolblue!60!white}
+
+\setbeamercolor{block body alerted}{bg=lightgrey}
+\setbeamercolor{block title alerted}{fg=black, bg=seaglass}
+
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=darkgreen}
+\setbeamercolor{example text}{fg=imperialblue}
+
+\setbeamercolor{structure}{fg=imperialblue}
+
+\setbeamercolor{background canvas}{parent=normal text}
+\setbeamercolor{background}{parent=background canvas}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]{}
+\useinnertheme{rounded}
+
+
+% -------------------------------------------------------------------------
+\setbeamertemplate{title page}
+{
+	\vspace{16pt}	
+	\begin{columns}[b]
+		\column{0.015\textwidth}
+		\column{0.485\textwidth}
+		\begin{beamercolorbox}[left]{institute}
+			\insertinstitute       
+		\end{beamercolorbox}
+		\column{0.4875\textwidth}
+        \begin{beamercolorbox}[right]{date}
+        	\usebeamerfont{date}\footnotesize\insertdate
+        \end{beamercolorbox}
+        \column{0.0125\textwidth}
+    \end{columns}
+    \vspace{20pt}	
+    \vfill
+	
+	\begingroup	   
+	    \begin{beamercolorbox}[left]{title}
+			\usebeamerfont{title}\Huge\inserttitle
+	    \end{beamercolorbox}
+	    \vskip1.5em\par
+	    \begin{beamercolorbox}[left]{subtitle}
+	        \usebeamerfont{subtitle}\Large\insertsubtitle
+	    \end{beamercolorbox}
+	    \vskip1em\par
+	    \begin{beamercolorbox}[left]{author}
+	        \usebeamerfont{author}\insertauthor
+	    \end{beamercolorbox}
+	\endgroup
+}
+
+
+% -------------------------------------------------------------------------
+\setbeamertemplate{frametitle}
+{
+	\vspace{16pt}	
+  	\hbox{%
+	\begin{beamercolorbox}[wd=.30\paperwidth]{}
+	\scalebox{0.9}{\insertinstitute}
+	\end{beamercolorbox}%
+	\begin{beamercolorbox}[wd=.75\paperwidth]{frametitle}	
+	\raggedright
+	\hfill
+	\end{beamercolorbox}}%
+	\vspace{6pt}
+	\LARGE{\insertframetitle}
+	\vspace{-10pt}
+} 
+
+
+% -------------------------------------------------------------------------
+\setbeamertemplate{footline}
+{
+  \vspace{8pt}	
+  \begin{beamercolorbox}[wd=1\paperwidth,ht=1.6ex,dp=0ex,center]{footline1}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=1\paperwidth,ht=0.4ex,dp=0ex,center]{footline2}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=1\paperwidth,ht=2.25ex,dp=3ex,center]{footline3}
+  \end{beamercolorbox}%  
+}
