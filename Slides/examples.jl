@@ -1,33 +1,40 @@
 
-# ~/Software/julia/julia
+# https://www.asciitable.com/
 
-include("/home/mfumagal/Software/ngsJulia/templates.jl")
-include("/home/mfumagal/Software/ngsJulia/generics.jl")
-include("/home/mfumagal/Software/ngsPoly/functions.jl")
+#  ~/juliapro/JuliaPro-0.6.2.1/julia
 
-alleles = ['A','C','G','T']
+include("/home/mfumagal/Software/ngsJulia/templates.jl");
+include("/home/mfumagal/Software/ngsJulia/generics.jl");
+include("/home/mfumagal/Software/ngsPoly/functions.jl");
 
-mySite = Site("chrom", 1, 'A')
+alleles = ['A','C','G','T'];
 
-myReads = Reads("AAAG", "5555")
+mySite = Site("chrom", 1, 'A');
 
-calcGenoLogLike1(myReads, mySite)
+myReads = Reads("AAAG", "5555");
 
+calcGenoLogLike1(myReads, mySite);
 
-myReads = Reads("AAAG", "5555")
-calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3)
+myReads = Reads("AAAG", "5555");
+
+gl = calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3);
+print("AA: ",gl[1],"\nAG: ",gl[2],"\nGG: ",gl[3])
 
 
 myReads = Reads("AAAG", "5550")
-calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3)
+
+gl = calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3);
+print("AA: ",gl[1],"\nAG: ",gl[2],"\nGG: ",gl[3])
 
 
 myReads = Reads("AAAG", "555K")
-calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3)
+gl = calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3);
+print("AA: ",gl[1],"\nAG: ",gl[2],"\nGG: ",gl[3])
 
 
 myReads = Reads("AAAAAAAAAG", "5555555550")
-calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3)
+gl = calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3);
+print("AA: ",gl[1],"\nAG: ",gl[2],"\nGG: ",gl[3])
 
 
 

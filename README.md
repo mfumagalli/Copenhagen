@@ -68,6 +68,9 @@ EDAR is a textbook example of positive selection in East Asians (Sabeti et al. 2
 
 Recently, a genome-wide association study found the same functional variant in EDAR associated to several human facial traits (ear shape, chin protusion, ...) in Native American populations (Adhikari et al. Nat Commun 2016).
 
+![](Slides/NGS_analysis/Pics/practical.png)
+
+
 *HYPOTHESIS*
 
 - Is the functional allele in East Asian at high frequency in other human populations (e.g. Native Americans)?

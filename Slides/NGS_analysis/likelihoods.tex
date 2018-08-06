@@ -58,10 +58,8 @@ How many genotypes likelihoods do we need to calculate for each each individual 
     
 \end{block}
 
-Example: 
-\newline
-AAAG with all quality scores equal to 20 (in phred score)
-\newline
+Example:\\
+AAAG, all with quality score equal to 20 (in phred score)\\
 $P(D|G=AC) = ?$
 
 }
@@ -79,7 +77,13 @@ $P(D|G=AC) = ?$
   
 	\end{block}
 
-	AAAG \& Q=20
+	\small{
+	A\\
+	A\\
+	A\\
+	G\\
+	\& Q=20
+	}
 
 	\begin{equation*}
 		P(D|G=\{A,C\}) = ...
@@ -99,7 +103,13 @@ $P(D|G=AC) = ?$
   
 	\end{block}
 
-	AAAG \& Q=20
+	\small{
+	A\\
+	A\\
+	A\\
+	G\\ 
+	\& Q=20
+	}
 
 	$N=2; i=1; A_1=A; A_2=C$
 
@@ -138,7 +148,6 @@ $P(D|G=AC) = ?$
 	\end{equation*}
 
 
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -164,7 +173,7 @@ $P(D|G=AC) = ?$
 	\end{equation*}
     
 	\begin{equation*}
-		P(D|G=\{A,C\}) = (\frac{1-\epsilon}{2} + \frac{\epsilon}{6}) \times \frac{\epsilon}{3} \times \frac{\epsilon}{3} \times \frac{\epsilon}{3}
+		P(D|G=\{A,C\}) = (\frac{1-\epsilon}{2} + \frac{\epsilon}{6})^3  \times \frac{\epsilon}{3}
 	\end{equation*}
 
 	What is $\epsilon$?
@@ -187,22 +196,30 @@ $P(D|G=AC) = ?$
     		\textbf{AC} & \textbf{-3.38}\\
     		AG & -1.22\\
     		AT & -3.38\\
-            CC & -9.91\\
-            CG & -7.74\\
-            CT & -9.91\\
-            GG & -7.44\\
-            GT & -7.74\\
-            TT & -9.91\\
+        	CC & -9.91\\
+      		CG & -7.74\\
+        	CT & -9.91\\
+         	GG & -7.44\\
+          	GT & -7.74\\
+        	TT & -9.91\\
         	\hline
 			\end{tabular}
        	\end{center}
 
 		\column{0.4\textwidth}
 
-		AAAG \& $\epsilon=0.01$
+		A\\A\\A\\G\\$\epsilon=0.01$
 
 	\end{columns}
 
 
 }
+
+
+
+
+
+
+
+
 

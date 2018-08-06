@@ -126,7 +126,7 @@
 		\end{tabular}
 	\end{center}
 
-	Examples varying qualities and reads...
+	Examples varying qualities and reads... open Julia script.
     
 }   
 
@@ -166,6 +166,9 @@
  		\end{itemize}
 	\end{center}
 
+	Practical: genotype likelihoods and (basic) genotype calling \\
+	\url{https://github.com/mfumagalli/Copenhagen}
+
 }
 
 
@@ -188,13 +191,13 @@
 \frametitle{Statistical thinking}
 
 \begin{itemize}
-\item $T = \{0,1\}$, whether I tell you I saw Nessie or not.
-\item $N = \{0,1\}$, whether Nessie exists (I saw it) or not.
+\item $D = \{0,1\}$, whether I tell you I saw Nessie or not.
+\item $N = \{0,1\}$, whether Nessie exists or not.
 \end{itemize}
 
 \begin{block}{Questions}
 \begin{itemize}
-\item What are $p(T=1|N=1)$ and $p(T=1|N=0)$?
+\item What are $p(D=1|N=1)$ and $p(D=1|N=0)$?
 \item What is a Maximum Likelihood Estimate of $N$?
 \end{itemize}
 \end{block}
@@ -206,7 +209,7 @@
 \frame{
 \frametitle{Statistical thinking}
 
-Our inference on $N$ is driven solely by our observations, given by our likelihood function.
+Our inference on $N$, our parameter, is driven solely by our observations, given by our likelihood function.
 
 \begin{figure}[!ht]
 \centering
@@ -238,8 +241,8 @@ In real life we take many decisions based not only on what we observe but also o
 \frametitle{Bayesian thinking}
 
 \begin{itemize}
-\item with "eyes only" our intuition is that $p(N|T) \approx p(T|N)$
-\item with "the brain" our intuition is that $p(N|T) \approx p(T|N)p(N)$
+\item with "eyes only" our intuition is that $p(N|D) \approx p(D|N)$
+\item with "the brain" our intuition is that $p(N|D) \approx p(D|N)p(N)$
 \end{itemize}
 
 Our "belief" expresses the probability $p(N)$ \textbf{unconditional} of the data.
@@ -256,7 +259,7 @@ How can we define $p(N)$?
 \frametitle{Bayesian thinking}
 
 \begin{block}{}
-The "belief" function $p(N)$ is called \textbf{prior probability} and the joint product of the likelihood $p(T|N)$ and the prior is proportional to the \textbf{posterior probability} $p(N|T)$.
+The "belief" function $p(N)$ is called \textbf{prior probability} and the joint product of the likelihood $p(D|N)$ and the prior is proportional to the \textbf{posterior probability} $p(N|D)$.
 \end{block}
 
 \begin{block}{}
@@ -315,7 +318,7 @@ If $D$ is the data and $\theta$ is your unknown parameter, then
 \begin{block}{Bayes' Theorem}
 
 \begin{equation}
-p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec{y})} = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{\int f(\vec{y}|\vec{\theta}) d\vec{\theta}}
+p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec{y})} = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{\int f(\vec{y}|\vec{\theta}) \pi(\vec{\theta}) d\vec{\theta}}
 \end{equation}
 \end{block}
 
@@ -332,7 +335,7 @@ p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec
 \frame{
 \frametitle{Genotype posterior probability}
 
-	AAAG \& $\epsilon=0.01$ \& A,G alleles
+	A\\A\\A\\G\\$\epsilon=0.01$\\A,G alleles
 
 	\begin{center}
 		\begin{tabular}{c | c | c | c}
@@ -485,9 +488,35 @@ p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec
     \item if you have enough samples to have a robust estimate of the allele frequencies
 	\end{itemize}
 
-	How can we estimate allele frequencies?
+	Practical: genotype calling\\
+	\url{https://github.com/mfumagalli/Copenhagen}
 	
 
 }
 
+
+\frame{\frametitle{Genotype posterior probability}
+
+        AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.6$} from the data itself
+
+        \begin{center}
+                \begin{tabular}{c | c | c | c}
+                Genotype & Likelihood (log) & Prior & Posterior\\
+        \hline
+            AA & -5.73 & 0.49 & 0.04\\
+        AG & -2.80 & 0.42 & 0.96\\
+        GG & -17.12 & 0.09 & ~0\\
+        \hline
+                \end{tabular}
+        \end{center}
+
+        \begin{itemize}
+        \item if the assumption of HWE can be reasonably met
+    \item if you have enough samples to have a robust estimate of the allele frequencies
+        \end{itemize}
+
+        How can we estimate allele frequencies?
+
+
+}
 

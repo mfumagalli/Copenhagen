@@ -3,5 +3,5 @@
 \beamer@sectionintoc {1}{Introduction}{4}{0}{1}
 \beamer@sectionintoc {2}{Genotype likelihoods}{12}{0}{2}
 \beamer@sectionintoc {3}{Genotype calling}{21}{0}{3}
-\beamer@sectionintoc {4}{SNP calling}{44}{0}{4}
-\beamer@sectionintoc {5}{Imputation}{54}{0}{5}
+\beamer@sectionintoc {4}{SNP calling}{45}{0}{4}
+\beamer@sectionintoc {5}{Imputation}{55}{0}{5}
