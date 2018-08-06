@@ -13,8 +13,6 @@ Please make sure to follow the preparatory instructions on the main page before 
 ```
 ANGSD=/ricco/data/matteo/Software/angsd
 NGSTOOLS=/ricco/data/matteo/Software/ngsTools
-MS=/ricco/data/matteo/Software/ms
-SS=/ricco/data/matteo/Software/selscan/bin/linux
 
 DIR=/home/matteo/Copenhagen
 DATA=/ricco/data/matteo/Data
@@ -149,11 +147,11 @@ These filters will retain only uniquely mapping reads, not tagged as bad, consid
 Also, you may want to remove reads with low mapping quality and sites with low quality or covered by few reads (low depth).
 Under these circumnstances, the assignment of individual genotypes and SNPs is problematic, and can lead to errors.
 
-**QUESTION**
-Which values would you choose as sensible thresholds on quality score and depth (minimum and maximum)?
-
 We may also want to remove sites where a fraction (half?) of the individuals have no data.
 This is achieved by the ```-minInd``` option.
+
+**QUESTION**
+Which values would you choose as sensible thresholds on quality score and depth (minimum and maximum)?
 
 A possible command line would contain the following filtering:
 ```
@@ -172,6 +170,7 @@ Parameter | Meaning |
 -setMaxDepth 30 | maximum total depth |
 
 More sophisticated filtering can be done, but this is outside the scope of this practical.
+More examples on assessing filtering options can be found [here](https://github.com/mfumagalli/Copenhagen/blob/master/Files/day1.md).
 
 ----------------------------
 
@@ -341,6 +340,9 @@ We will show later how to accurately estimate summary statistics with low-depth 
 
 --------------------------------
 
+
+**EXERCISE 1**
+
 If we assume HWE, then we can use this information as prior probability to calculate genotype posterior probabilities.
 The command line would be:
 ```
@@ -349,13 +351,11 @@ $ANGSD/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
 ```
 using the option `-doPost 1`.
 
-**EXERCISE 2**
-
 We are finally ready to gather some biological insights from the data.
 Recalling our research aim, our first goal is to calculate allele frequencies of our target variant in EDAR gene for different human populations.
 
 Our SNP of interest is located in EDAR gene.
-According to our reference [paper](http://www.nature.com/ncomms/2016/160519/ncomms11616/full/ncomms11616.html), *The derived G allele at the index SNP in this region (rs3827760) encodes a functional substitution in the intracellular death domain of EDAR (370A) and is associated with reduced chin protrusion*.
+According to the reference [paper](http://www.nature.com/ncomms/2016/160519/ncomms11616/full/ncomms11616.html), *The derived G allele at the index SNP in this region (rs3827760) encodes a functional substitution in the intracellular death domain of EDAR (370A) and is associated with reduced chin protrusion*.
 The genomic location of this SNP is `chr2:109513601-109513601`.
 
 In ANGSD we can restrict our analyses on a subset of positions of interest using the `-sites` option.
@@ -384,9 +384,12 @@ Back to our example of functional variants in EDAR, we want to assign individual
 Finally we will calculate the **derived** allele frequencies based on assigned genotypes.
 
 Note that we are interested in calculating the **derived** allele frequency, so we need to specify a putative ancestral sequence.
+Let's assume that our reference sequence represents the ancestral sequence too.
 Please finally note that we want to relax out filtering to make sure to have results.
 
-
+Write the code that performs the following genotype calling for EDAR variants in all populations.
+Also, you can directly call genotypes without generating the genotype likelihood files, by starting from bam files directly.
+As an indication, you can follow these guidelines:
 - use the SAMtools genotype likelihood model
 - calculate genotype posterior probabilities using a HWE-based prior
 - filter out bases with a quality score less than 20
@@ -395,50 +398,29 @@ Please finally note that we want to relax out filtering to make sure to have res
 - do not set any filtering based on min and max depth
 - use -doMajorMinor 1 and -doMaf 1 options
 - set genotypes as missing if the highest genotype probability is less than 0.50
+- use option `-sites Data/snp.txt` to restrict the analysis only on selected sites
+but feel free to choose some parameters yourself.
 
-Please complete the following code based on the previous guidelines:
 ```
-for POP in AFR EUR EAS LAT NAM
-do
-        echo $POP
-	
-	# calculate genotype likelihoods
-	$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/$POP \
-        	-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-        	-minMapQ 20 -minQ 20 -minInd 1 \
-        	-GL 1 -doGlf 1
-		
-
-	$ANGSD/angsd -glf Results/$POP.glf.gz -fai $ANC.fai -nInd 10 -out Results/$POP \
-        	-doMajorMinor 1 -doGeno 3 -doPost 1 -doMaf 1 -postCutoff 0.50 \
-		-sites Data/snp.txt
-
-done
+...
 ```
 
-Open the output files:
-```
-for POP in AFR EUR EAS LAT NAM
-do
-        echo $POP
-        zcat Results/$POP.geno.gz
-done
-```
-and count the derived genotypes.
+Once done, open the output files and calculate the derived allele frequency by counting genotypes.
 What is the derived allele frequency for each population?
 
 Can you comment these results?
 Do you see any allele frequency differentiation in the derived state?
 
-Indeed, in the original paper, Authors state that *The G allele at rs3827760 is not present in Europeans and Africans but is seen at high frequency in East Asians and is essentially fixed in Native Americans.*
+In the original paper, Authors state that *The G allele at rs3827760 is not present in Europeans and Africans but is seen at high frequency in East Asians and is essentially fixed in Native Americans.*
+Are your results in agreement with this?
 
-Why is it not at high frequency in our Latinos sample?
+Why is it not at high frequency in the Latinos sample?
 
 ----------------------------
 
 #### Estimation of allele frequencies and SNP calling
 
-We now want to estimate allele frequencies at each site, for the European samples.
+We now want to estimate allele frequencies at each site without relying on genotype calls.
 In other words, at each site we want to to estimate (or count) how many copies of different alleles (two in case of biallelic variants) we observe in our sample (across all sequenced individuals).
 However with low depth data direct counting of individually assigned genotypes can lead to biased allele frequencies.
 
@@ -490,9 +472,7 @@ A possible command line to estimate allele frequencies might be (this may take 1
 $ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
-        -GL 1 -doGlf 1
-
-$ANGSD/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
+        -GL 1 -doGlf 1 \
 	-doMajorMinor 1 -doMaf 1
 ```
 where we specify:
@@ -539,7 +519,7 @@ There are two main ways to call SNPs using ANGSD with these options:
 ```
 Therefore we can consider assigning as SNPs sites whose estimated allele frequency is above a certain threhsold (e.g. the frequency of a singleton) or whose probability of being variable is above a specified value.
 
-**EXERCISE**
+** QUICK EXERCISE**
 
 As an illustration, call SNPs by computing:
  - genotype likelihoods using GATK method;
@@ -547,39 +527,11 @@ As an illustration, call SNPs by computing:
  - frequency from known major allele but unknown minor;
  - SNPs as those having MAF=>0.05.
 
-Try to write down this command by yourself.
+Try to write down this command by yourself and comment the results.
 
+```
 ...
 
-Here is a possible solution which recalculates genotype likelihoods:
-```
-$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
-        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-        -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
-        -GL 2 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1  \
-        -minMaf 0.05
-```
-
-You can have a look at the results:
-```
-zcat Results/EUR.mafs.gz | head
-```
-```
-chromo  position        major   minor   ref     knownEM nInd
-2       109000113       C       T       C       0.060517        10
-2       109000117       G       T       G       0.062740        10
-2       109000122       T       C       T       0.064025        10
-2       109000160       C       A       C       0.074944        9
-2       109000285       A       C       A       0.153066        5
-2       109000483       C       T       C       0.120045        6
-2       109000505       A       T       A       0.109368        7
-2       109000539       G       T       G       0.110355        7
-2       109000688       A       T       A       0.401350        7
-```
-
-How many entries (potential SNPs) you have?
-```
-zcat Results/EUR.mafs.gz | tail -n +2 | wc -l
 ```
 
 As a general guidance, `-GL 1`, `-doMaf 1/2` and `-doMajorMinor 1` should be the preferred choice when data uncertainty is high.
@@ -587,6 +539,52 @@ If interested in analysing very low frequency SNPs, then `-doMaf 2` should be se
 When accurate information on reference sequence or outgroup are available, one can use `-doMajorMinor` to 4 or 5.
 Also, detecting variable sites based on their probability of being SNPs is generally a better choice than defining a threshold on the allele frequency.
 However, various cutoffs and a dedicated filtering should be perform to assess robustness of your called SNPs.
+
+**QUICK EXERCISE**
+
+Try varying the cutoff for SNP calling and record how many sites are predicted to be variable for each scenario.
+Identify which sites are not predicted to be variable anymore with a more stringent cutoff (e.g. between a pair of scenario), and plot their allele frequencies.
+Use the previously calculated genotype likelihoods as input file (use ```-glf ? -fai ? -nInd ?```).
+```
+# iterate over some cutoffs (you can change these)
+for PV in 0.05 1e-2 1e-4 1e-6
+do
+        if [ $PV == 0.05 ]; then echo SNP_pval NR_SNPs; fi
+        $ANGSD/angsd -glf Results/EUR.glf.gz -nInd 10 -fai $REF.fai -out Results/EUR.$PV \
+                -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
+                -SNP_pval $PV &> /dev/null
+        echo $PV `zcat Results/EUR.$PV.mafs.gz | tail -n+2 | wc -l`
+done
+```
+
+A possible output is (your numbers may be different):
+```
+SNP_pval NR_SNPs
+0.05 4405
+1e-2 2950
+1e-4 1428
+1e-6 1084
+```
+
+Which sites differ from 0.05 and 0.01? What is their frequency?
+This script will also print out the first 20 discordant sites (pK.EM is the p-value for the SNP calling test).
+```
+Rscript -e 'mafs1 <- read.table(gzfile("Results/EUR.1e-2.mafs.gz"), he=T, row.names=NULL, strings=F); mafs5 <- read.table(gzfile("Results/EUR.0.05.mafs.gz"), header=T, row.names=NULL, stringsAsFact=F); mafs5[!(mafs5[,2] %in% mafs1[,2]),][1:20,]; pdf(file="Results/diffSnpCall.pdf"); par(mfrow=c(1,2)); hist(as.numeric(mafs5[!(mafs5[,2] %in% mafs1[,2]),][,6]), main="Discordant SNPs", xlab="MAF", xlim=c(0,0.5)); hist(as.numeric(mafs5[(mafs5[,2] %in% mafs1[,2]),][,6]), main="Concordant SNPs", xlab="MAF", xlim=c(0,0.5)); dev.off();'
+```
+```
+evince Results/diffSnpCall.pdf
+```
+
+Can you draw some conclusions from these results?
+Which frequencies are more difficult to estimate and therefore affect SNP calling?
+
+
+
+**EXERCISE 2**
+
+Estimate derived allele frequencies for all populations of interest using a likelihood approach, without relying on genotype calls.
+What is difference compared to what previously estimated?
+
 
 ---------------------------
 

@@ -101,11 +101,10 @@ Goal day 2:
 
 ## Agenda
 
-### Tuesday afternoon -  introduction to NGS data:
+### Tuesday morning -  introduction to NGS data:
 
 #### Lecture
 
-* Basics of data handling and filtering
 * Maximum likelihood and Bayesian estimation
 * Genotype likelihoods
 * Allele frequencies, SNPs and genotypes calling

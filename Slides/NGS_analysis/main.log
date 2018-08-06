@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.6)  6 AUG 2018 11:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.6)  6 AUG 2018 23:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1092,6 +1092,182 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 )))
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\begingroup' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\catcode' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\active' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\csname\endcsname' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\catcode' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\active' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\csname\endcsname' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\%' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\catcode' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\active' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\csname\endcsname' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\#' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\catcode' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\csname\endcsname' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\&' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\textunderscore' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\_' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\catcode' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\active' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\csname\endcsname' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\csname\endcsname' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\~' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\textasciitilde' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<let>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\\' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\csname\endcsname' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\Hy@tempa' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 26.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\Hy@tempa' on input line 26.
+
 (./main.aux (./introduction.aux) (./likelihoods.aux) (./genotype.aux)
 (./snp.aux) (./imputation.aux))
 \openout1 = `main.aux'.
@@ -1268,7 +1444,16 @@ File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf used on 
 input line 28.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
+LaTeX Font Info:    Try loading font information for U+msa on input line 28.
 
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 28.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 (Font)              size <5> substituted on input line 28.
@@ -1276,7 +1461,7 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Imperial_1_Pantone_solid
--eps-converted-to.pdf>] <Pics/bioinfo.png, id=50, 823.075pt x 654.445pt>
+-eps-converted-to.pdf>] <Pics/bioinfo.png, id=51, 823.075pt x 654.445pt>
 File: Pics/bioinfo.png Graphic file (type png)
 
 <use Pics/bioinfo.png>
@@ -1292,7 +1477,7 @@ Overfull \vbox (0.24579pt too high) detected at line 38
 \openout2 = `introduction.aux'.
 
  (./introduction.tex
-<Pics/sanger.jpg, id=56, 640.3925pt x 480.79625pt>
+<Pics/sanger.jpg, id=57, 640.3925pt x 480.79625pt>
 File: Pics/sanger.jpg Graphic file (type jpg)
  <use Pics/sanger.jpg>
 Package pdftex.def Info: Pics/sanger.jpg used on input line 25.
@@ -1302,16 +1487,7 @@ Overfull \hbox (3.86682pt too wide) in paragraph at lines 25--25
  [] 
  []
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 25.
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 25.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-<Pics/sangerElectro.png, id=57, 611.28375pt x 170.6375pt>
+<Pics/sangerElectro.png, id=58, 611.28375pt x 170.6375pt>
 File: Pics/sangerElectro.png Graphic file (type png)
 
 <use Pics/sangerElectro.png>
@@ -1337,7 +1513,7 @@ input line 25.
  [3
 
 
- <./Pics/sanger.jpg> <./Pics/sangerElectro.png>] <Pics/illumina.png, id=63, 920
+ <./Pics/sanger.jpg> <./Pics/sangerElectro.png>] <Pics/illumina.png, id=65, 920
 .43875pt x 530.98375pt>
 File: Pics/illumina.png Graphic file (type png)
 
@@ -1363,7 +1539,7 @@ input line 35.
 
 [4
 
- <./Pics/illumina.png>] <Pics/files.png, id=69, 956.57375pt x 656.4525pt>
+ <./Pics/illumina.png>] <Pics/files.png, id=71, 956.57375pt x 656.4525pt>
 File: Pics/files.png Graphic file (type png)
 
 <use Pics/files.png>
@@ -1391,7 +1567,7 @@ Overfull \vbox (17.8225pt too high) detected at line 45
 
 [5
 
- <./Pics/files.png>] <Pics/windows.png, id=75, 1557.82pt x 959.585pt>
+ <./Pics/files.png>] <Pics/windows.png, id=77, 1557.82pt x 959.585pt>
 File: Pics/windows.png Graphic file (type png)
 
 <use Pics/windows.png>
@@ -1424,7 +1600,7 @@ Overfull \vbox (26.39882pt too high) detected at line 55
 
 [6
 
- <./Pics/windows.png>] <Pics/stat1.png, id=81, 268.00125pt x 380.42125pt>
+ <./Pics/windows.png>] <Pics/stat1.png, id=83, 268.00125pt x 380.42125pt>
 File: Pics/stat1.png Graphic file (type png)
 
 <use Pics/stat1.png>
@@ -1449,7 +1625,7 @@ input line 66.
 
 [7
 
- <./Pics/stat1.png>] <Pics/stat2.png, id=88, 437.635pt x 358.33875pt>
+ <./Pics/stat1.png>] <Pics/stat2.png, id=90, 437.635pt x 358.33875pt>
 File: Pics/stat2.png Graphic file (type png)
 
 <use Pics/stat2.png>
@@ -1474,7 +1650,7 @@ input line 76.
 
 [8
 
- <./Pics/stat2.png>] <Pics/stat3.png, id=94, 753.81625pt x 398.48875pt>
+ <./Pics/stat2.png>] <Pics/stat3.png, id=96, 753.81625pt x 398.48875pt>
 File: Pics/stat3.png Graphic file (type png)
 
 <use Pics/stat3.png>
@@ -1499,7 +1675,7 @@ input line 86.
 
 [9
 
- <./Pics/stat3.png>] <Pics/stat4.png, id=100, 937.5025pt x 545.03625pt>
+ <./Pics/stat3.png>] <Pics/stat4.png, id=102, 937.5025pt x 545.03625pt>
 File: Pics/stat4.png Graphic file (type png)
 
 <use Pics/stat4.png>
@@ -1528,7 +1704,7 @@ input line 96.
 \openout2 = `likelihoods.aux'.
 
  (./likelihoods.tex
-<Pics/mappedReads.png, id=106, 698.61pt x 380.42125pt>
+<Pics/mappedReads.png, id=108, 698.61pt x 380.42125pt>
 File: Pics/mappedReads.png Graphic file (type png)
 
 <use Pics/mappedReads.png>
@@ -1584,7 +1760,7 @@ input line 29.
  [12
 
 ]
-<Pics/genoLikes.png, id=125, 941.5175pt x 492.84125pt>
+<Pics/genoLikes.png, id=127, 941.5175pt x 492.84125pt>
 File: Pics/genoLikes.png Graphic file (type png)
 
 <use Pics/genoLikes.png>
@@ -1855,7 +2031,7 @@ input line 172.
  [25
 
 ]
-<Pics/LochNessMonster.jpg, id=205, 111.7776pt x 103.587pt>
+<Pics/LochNessMonster.jpg, id=207, 111.7776pt x 103.587pt>
 File: Pics/LochNessMonster.jpg Graphic file (type jpg)
 
 <use Pics/LochNessMonster.jpg>
@@ -1900,7 +2076,7 @@ input line 205.
  [27
 
 ]
-<Pics/EyeOnly.png, id=216, 702.625pt x 225.84375pt>
+<Pics/EyeOnly.png, id=218, 702.625pt x 225.84375pt>
 File: Pics/EyeOnly.png Graphic file (type png)
  <use Pics/EyeOnly.png>
 Package pdftex.def Info: Pics/EyeOnly.png used on input line 220.
@@ -1925,7 +2101,7 @@ input line 220.
  [28
 
  <./Pics/EyeOnly.png>]
-<Pics/EyeBrain.png, id=224, 700.6175pt x 530.98375pt>
+<Pics/EyeBrain.png, id=226, 700.6175pt x 530.98375pt>
 File: Pics/EyeBrain.png Graphic file (type png)
  <use Pics/EyeBrain.png>
 Package pdftex.def Info: Pics/EyeBrain.png used on input line 236.
@@ -2030,7 +2206,7 @@ input line 298.
  [33
 
 ]
-<Pics/bayesian.png, id=253, 943.525pt x 571.13374pt>
+<Pics/bayesian.png, id=256, 943.525pt x 571.13374pt>
 File: Pics/bayesian.png Graphic file (type png)
  <use Pics/bayesian.png>
 Package pdftex.def Info: Pics/bayesian.png used on input line 310.
@@ -2175,7 +2351,7 @@ input line 449.
  [40
 
 ]
-<Pics/statEB.png, id=290, 946.53625pt x 574.145pt>
+<Pics/statEB.png, id=293, 946.53625pt x 574.145pt>
 File: Pics/statEB.png Graphic file (type png)
  <use Pics/statEB.png>
 Package pdftex.def Info: Pics/statEB.png used on input line 463.
@@ -2408,7 +2584,7 @@ input line 189.
  [51
 
 ]
-<Pics/snp1.png, id=352, 894.34125pt x 553.06625pt>
+<Pics/snp1.png, id=355, 894.34125pt x 553.06625pt>
 File: Pics/snp1.png Graphic file (type png)
  <use Pics/snp1.png>
 Package pdftex.def Info: Pics/snp1.png used on input line 199.
@@ -2433,7 +2609,7 @@ input line 199.
  [52
 
  <./Pics/snp1.png>]
-<Pics/snp2.png, id=358, 874.26625pt x 616.3025pt>
+<Pics/snp2.png, id=361, 874.26625pt x 616.3025pt>
 File: Pics/snp2.png Graphic file (type png)
  <use Pics/snp2.png>
 Package pdftex.def Info: Pics/snp2.png used on input line 211.
@@ -2465,7 +2641,7 @@ Overfull \vbox (1.40453pt too high) detected at line 211
 \openout2 = `imputation.aux'.
 
  (./imputation.tex
-<Pics/impute_1.png, id=364, 959.585pt x 705.63625pt>
+<Pics/impute_1.png, id=367, 959.585pt x 705.63625pt>
 File: Pics/impute_1.png Graphic file (type png)
  <use Pics/impute_1.png>
 Package pdftex.def Info: Pics/impute_1.png used on input line 15.
@@ -2496,7 +2672,7 @@ Overfull \vbox (9.19153pt too high) detected at line 15
 
 
  <./Pics/impute_1.png>]
-<Pics/impute_2.png, id=370, 958.58125pt x 694.595pt>
+<Pics/impute_2.png, id=373, 958.58125pt x 694.595pt>
 File: Pics/impute_2.png Graphic file (type png)
  <use Pics/impute_2.png>
 Package pdftex.def Info: Pics/impute_2.png used on input line 27.
@@ -2525,7 +2701,7 @@ Overfull \vbox (6.43584pt too high) detected at line 27
 [55
 
  <./Pics/impute_2.png>]
-<Pics/impute_3.png, id=377, 956.57375pt x 704.6325pt>
+<Pics/impute_3.png, id=380, 956.57375pt x 704.6325pt>
 File: Pics/impute_3.png Graphic file (type png)
  <use Pics/impute_3.png>
 Package pdftex.def Info: Pics/impute_3.png used on input line 39.
@@ -2554,7 +2730,7 @@ Overfull \vbox (9.51501pt too high) detected at line 39
 [56
 
  <./Pics/impute_3.png>]
-<Pics/impute_4.png, id=383, 958.58125pt x 689.57625pt>
+<Pics/impute_4.png, id=386, 958.58125pt x 689.57625pt>
 File: Pics/impute_4.png Graphic file (type png)
  <use Pics/impute_4.png>
 Package pdftex.def Info: Pics/impute_4.png used on input line 51.
@@ -2608,11 +2784,11 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 60.
  ) 
 Here is how much of TeX's memory you used:
- 18796 strings out of 494953
- 350333 string characters out of 6180978
- 429109 words of memory out of 5000000
- 21473 multiletter control sequences out of 15000+600000
- 16025 words of font info for 59 fonts, out of 8000000 for 9000
+ 18804 strings out of 494953
+ 350449 string characters out of 6180978
+ 429131 words of memory out of 5000000
+ 21478 multiletter control sequences out of 15000+600000
+ 17799 words of font info for 66 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  48i,14n,59p,384b,726s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
@@ -2626,14 +2802,16 @@ f-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist
 /amsfonts/cm/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
 m/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-si12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (57 pages, 3919702 bytes).
+si12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (57 pages, 3931983 bytes).
 PDF statistics:
- 471 PDF objects out of 1000 (max. 8388607)
- 355 compressed objects within 4 object streams
+ 480 PDF objects out of 1000 (max. 8388607)
+ 362 compressed objects within 4 object streams
  121 named destinations out of 1000 (max. 500000)
  221 words of extra memory for PDF output out of 10000 (max. 10000000)
 

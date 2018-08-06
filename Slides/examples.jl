@@ -21,18 +21,20 @@ gl = calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3);
 print("AA: ",gl[1],"\nAG: ",gl[2],"\nGG: ",gl[3])
 
 
-myReads = Reads("AAAG", "5550")
+myReads = Reads("AAAG", "5550");
 
 gl = calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3);
 print("AA: ",gl[1],"\nAG: ",gl[2],"\nGG: ",gl[3])
 
 
-myReads = Reads("AAAG", "555K")
+myReads = Reads("AAAG", "555K");
+
 gl = calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3);
 print("AA: ",gl[1],"\nAG: ",gl[2],"\nGG: ",gl[3])
 
 
-myReads = Reads("AAAAAAAAAG", "5555555550")
+myReads = Reads("AAAAAAAAAG", "5555555550");
+
 gl = calcGenoLogLike2_MajorMinor(myReads, mySite, 1, 3);
 print("AA: ",gl[1],"\nAG: ",gl[2],"\nGG: ",gl[3])
 
