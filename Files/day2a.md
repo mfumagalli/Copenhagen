@@ -13,9 +13,6 @@ NGSTOOLS=/ricco/data/matteo/Software/ngsTools
 MS=/ricco/data/matteo/Software/ms
 SS=/ricco/data/matteo/Software/selscan/bin/linux
 
-NGSADMIX=/ricco/data/matteo/Software/NGSadmix
-FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
-
 DIR=/home/matteo/Copenhagen
 DATA=/ricco/data/matteo/Data
 REF=$DATA/ref.fa.gz
@@ -324,7 +321,7 @@ $ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
 ```
 Then we need to index thess file and perform a sliding windows analysis using a window length of 50kbp and a step size of 10kbp.
 ```
-POP=EAS
+POP=NAM
 # estimate for the whole region
 $ANGSD/misc/thetaStat do_stat Results/$POP.thetas.idx
 # perform a sliding-window analysis
@@ -334,9 +331,13 @@ $ANGSD/misc/thetaStat do_stat Results/$POP.thetas.idx -nChr 20 -win 50000 -step 
 
 Look at the results:
 ```
-cat -S Results/NAM.thetas.idx.pestPG
+cat Results/NAM.thetas.idx.pestPG
 less -S Results/NAM.thetas.windows.pestPG
 ```
+
+**EXERCISE**
+
+Replicate the previous findings of lower diversity in EDAR for East Asians.
 
 ------------------------
 
