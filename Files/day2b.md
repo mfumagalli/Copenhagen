@@ -14,9 +14,6 @@ Please make sure to follow the preparatory instructions on the main page before 
 MS=/ricco/data/matteo/Software/ms
 
 DIR=/home/matteo/Copenhagen
-DATA=/ricco/data/matteo/Data
-REF=$DATA/ref.fa.gz
-ANC=$DATA/anc.fa.gz
 ```
 
 ----------------------------------------
@@ -63,6 +60,20 @@ Which value should you insert in `-n 4 ???`?
 
 Think...
 
+...
+
+Think harder without looking at the solution below...
+
+...
+
+
+...
+
+
+...
+
+...
+
 The solution is `2000/7310=0.24` so our command would be: `-n 4 0.24`.
 
 * split event from East Asians (pop3) to Native Americans (pop4).
@@ -73,7 +84,23 @@ How many generations are in 20,000 years, assuming a generation time of 25 years
 
 Then, divide this number by 4 times our reference Ne (7310).
 
+**QUESTION**
+
+What is the value we should specify for the split time?
+
+Think...
+
+...
+
+...
+
+...
+
+...
+
 Thus, our command would be: `... -n 4 0.24 ... -ej 0.027 4 3`.
+
+Make sure you are in the same folder as yesterday. You should have a folder called `Results` in your current directory.
 
 Our complete command line is:
 ```
@@ -90,7 +117,8 @@ From these simulations, we now need to calculate summary statistics.
 In other words, we want to retrieve the distribution of PBS under neutral evolution.
 We are then going to test whether our observed value falls within or outside such distribution.
 
-First, let us compute some summary statistics for each replication (this may take a while with 1,000 repetitions):
+First, let's compute some summary statistics for each replication.
+This may take a while with 1,000 repetitions. Launch it and have a coffee/cigarette/else break.
 ```
 Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms > Results/ALL.ms.txt
 ```
@@ -110,6 +138,10 @@ Inspect the plot:
 ```
 evince Results/NAM.pbs.hist.pdf
 ```
+
+**QUESTION**
+
+What conclusions can we make? Can we reject the hypothesis of neutral evolution?
 
 Next we are going to investigate the patterns of haplotype diversity around the EDAR region from high-depth sequencing data.
 

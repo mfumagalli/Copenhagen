@@ -29,7 +29,8 @@ First, look at the options in selscan:
 ```
 $SS/selscan --help
 ```
-The basic usage of selscan to compute nSL from VCF file is:
+The basic usage of selscan to compute nSL from VCF file is the following. Please note that this command is commented so it won't run but it's given just to
+show the usage of selscan.
 ```
 # $SS/selscan --xpehh --vcf Data/NAM.chr2.vcf --ref Data/TSI.chr2.vcf --map Data/genetic_map_chrom2.map --out Results/NAM
 ```
@@ -52,7 +53,7 @@ If you really cannot wait, then I provided you with the output file for CHB and 
 ```
 cp $DIR/Files/*.xpehh.out Results/.
 ```
-or run it yourself:
+or run it yourself (choose one population, this takes a while! Launch it and take a break):
 ```
 # NAM
 $SS/selscan --xpehh --vcf $DATA/NAM.chr2.vcf --vcf-ref $DATA/TSI.chr2.vcf --map Results/genetic.map --out Results/NAM --threads 1
@@ -86,9 +87,9 @@ $SS/norm --xpehh --files Results/NAM.xpehh.out
 # CHB
 $SS/norm --xpehh --files Results/CHB.xpehh.out
 # CLM
-$SS/norm --xpehh --files Results/CLM.xpehh.out
+# $SS/norm --xpehh --files Results/CLM.xpehh.out
 # LWK
-$SS/norm --xpehh --files Results/LWK.xpehh.out
+# $SS/norm --xpehh --files Results/LWK.xpehh.out
 ```
 Have a look at the results:
 ```
@@ -109,12 +110,16 @@ evince Results/NAM.xpehh.pdf
 Rscript $DIR/Scripts/plotXPEHH.R Results/CHB.xpehh.out.norm Results/CHB.xpehh.pdf
 evince Results/CHB.xpehh.pdf
 # CLM
-Rscript $DIR/Scripts/plotXPEHH.R Results/CLM.xpehh.out.norm Results/CLM.xpehh.pdf
-evince Results/CLM.xpehh.pdf
+# Rscript $DIR/Scripts/plotXPEHH.R Results/CLM.xpehh.out.norm Results/CLM.xpehh.pdf
+# evince Results/CLM.xpehh.pdf
 # LWK
-Rscript $DIR/Scripts/plotXPEHH.R Results/LWK.xpehh.out.norm Results/LWK.xpehh.pdf
-evince Results/LWK.xpehh.pdf
+# Rscript $DIR/Scripts/plotXPEHH.R Results/LWK.xpehh.out.norm Results/LWK.xpehh.pdf
+# evince Results/LWK.xpehh.pdf
 ```
+
+**QUESTIONS**
+
+What conclusions can you make from these plots?
 
 ----------------------------------------------------------
 
