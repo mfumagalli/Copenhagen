@@ -1,14 +1,14 @@
 # Copenhagen
 
-PhD course in analysis of genotyping and next-generation sequencing data in medical and population genetics 2018
+PhD course in analysis of genotyping and next-generation sequencing data in medical and population genetics 2019
 
-Tuesday - Analysis of NGS data
+Tuesday - Analysis of NGS data and population structure
  - 9am - 12pm: Estimation of allele frequencies, SNP calling and genotype calling from NGS data (theory + practical)
 
 Wednesday - Research lecture
  - 4.15pm - 5pm: Research lecture
 
-Friday – Detecting selection
+Thursday - Demography and selection
  - 1pm - 4pm: Detecting natural selection (theory + practical)
 
 ## Material
@@ -137,9 +137,8 @@ Goal day 2:
 * Selection test based on [haplotype](Files/day2c.md) diversity
 * Example: detection of natural selection from low-depth sequencing data and haplotype data: the case of EDAR genetic variation in Native Americans
 
-
 ## Credits
 
-Some materials have been borrowed (and then adapted) from [Thorfinn Korneliussen](http://scholar.google.co.uk/citations?user=-YNWF4AAAAAJ&hl=en), [Anders Albrechtsen](http://popgen.dk/albrecht/web/WelcomePage.html), [Tyler Linderoth](http://scholar.google.com/citations?user=dTuxmzkAAAAJ&hl=en), [Filipe G. Vieira](http://scholar.google.com/citations?user=gvZmPNQAAAAJ&hl=en), [Dean Ousby](https://www.linkedin.com/in/deanousby), [Javier Mendoza](https://www.ucl.ac.uk/candela/candela-news/new-fellow-javiermendoza) and possibly many more. Many thanks to [Ryan Waples](http://www1.bio.ku.dk/english/Staff/?pure=en/persons/545443) for feedback.
+Thanks to Thorfinn Korneliussen, Anders Albrechtsen, Tyler Linderoth, Filipe G. Vieira, Dean Ousby, Javier Mendoza, Ryan Waples.
 
 
