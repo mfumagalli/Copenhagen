@@ -1,6 +1,6 @@
 # Copenhagen
 
-PhD course in analysis of genotyping and next-generation sequencing data in medical and population genetics 2019
+Summer course in analyses of genotyping and NGS data in medical and population genetics 2019
 
 Tuesday - Analysis of NGS data and population structure
  - 9am - 12pm: Estimation of allele frequencies, SNP calling and genotype calling from NGS data (theory + practical)
@@ -26,29 +26,12 @@ We will also use 10 BAM files of Latinos in one example.
 
 We will also use VCF files for 120 individuals from the same populations.
 The human data represents a small genomic region (1MB on chromosome 2) extracted from the 1000 Genomes Project data set.
-More information on this project can be found [here](http://www.1000genomes.org/), including their last publication available [here](http://www.nature.com/nature/journal/v526/n7571/full/nature15393.html).
+More information on this project can be found [here](http://www.internationalgenome.org/home).
 
 ## Preparation
 
-Please set the path for all programs and data we will be using.
-```
-# mandatory
-ANGSD=/ricco/data/matteo/Software/angsd
-NGSTOOLS=/ricco/data/matteo/Software/ngsTools
-MS=/ricco/data/matteo/Software/ms
-SS=/ricco/data/matteo/Software/selscan/bin/linux
-# very optional
-NGSADMIX=/ricco/data/matteo/Software/NGSadmix
-FASTME=/ricco/data/matteo/Software/fastme-2.1.5-linux64
-```
-You also need to provide the location of scripts, data and sequences:
-```
-DIR=/home/matteo/Copenhagen
-DATA=/ricco/data/matteo/Data
-REF=$DATA/ref.fa.gz
-ANC=$DATA/anc.fa.gz
-```
-Finally, create a folder where you will put all the results and some temporary data.
+For each day there will be indications on which software and scripts you will be using.
+However, before doing anything else, please create a folder where you will put all the results and some temporary data.
 ```
 mkdir Results
 mkdir Data
@@ -118,7 +101,7 @@ Goal day 2:
 
 #### Research lecture
 
-* Deep learning in evolutionary genomics
+* Diet, balancing selection and AI
 
 ### Friday afternoon - detecting selection
 

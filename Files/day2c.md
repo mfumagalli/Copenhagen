@@ -214,8 +214,6 @@ grep rs3827760 Results/NAM.edar.snp
 # 2	109513601	rs3827760	A	G
 ```
 
-Another useful tool for visualising haplotypes is [PopArt](http://popart.otago.ac.nz/).
-
 ------------------------
 
 [HOME](https://github.com/mfumagalli/Copenhagen)

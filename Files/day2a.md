@@ -8,8 +8,8 @@ Specifically, you will learn how to estimate:
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
 ```
-ANGSD=/ricco/data/matteo/Software/angsd
-NGSTOOLS=/ricco/data/matteo/Software/ngsTools
+NGS=/ricco/data/matteo/Software/ngsTools
+
 MS=/ricco/data/matteo/Software/ms
 SS=/ricco/data/matteo/Software/selscan/bin/linux
 
@@ -53,7 +53,7 @@ Finally, an estimate of the SFS is computed.
 These steps can be accomplished in ANGSD using `-doSaf 1/2` options and the program `realSFS`.
 
 ```
-$ANGSD/angsd -doSaf
+$NGS/angsd/angsd -doSaf
 ...
 -doSaf		0
 	1: perform multisample GL estimation
@@ -80,33 +80,31 @@ We cycle across all populations and compute SAF files:
 for POP in AFR EUR EAS NAM
 do
         echo $POP
-        $ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
+        $NGS/angsd/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
                 -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
                 -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
                 -GL 1 -doSaf 1
 done
 ```
+Please ignore various warning messages.
 
 Have a look at the output file.
 ```
-$ANGSD/misc/realSFS print Results/NAM.saf.idx | less -S
+$NGS/angsd/misc/realSFS print Results/NAM.saf.idx | less -S
 ```
 These values represent the sample allele frequency likelihoods at each site, as seen during the lecture.
 So the first value (after the chromosome and position columns) is the likelihood of having 0 copies of the derived allele, the second indicates the probability of having 1 copy and so on.
 Note that these values are in log format and scaled so that the maximum is 0.
 
 **QUESTION**
-
 Can you spot any site which is likely to be variable (i.e. polymorphic)?
 
-What does this mean? 
-
-It means that you should look for sites where the highest likelihood does not correspond to allele frequencies of 0 or 100%.
+In fact, SNPs are represented by sites where the highest likelihood does not correspond to allele frequencies of 0 or 100%.
 
 The next step would be to use these likelihoods and estimate the overall SFS.
 This is achieved by the program `realSFS`.
 ```
-$ANGSD/misc/realSFS
+$NGS/angsd/misc/realSFS
 -> ---./realSFS------
 	-> EXAMPLES FOR ESTIMATING THE (MULTI) SFS:
 
@@ -136,6 +134,7 @@ $ANGSD/misc/realSFS
 	-> NB: You can print data with ./realSFS print afile.saf.idx !!
 	-> NB: Higher order SFSs can be estimated by simply supplying multiple .saf.idx files!!
 	-> NB: Program uses accelerated EM, to use standard EM supply -m 0 
+	-> Other subfunctions saf2theta, cat, check, dadi
 ```
 
 Therefore, this command will estimate the SFS for each population separately:
@@ -143,7 +142,7 @@ Therefore, this command will estimate the SFS for each population separately:
 for POP in AFR EUR EAS NAM
 do
         echo $POP
-        $ANGSD/misc/realSFS Results/$POP.saf.idx > Results/$POP.sfs
+        $NGS/angsd/misc/realSFS Results/$POP.saf.idx > Results/$POP.sfs
 done
 ```
 The output will be saved in `Results/POP.sfs` files.
@@ -172,7 +171,7 @@ Nevertheless, these SFS should be a reasonable prior to be used for estimation o
 
 Optionally, one can even plot the SFS for each pop using this simple R script.
 ```
-Rscript $NGSTOOLS/Scripts/plotSFS.R Results/AFR.sfs-Results/EUR.sfs-Results/EAS.sfs-Results/NAM.sfs AFR-EUR-EAS-NAM 0 Results/ALL.sfs.pdf
+Rscript $NGS/Scripts/plotSFS.R Results/AFR.sfs-Results/EUR.sfs-Results/EAS.sfs-Results/NAM.sfs AFR-EUR-EAS-NAM 0 Results/ALL.sfs.pdf
 evince Results/ALL.sfs.pdf
 ```
 
@@ -190,13 +189,12 @@ It is sometimes convenient to generate bootstrapped replicates of the SFS, by sa
 This could be used for instance to get confidence intervals when using the SFS for demographic inferences.
 This can be achieved in ANGSD using:
 ```
-$ANGSD/misc/realSFS Results/NAM.saf.idx -bootstrap 10  2> /dev/null > Results/NAM.boots.sfs
+$NGS/angsd/misc/realSFS Results/NAM.saf.idx -bootstrap 10  2> /dev/null > Results/NAM.boots.sfs
 cat Results/NAM.boots.sfs
 ```
 This command may take some time.
 The output file has one line for each boostrapped replicate.
 
-More examples on how to estimate the SFS with ANGSD can be found [here](https://github.com/mfumagalli/WoodsHole/blob/master/Files/sfs.md).
 
 ---------------------------------------
 
@@ -214,10 +212,10 @@ POP2=NAM
 for POP in AFR EUR
 do
         echo $POP
-        $ANGSD/misc/realSFS Results/$POP.saf.idx Results/$POP2.saf.idx > Results/$POP.$POP2.sfs
+        $NGS/angsd/misc/realSFS Results/$POP.saf.idx Results/$POP2.saf.idx > Results/$POP.$POP2.sfs
 done
 # we also need the comparison between AFR and EUR 
-$ANGSD/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx > Results/AFR.EUR.sfs
+$NGS/angsd/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx > Results/AFR.EUR.sfs
 ```
 
 The output file is a flatten matrix, where each value is the count of sites with the corresponding joint frequency ordered as [0,0] [0,1] and so on.
@@ -233,7 +231,7 @@ evince Results/AFR.NAM.sfs.pdf
 You can even estimate SFS with higher order of magnitude.
 This command may take some time and you should skip it if not interested.
 ```
-# $ANGSD/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.idx > Results/AFR.EUR.NAM.sfs
+$NGS/angsd/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.idx > Results/AFR.EUR.NAM.sfs
 ```
 
 ------------------------------------
@@ -255,18 +253,18 @@ This can be achieved using the following commands.
 
 1) This command will compute per-site FST indexes (please note the order of files):
 ```
-$ANGSD/misc/realSFS fst index Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.idx -sfs Results/AFR.EUR.sfs -sfs Results/AFR.NAM.sfs -sfs Results/EUR.NAM.sfs -fstout Results/NAM.pbs -whichFst 1
+$NGS/angsd/misc/realSFS fst index Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.idx -sfs Results/AFR.EUR.sfs -sfs Results/AFR.NAM.sfs -sfs Results/EUR.NAM.sfs -fstout Results/NAM.pbs -whichFst 1
 ```
 and you can have a look at their values:
 ```
-$ANGSD/misc/realSFS fst print Results/NAM.pbs.fst.idx | less -S
+$NGS/angsd/misc/realSFS fst print Results/NAM.pbs.fst.idx | less -S
 ```
 where columns are: chromosome, position, (a), (a+b) values for the three FST comparisons, where FST is defined as a/(a+b).
 Note that FST on multiple SNPs is calculated as sum(a)/sum(a+b).
 
 2) The next command will perform a sliding-window analysis:
 ```
-$ANGSD/misc/realSFS fst stats2 Results/NAM.pbs.fst.idx -win 50000 -step 10000 > Results/NAM.pbs.txt
+$NGS/angsd/misc/realSFS fst stats2 Results/NAM.pbs.fst.idx -win 50000 -step 10000 > Results/NAM.pbs.txt
 ```
 
 Have a look at the output file:
@@ -277,7 +275,7 @@ The header is:
 ```
 region  chr     midPos  Nsites  Fst01   Fst02   Fst12   PBS0    PBS1    PBS2
 ```
-Where are interested in the column `PB2` which gives the PBS values assuming our population (coded here as 2) being the target population.
+Where are interested in the column `PBS2` which gives the PBS values assuming our population (coded here as 2) being the target population.
 Note that negative PBS and FST values are equivalent to 0.
 
 We are also provided with the individual FST values.
@@ -292,7 +290,6 @@ This script will also plot the PBS variation in AFR as a control comparison.
 ```
 evince Results/NAM.pbs.pdf
 ```
-
 
 **EXERCISE**
 
@@ -313,20 +310,19 @@ This can be achieved using the following pipeline.
 First we compute the allele frequency posterior probabilities and associated statistics (-doThetas) using the SFS as prior information (-pest)
 ```
 POP=NAM
-$ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
+$NGS/angsd/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
 	-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
 	-minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 	-GL 1 -doSaf 1 \
 	-doThetas 1 -pest Results/$POP.sfs
 ```
-Then we need to index thess file and perform a sliding windows analysis using a window length of 50kbp and a step size of 10kbp.
+Then we need to index these files and perform a sliding windows analysis using a window length of 50kbp and a step size of 10kbp.
 ```
 POP=NAM
 # estimate for the whole region
-$ANGSD/misc/thetaStat do_stat Results/$POP.thetas.idx
+$NGS/angsd/misc/thetaStat do_stat Results/$POP.thetas.idx
 # perform a sliding-window analysis
-$ANGSD/misc/thetaStat do_stat Results/$POP.thetas.idx -nChr 20 -win 50000 -step 10000 -outnames Results/$POP.thetas.windows
-
+$NGS/angsd/misc/thetaStat do_stat Results/$POP.thetas.idx -nChr 20 -win 50000 -step 10000 -outnames Results/$POP.thetas.windows
 ```
 
 Look at the results:
@@ -337,7 +333,7 @@ less -S Results/NAM.thetas.windows.pestPG
 
 **EXERCISE**
 
-Replicate the previous findings of lower diversity in EDAR for East Asians.
+Replicate the previous findings of lower genetic diversity in EDAR for East Asians.
 
 ------------------------
 

@@ -4,15 +4,15 @@ In this session you will learn how to do:
 * allele frequency estimation
 * variant calling
 
-For most of the examples, we will use the program [ANGSD](http://popgen.dk/wiki/index.php/ANGSD) (Analysis of Next Generation Sequencing Data) developed by Thorfinn Korneliussen and Anders Albrechtsen (and many contributors) at the University of Copenhagen.
+For most of the examples, we will use the program [ANGSD](http://popgen.dk/wiki/index.php/ANGSD) (Analysis of Next Generation Sequencing Data).
 More information about its rationale and implemented methods can be found [here](http://www.ncbi.nlm.nih.gov/pubmed/25420514).
 
 According to its website *ANGSD is a software for analyzing next generation sequencing data. The software can handle a number of different input types from mapped reads to imputed genotype probabilities. Most methods take genotype uncertainty into account instead of basing the analysis on called genotypes. This is especially useful for low and medium depth data. The software is written in C++ and has been used on large sample sizes. This program is not for manipulating BAM/CRAM files, but solely a tool to perform various kinds of analysis. We recommend the excellent program SAMtools for outputting and modifying bamfiles.*
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
 ```
-ANGSD=/ricco/data/matteo/Software/angsd
-NGSTOOLS=/ricco/data/matteo/Software/ngsTools
+
+NGS=/ricco/data/matteo/Software/ngsTools
 
 DIR=/home/matteo/Copenhagen
 DATA=/ricco/data/matteo/Data
@@ -31,51 +31,52 @@ First, we will learn **how to build a command line in ANGSD**, with the specific
 
 To see a full list of options in ANGSD type:
 ```
-$ANGSD/angsd
+$NGS/angsd/angsd
 ```
 and you should see something like
 ```
 ...
 Overview of methods:
-        -GL             Estimate genotype likelihoods
-        -doCounts       Calculate various counts statistics
-        -doAsso         Perform association study
-        -doMaf          Estimate allele frequencies
-        -doError        Estimate the type specific error rates
-        -doAncError     Estimate the errorrate based on perfect fastas
-        -HWE_pval               Est inbreedning per site or use as filter
-        -doGeno         Call genotypes
-        -doFasta        Generate a fasta for a BAM file
-        -doAbbababa     Perform an ABBA-BABA test
-        -sites          Analyse specific sites (can force major/minor)
-        -doSaf          Estimate the SFS and/or neutrality tests genotype calling
-        -doHetPlas      Estimate hetplasmy by calculating a pooled haploid frequency
+	-GL		Estimate genotype likelihoods
+	-doCounts	Calculate various counts statistics
+	-doAsso		Perform association study
+	-doMaf		Estimate allele frequencies
+	-doError	Estimate the type specific error rates
+	-doAncError	Estimate the errorrate based on perfect fastas
+	-HWE_pval	Est inbreedning per site or use as filter
+	-doGeno		Call genotypes
+	-doFasta	Generate a fasta for a BAM file
+	-doAbbababa	Perform an ABBA-BABA test
+	-sites		Analyse specific sites (can force major/minor)
+	-doSaf		Estimate the SFS and/or neutrality tests genotype calling
+	-doHetPlas	Estimate hetplasmy by calculating a pooled haploid frequency
 
-        Below are options that can be usefull
-        -bam            Options relating to bam reading
-        -doMajorMinor   Infer the major/minor using different approaches
-        -ref/-anc       Read reference or ancestral genome
-        -doSNPstat      Calculate various SNPstat
-        -cigstat        Printout CIGAR stat across readlength
-        many others
+	Below are options that can be usefull
+	-bam		Options relating to bam reading
+	-doMajorMinor	Infer the major/minor using different approaches
+	-ref/-anc	Read reference or ancestral genome
+	-doSNPstat	Calculate various SNPstat
+	-cigstat	Printout CIGAR stat across readlength
+	many others
 
-For information of specific options type:
-        ./angsd METHODNAME eg
-                ./angsd -GL
-                ./angsd -doMaf
-                ./angsd -doAsso etc
-                ./angsd sites for information about indexing -sites files
+Output files:
+	 In general the specific analysis outputs specific files, but we support basic bcf output
+	-doBcf		Wrapper around -dopost -domajorminor -dofreq -gl -dovcf docounts
+For information of specific options type: 
+	./angsd METHODNAME eg 
+		./angsd -GL
+		./angsd -doMaf
+		./angsd -doAsso etc
+		./angsd sites for information about indexing -sites files
 Examples:
-        Estimate MAF for bam files in 'list'
-                './angsd -bam list -GL 2 -doMaf 2 -out RES -doMajorMinor 1'
+	Estimate MAF for bam files in 'list'
+		'./angsd -bam list -GL 2 -doMaf 2 -out RES -doMajorMinor 1'
 ```
 
 ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input):
 
-* BAM/CRAM
-* Pileup
-* Genotype likelihood/probability files
-* VCF
+* BAM, CRAM, mpileup
+* VCF, GLF, beagle
 
 Here we show how ANGSD can also perform some basic filtering of the data.
 These filters are based on:
@@ -93,41 +94,44 @@ ls $DATA/*.bams
 
 If the input file is in BAM format, the possible options are:
 ```
-$ANGSD/angsd -bam
+$NGS/angsd/angsd -bam
 ...
 parseArgs_bambi.cpp: bam reader:
-        -bam/-b         (null)  (list of BAM/CRAM files)
-        -i              (null)  (Single BAM/CRAM file)
-        -r              (null)  Supply a single region in commandline (see examples below)
-        -rf             (null)  Supply multiple regions in a file (see examples below)
-        -remove_bads    1       Discard 'bad' reads, (flag >=256)
-        -uniqueOnly     0       Discards reads that doesnt map uniquely
-        -show           0       Mimic 'samtools mpileup' also supply -ref fasta for printing reference column
-        -minMapQ        0       Discard reads with mapping quality below
-        -minQ           13      Discard bases with base quality below
-        -trim           0       Number of based to discard at both ends of the reads
-        -trim           0       Number of based to discard at 5 ends of the reads
-        -trim           0       Number of based to discard at 3 ends of the reads
-        -only_proper_pairs 1    Only use reads where the mate could be mapped
-        -C              0       adjust mapQ for excessive mismatches (as SAMtools), supply -ref
-        -baq            0       adjust qscores around indels (as SAMtools), supply -ref
-        -checkBamHeaders 1      Exit if difference in BAM headers
-        -doCheck        1       Keep going even if datafile is not suffixed with .bam/.cram
-        -downSample     0.000000        Downsample to the fraction of original data
-        -nReads         50      Number of reads to pop from each BAM/CRAMs
-        -minChunkSize   250     Minimum size of chunk sent to analyses
+	-bam/-b		(null)	(list of BAM/CRAM files)
+	-i		(null)	(Single BAM/CRAM file)
+	-r		(null)	Supply a single region in commandline (see examples below)
+	-rf		(null)	Supply multiple regions in a file (see examples below)
+	-remove_bads	1	Discard 'bad' reads, (flag >=256) 
+	-uniqueOnly	0	Discards reads that doesn't map uniquely
+	-show		0	Mimic 'samtools mpileup' also supply -ref fasta for printing reference column
+	-minMapQ	0	Discard reads with mapping quality below
+	-minQ		13	Discard bases with base quality below
+	-trim		0	Number of based to discard at both ends of the reads
+	-trim		0	Number of based to discard at 5' ends of the reads
+	-trim		0	Number of based to discard at 3' ends of the reads
+	-only_proper_pairs 1	Only use reads where the mate could be mapped
+	-C		0	adjust mapQ for excessive mismatches (as SAMtools), supply -ref
+	-baq		0	adjust qscores around indels (1=normal baq 2= extended(as SAMtools)), supply -ref
+	-redo-baq		0 (recompute baq, instead of using BQ tag)
+	-checkBamHeaders 1	Exit if difference in BAM headers
+	-doCheck	1	Keep going even if datafile is not suffixed with .bam/.cram
+	-downSample	0.000000	Downsample to the fraction of original data
+	-nReads		50	Number of reads to pop from each BAM/CRAMs
+	-minChunkSize	250	Minimum size of chunk sent to analyses
+	--ignore-RG	1	(dev only)
+	+RG	(null)	Readgroups to include in analysis(can be filename)
 
 Examples for region specification:
-                chr:            Use entire chromosome: chr
-                chr:start-      Use region from start to end of chr
-                chr:-stop       Use region from beginning of chromosome: chr to stop
-                chr:start-stop  Use region from start to stop from chromosome: chr
-                chr:site        Use single site on chromosome: chr
+		chr:		Use entire chromosome: chr
+		chr:start-	Use region from start to end of chr
+		chr:-stop	Use region from beginning of chromosome: chr to stop
+		chr:start-stop	Use region from start to stop from chromosome: chr
+		chr:site	Use single site on chromosome: chr
 ```
 
 First we need to define input and output files (please note that here we do not run these intermediate steps, as you can see thare is a ```#``` in the front):
 ```
-# $ANGSD/angsd -b ALL.bams -ref $REF -out Results/ALL \
+# $NGS/angsd/angsd -b ALL.bams -ref $REF -out Results/ALL \
 ...
 ```
 with `-b` we give the file including paths to all BAM files we need to analyse.
@@ -137,7 +141,7 @@ with `-b` we give the file including paths to all BAM files we need to analyse.
 Next we need to define some basic filtering options.
 First we define filters based on reads quality.
 ```
-# $ANGSD/angsd -b ALL.bams -ref $REF -out Results/ALL \
+# $NGS/angsd/angsd -b ALL.bams -ref $REF -out Results/ALL \
 #        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
 ...
 ```
@@ -156,7 +160,7 @@ Which values would you choose as sensible thresholds on quality score and depth 
 A possible command line would contain the following filtering:
 ```
 ...
-# $ANGSD/angsd -b ALL.bams -ref $REF -out Results/ALL \
+# $NGS/angsd/angsd -b ALL.bams -ref $REF -out Results/ALL \
 #        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
 #        -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 ...
@@ -170,34 +174,34 @@ Parameter | Meaning |
 -setMaxDepth 30 | maximum total depth |
 
 More sophisticated filtering can be done, but this is outside the scope of this practical.
-More examples on assessing filtering options can be found [here](https://github.com/mfumagalli/Copenhagen/blob/master/Files/day1.md).
 
-----------------------------
+---------------------------------------
 
 Now we are ready to calculate the ***genotype likelihoods*** for each site at each individual.
 
 To do so you need to specify which genotype likelihood model to use.
 ```
-$ANGSD/angsd -GL
+$NGS/angsd/angsd -GL
 ...
--GL=0:
-        1: SAMtools
-        2: GATK
-        3: SOAPsnp
-        4: SYK
-        5: phys
-        6: Super simple sample an allele type GL. (1.0,0.5,0.0)
-        -trim           0               (zero means no trimming)
-        -tmpdir         angsd_tmpdir/   (used by SOAPsnp)
-        -errors         (null)          (used by SYK)
-        -minInd         0               (0 indicates no filtering)
+-GL=0: 
+	1: SAMtools
+	2: GATK
+	3: SOAPsnp
+	4: SYK
+	5: phys
+	6: Super simple sample an allele type GL. (1.0,0.5,0.0)
+	7: outgroup gls
+	-trim		0		(zero means no trimming)
+	-tmpdir		angsd_tmpdir/	(used by SOAPsnp)
+	-errors		(null)		(used by SYK)
+	-minInd		0		(0 indicates no filtering)
 
 Filedumping:
-        -doGlf  0
-        1: binary glf (10 log likes)    .glf.gz
-        2: beagle likelihood file       .beagle.gz
-        3: binary 3 times likelihood    .glf.gz
-        4: text version (10 log likes)  .glf.gz
+	-doGlf	0
+	1: binary glf (10 log likes)	.glf.gz
+	2: beagle likelihood file	.beagle.gz
+	3: binary 3 times likelihood	.glf.gz
+	4: text version (10 log likes)	.glf.gz
 ```
 A description of these different implementation can be found [here](http://www.popgen.dk/angsd/index.php/Genotype_likelihoods).
 The GATK model refers to the first GATK paper, SAMtools is somehow more sophisticated (non-independence of errors), SOAPsnp requires a reference sequence for recalibration of quality scores, SYK is error-type specific.
@@ -206,7 +210,7 @@ For most applications and data, GATK and SAMtools models should give similar res
 Let's assume to work with European samples (Italians of course) only.
 A possible command line to estimate allele frequencies might be:
 ```
-$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
+$NGS/angsd/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
         -GL 2 -doGlf 4
@@ -215,9 +219,7 @@ where we specify:
 * -GL 2: genotype likelihood model as in GATK
 * -doGlf 4: output in text format
 
-Ignore the message that states "No data for chromoId=0 chromoname=1. 
-This could either indicate that there really is no data for this chromosome.
-Or it could be problem with this program regSize=0 notDone=10"
+Ignore the various warning messages
 
 **QUESTION**
 What are the output files?
@@ -241,7 +243,7 @@ We will also calculate genotypes probabilities to each site for each individual.
 
 In ANGSD, the option to call genotypes is `-doGeno`:
 ```
-$ANGSD/angsd -doGeno
+$NGS/angsd/angsd -doGeno
 ...
 -doGeno 0
         1: write major and minor
@@ -267,7 +269,7 @@ If we want to print the major and minor alleles as well then we set `-doGeno 3`.
 
 To calculate the posterior probability of genotypes we need to define a model.
 ```
-$ANGSD/angsd -doPost
+$NGS/angsd/angsd -doPost
 ...
 -doPost 0       (Calculate posterior prob 3xgprob)
         1: Using frequency as prior
@@ -280,7 +282,7 @@ $ANGSD/angsd -doPost
 
 Furthermore, this calculation requires the specification of how to assign the major and minor alleles (if biallelic).
 ```
-$ANGSD/angsd -doMajorMinor
+$NGS/angsd/angsd -doMajorMinor
 ...
         -doMajorMinor   0
         1: Infer major and minor from GL
@@ -294,12 +296,12 @@ $ANGSD/angsd -doMajorMinor
 
 A typical command for genotype calling is (assuming we analyse our EUR samples):
 ```
-$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
+$NGS/angsd/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
 	-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 	-GL 2 -doGlf 1
 
-$ANGSD/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
+$NGS/angsd/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
 	-doMajorMinor 1 -doGeno 3 -doPost 2 -doMaf 1
 ```
 Let's ignore the `-doMaf` option now.
@@ -310,6 +312,7 @@ less -S Results/EUR.geno.gz
 ```
 The columns are: chromosome, position, major allele, minor allele, genotypes is 0,1,2 format.
 
+**QUESTION**
 How many sites have at least one missing genotype?
 ```
 zcat Results/EUR.geno.gz | grep -1 - | wc -l
@@ -319,7 +322,7 @@ Why is that?
 You can control how to set missing genotype when their confidence is low with `-postCutoff`.
 For instance, we can set as missing genotypes when their (highest) genotype posterior probability is below 0.95:
 ```
-$ANGSD/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
+$NGS/angsd/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
         -doMajorMinor 1 -doGeno 3 -doPost 2 -doMaf 1 -postCutoff 0.95
 ```
 
@@ -346,7 +349,7 @@ We will show later how to accurately estimate summary statistics with low-depth 
 If we assume HWE, then we can use this information as prior probability to calculate genotype posterior probabilities.
 The command line would be:
 ```
-$ANGSD/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
+$NGS/angsd/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
         -doMajorMinor 1 -doGeno 3 -doPost 1 -doMaf 1
 ```
 using the option `-doPost 1`.
@@ -365,7 +368,7 @@ echo 2 109513601 > Data/snp.txt
 ```
 We need to index this file in order for ANGSD to process it.
 ```
-$ANGSD/angsd sites index Data/snp.txt
+$NGS/angsd/angsd sites index Data/snp.txt
 ```
 
 We are interested in calculating the derived allele frequencies, so are using the ancestral sequence to polarise the alleles.
@@ -426,7 +429,7 @@ However with low depth data direct counting of individually assigned genotypes c
 
 ANGSD has an option to estimate **allele frequencies** taking into account data uncertainty from genotype likelihoods:
 ```
-$ANGSD/angsd -doMaf
+$NGS/angsd/angsd -doMaf
 ...
 -doMaf  0 (Calculate persite frequencies '.mafs.gz')
         1: Frequency (fixed major and minor)
@@ -455,7 +458,7 @@ NB These frequency estimators requires major/minor -doMajorMinor
 
 Therefore, the estimation of allele frequencies requires the specification of how to assign the major and minor alleles (if biallelic).
 ```
-$ANGSD/angsd -doMajorMinor
+$NGS/angsd/angsd -doMajorMinor
 ...
         -doMajorMinor   0
         1: Infer major and minor from GL
@@ -469,7 +472,7 @@ $ANGSD/angsd -doMajorMinor
 
 A possible command line to estimate allele frequencies might be (this may take 1 min to run):
 ```
-$ANGSD/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
+$NGS/angsd/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
         -GL 1 -doGlf 1 \
@@ -480,10 +483,8 @@ where we specify:
 * -doMaf 1: major and minor are fixed
 
 What are the output files?
-```
-->"Results/EUR.arg"
-->"Results/EUR.mafs.gz"
-```
+* "Results/EUR.arg"
+* "Results/EUR.mafs.gz"
 `.args` file is a summary of all options used, while `.mafs.gz` file shows the allele frequencies computed at each site.
 
 Have a look at this file which contains estimates of allele frequency values.
@@ -492,22 +493,21 @@ zcat Results/EUR.mafs.gz | head
 ```
 and you may see something like
 ```
-chromo  position        major   minor   ref     knownEM nInd
-2       108999945       C       A       C       0.000004        5
-2       108999946       T       A       T       0.000004        5
-2       108999947       T       A       T       0.000004        5
-2       108999948       C       A       C       0.000004        5
-2       108999949       T       A       T       0.000004        5
-2       108999950       A       C       A       0.000004        5
-2       108999951       T       A       T       0.000004        5
-2       108999952       G       A       G       0.000004        5
-2       108999953       A       C       A       0.000002        5
+chromo	position	major	minor	ref	knownEM	nInd
+2	108999945	C	A	C	0.000004	5
+2	108999946	T	A	T	0.000004	5
+2	108999947	T	A	T	0.000004	5
+2	108999948	C	A	C	0.000004	5
+2	108999949	T	A	T	0.000004	5
+2	108999950	A	C	A	0.000004	5
+2	108999951	T	A	T	0.000004	5
+2	108999952	G	A	G	0.000004	5
+2	108999953	A	C	A	0.000002	5
 ```
 where `knownEM` specifies the algorithm used to estimate the allele frequency which is given under that column.
 Please note that this refers to the allele frequency of the allele labelled as `minor`.
 The columns are: chromosome, position, major allele, minor allele, reference allele, allele frequency, p-value for SNP calling (if -SNP-pval was called), number of individuals with data.
 The last column gives the number of samples with data (you can see that this never below 5 given our filtering).
-
 
 You can notice that many sites have low allele frequency, probably reflecting the fact that that site is monomorphic.
 We may be interested in looking at allele frequencies only for sites that are actually variable in our sample.
@@ -550,7 +550,7 @@ Use the previously calculated genotype likelihoods as input file (use ```-glf ? 
 for PV in 0.05 1e-2 1e-4 1e-6
 do
         if [ $PV == 0.05 ]; then echo SNP_pval NR_SNPs; fi
-        $ANGSD/angsd -glf Results/EUR.glf.gz -nInd 10 -fai $REF.fai -out Results/EUR.$PV \
+        $NGS/angsd/angsd -glf Results/EUR.glf.gz -nInd 10 -fai $REF.fai -out Results/EUR.$PV \
                 -doMajorMinor 1 -doMaf 1 -skipTriallelic 1 \
                 -SNP_pval $PV &> /dev/null
         echo $PV `zcat Results/EUR.$PV.mafs.gz | tail -n+2 | wc -l`
@@ -574,23 +574,15 @@ Rscript -e 'mafs1 <- read.table(gzfile("Results/EUR.1e-2.mafs.gz"), he=T, row.na
 ```
 evince Results/diffSnpCall.pdf
 ```
-
-Can you draw some conclusions from these results?
+What can you conclude from these results?
 Which frequencies are more difficult to estimate and therefore affect SNP calling?
-
-
 
 **EXERCISE 2**
 
 Estimate derived allele frequencies for all populations of interest using a likelihood approach, without relying on genotype calls.
-What is difference compared to what previously estimated?
-
+What is the difference compared to what previously estimated?
 
 ---------------------------
-
-
-
-
 
 
 

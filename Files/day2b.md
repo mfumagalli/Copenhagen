@@ -118,7 +118,7 @@ In other words, we want to retrieve the distribution of PBS under neutral evolut
 We are then going to test whether our observed value falls within or outside such distribution.
 
 First, let's compute some summary statistics for each replication.
-This may take a while with 1,000 repetitions. Launch it and have a coffee/cigarette/else break.
+This may take a while with 1,000 repetitions. Launch it and have a coffee/cigarette/beer break.
 ```
 Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms > Results/ALL.ms.txt
 ```
