@@ -1,7 +1,6 @@
-\beamer@endinputifotherversion {3.36pt}
-\select@language {UKenglish}
-\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@sectionintoc {2}{Genotype likelihoods}{11}{0}{2}
-\beamer@sectionintoc {3}{Genotype calling}{20}{0}{3}
-\beamer@sectionintoc {4}{SNP calling}{44}{0}{4}
-\beamer@sectionintoc {5}{Imputation}{54}{0}{5}
+\babel@toc {UKenglish}{}
+\beamer@sectionintoc {1}{Motivation}{4}{0}{1}
+\beamer@sectionintoc {2}{Genotype likelihoods}{15}{0}{2}
+\beamer@sectionintoc {3}{Genotype calling}{32}{0}{3}
+\beamer@sectionintoc {4}{SNP calling}{57}{0}{4}
+\beamer@sectionintoc {5}{Imputation}{68}{0}{5}

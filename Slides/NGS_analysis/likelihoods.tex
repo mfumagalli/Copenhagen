@@ -1,36 +1,34 @@
 
 \section{Genotype likelihoods}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-\frame{\frametitle{The data}
+\frame{\frametitle{\small{Given a possible genotype, what is the probability of observing this NGS data?}}
 
 	\begin{figure}
-		\includegraphics[scale=0.45]{Pics/mappedReads}
+		\includegraphics[scale=0.35]{Pics/mappedReads}
 	\end{figure}
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Genotype likelihoods}
+\frame{\frametitle{Genotype likelihoods - equation}
 
 	\begin{block}{Likelihood}
 		$P(D|G=\{A_1,A_2,...,A_n\})$
-        \newline
+		\newline
 		with
-        \newline
+        	\newline
 		$A_i \in \{A,C,G,T\}$
-        and $n$ being the ploidy
+        	and $n$ being the ploidy level
 	\end{block}
 
-How many genotypes likelihoods do we need to calculate for each each individual at each site?
+	\vskip 1cm
+       	\pause
+	How many genotypes likelihoods do we need to calculate for each each diploid individual at each site?
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Genotype likelihoods}
+\frame{\frametitle{Genotype likelihoods - rationale}
 
 	\begin{figure}
 		\includegraphics[scale=0.3]{Pics/genoLikes}
@@ -39,35 +37,49 @@ How many genotypes likelihoods do we need to calculate for each each individual 
 }
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Genotype likelihoods - calculation}
 
-\frame{\frametitle{Calculating genotype likelihoods}
+	\begin{block}{Likelihood function}
 
-\begin{block}{Likelihood function}
-
-	\begin{equation*}
-		P(D|G=\{A_1,A_2,...,A_N\}) = \prod_{i=1}^R \sum_{j=1}^N \frac{L_{A_j,i}}{N}
-	\end{equation*}
+		\begin{equation*}
+			P(D|G=\{A_1,A_2,...,A_N\}) = \prod_{i=1}^R \sum_{j=1}^N \frac{L_{A_j,i}}{N}
+		\end{equation*}
  
- 	\begin{itemize}
-    	\item $L_{A_j,i} = P(D|A_G=A_j)$
-    	\item $A_i \in \{A,C,G,T\}$
-		\item $R$ is the depth (nr. of reads)
-    	\item $N$ is the ploidy (nr. of chromosomes)
-	\end{itemize}
+ 		\begin{itemize}
+    			\item $L_{A_j,i} = P(D|A_G=A_j)$
+    			\item $A_i \in \{A,C,G,T\}$
+			\item $R$ is the depth (nr. of reads)
+    			\item $N$ is the ploidy level (nr. of chromosomal copies)
+		\end{itemize}
     
-\end{block}
-
-Example:\\
-AAAG, all with quality score equal to 20 (in phred score)\\
-$P(D|G=AC) = ?$
+	\end{block}
 
 }
 
+\begin{frame}{Genotype likelihoods - example}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{figure}
+                \includegraphics[scale=0.2]{Pics/mappedReads}
+        \end{figure}
 
-\frame{\frametitle{Calculating genotype likelihoods}
+	\centering
+	\small{
+        A\\
+        A\\
+        A\\
+        G
+        }\\
+	with all with quality scores equal to 20 (in phred score)
+
+	\vskip 0.5cm
+	\pause
+	\centering
+	What is $P(D|G=AC) = ?$
+
+\end{frame}
+
+
+\frame{\frametitle{Genotype likelihoods - example}
 
 	\begin{block}{Likelihood function}
 
@@ -91,9 +103,8 @@ $P(D|G=AC) = ?$
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Calculating genotype likelihoods}
+\frame{\frametitle{Genotype likelihoods - example}
 
 	\begin{block}{Likelihood function}
 
@@ -109,8 +120,7 @@ $P(D|G=AC) = ?$
 	A\\
 	G\\ 
 	\& Q=20
-	}
-
+	}\\
 	$N=2; i=1; A_1=A; A_2=C$
 
 	\begin{equation*}
@@ -121,10 +131,10 @@ $P(D|G=AC) = ?$
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Calculating genotype likelihoods}
+\frame{\frametitle{Genotype likelihoods - example}
 
+       	\small{
 	\begin{block}{Likelihood function}
 
 		\begin{equation*}
@@ -132,28 +142,33 @@ $P(D|G=AC) = ?$
 		\end{equation*}
   
 	\end{block}
+	}
 
-	AAAG \& Q=20
+        \tiny{
+        A\\
+        A\\
+        A\\
+        G
+        }
 
 	\begin{equation*}
-			L_{C,1} = \frac{\epsilon}{3}	
+		L_{C,1} = \pause \frac{\epsilon}{3}	
 	\end{equation*}
 
 	\begin{equation*}
-    	L_{A,1} = 1-\epsilon
+    		L_{A,1} = \pause 1-\epsilon
 	\end{equation*}
     
 	\begin{equation*}
 		P(D|G=\{A,C\}) = (\frac{1-\epsilon}{2} + \frac{\epsilon}{6}) \times ...
 	\end{equation*}
 
-
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Calculating genotype likelihoods}
+\frame{\frametitle{Genotype likelihoods - example}
 
+       	\small{
 	\begin{block}{Likelihood function}
 
 		\begin{equation*}
@@ -161,15 +176,21 @@ $P(D|G=AC) = ?$
 		\end{equation*}
   
 	\end{block}
+	}
 
-	AAAG \& Q=20
+        \tiny{
+        A\\
+        A\\
+        A\\
+        G
+        }
 
 	\begin{equation*}
-			L_{C,1} = \frac{\epsilon}{3}	
+		L_{C,4} = \pause \frac{\epsilon}{3}	
 	\end{equation*}
 
 	\begin{equation*}
-    	L_{A,1} = 1-\epsilon
+    		L_{A,4} = \pause \frac{\epsilon}{3}
 	\end{equation*}
     
 	\begin{equation*}
@@ -180,9 +201,7 @@ $P(D|G=AC) = ?$
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Calculating genotype likelihoods}
+\frame{\frametitle{Genotype likelihoods - example}
 
 	\begin{columns}
 	
@@ -214,12 +233,6 @@ $P(D|G=AC) = ?$
 
 
 }
-
-
-
-
-
-
 
 
 

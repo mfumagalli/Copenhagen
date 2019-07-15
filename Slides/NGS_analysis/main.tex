@@ -14,20 +14,28 @@
 \usepackage{amssymb}
 \usepackage{epstopdf}
 
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
 % Imperial College Logo, not to be changed!
 \institute{\includegraphics[height=0.7cm]{Imperial_1_Pantone_solid.eps}}
 
 \title{{\it Genotype and SNP calling\\ and estimation of allele frequencies}}
-\subtitle{\url{https://github.com/mfumagalli/Copenhagen}}
+% \subtitle{\url{https://github.com/mfumagalli/Copenhagen}}
 \author{Matteo Fumagalli}
-\date{\today}
-%%%%%%
+% \date{\today}
 
 \begin{document}
 
 \frame{\titlepage} 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{
 
@@ -37,12 +45,9 @@
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Presentation outline}\tableofcontents}
 
-% \frame{\frametitle{Presentation outline}\tableofcontents}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% Motivation
 \include{introduction}
 
 % Genotype likelihoods

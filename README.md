@@ -1,6 +1,5 @@
-# Copenhagen
 
-Summer course in analyses of genotyping and NGS data in medical and population genetics 2019
+# Summer course in analyses of genotyping and NGS data in medical and population genetics 2019
 
 Tuesday - Analysis of NGS data and population structure
  - 9am - 12pm: Estimation of allele frequencies, SNP calling and genotype calling from NGS data (theory + practical)
@@ -15,18 +14,18 @@ Thursday - Demography and selection
 
 Slides can be found [here](https://github.com/mfumagalli/Copenhagen/tree/master/Slides).
 
-The data has been already downloaded and it is provided in `/ricco/data/matteo/Data`.
+The data for practicals has been already downloaded and it is provided in `/ricco/data/matteo/Data`.
 These instructions, including all relevant files and scripts, can be found at `/home/matteo/Copenhagen`.
+In short, you don't have to worry about anything for the practicals.
 
-## Data
+### Data
 
 As an illustration, we will use 40 BAM files of human samples (of African, European, East Asian, and Native American descent), a reference genome, and putative ancestral sequence.
 We will also use 10 BAM files of Latinos in one example.
 *To make things more interesting, we have downsampled our data to an average mean depth of 2X!*.
 
 We will also use VCF files for 120 individuals from the same populations.
-The human data represents a small genomic region (1MB on chromosome 2) extracted from the 1000 Genomes Project data set.
-More information on this project can be found [here](http://www.internationalgenome.org/home).
+The human data represents a small genomic region (1MB on chromosome 2) extracted from the [1000 Genomes Project](http://www.internationalgenome.org/home).
 
 ## Preparation
 
@@ -84,7 +83,7 @@ Goal day 2:
 
 ## Agenda
 
-### Tuesday morning -  introduction to NGS data:
+### Tuesday morning -  introduction to NGS data
 
 #### Lecture
 
@@ -97,13 +96,13 @@ Goal day 2:
 * Basic data filtering
 * Estimation of allele frequencies and SNP calling
 * Genotype calling
-* Example: estimation of allele frequencies from low-depth sequencing data: the case of EDAR genetic variation in Native Americans
+* Example: estimation of allele frequencies from low-depth sequencing data: the case of _EDAR_ genetic variation in Native Americans
 
 #### Research lecture
 
 * Diet, balancing selection and AI
 
-### Friday afternoon - detecting selection
+### Thursday afternoon - detecting selection
 
 #### Lecture
 
