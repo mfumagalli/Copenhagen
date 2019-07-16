@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.2)  16 JUL 2019 14:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.2)  16 JUL 2019 15:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2625,12 +2625,12 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 27.
+(epstopdf)             \includegraphics on input line 25.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 27.
+ input line 25.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
  [71
 
@@ -2644,15 +2644,15 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 61.
+(epstopdf)             \includegraphics on input line 57.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 61.
+ input line 57.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
 
-Overfull \vbox (10.74118pt too high) detected at line 61
+Overfull \vbox (10.74118pt too high) detected at line 57
  []
 
 [72
@@ -2667,14 +2667,18 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 95.
+(epstopdf)             \includegraphics on input line 57.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 95.
+ input line 57.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
- [73
+
+Overfull \vbox (10.74118pt too high) detected at line 57
+ []
+
+[73
 
 ]
 Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
@@ -2686,14 +2690,18 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 109.
+(epstopdf)             \includegraphics on input line 57.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 109.
+ input line 57.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
- [74
+
+Overfull \vbox (10.74118pt too high) detected at line 57
+ []
+
+[74
 
 ]
 Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
@@ -2705,12 +2713,12 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 128.
+(epstopdf)             \includegraphics on input line 84.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 128.
+ input line 84.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
  [75
 
@@ -2724,12 +2732,12 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 151.
+(epstopdf)             \includegraphics on input line 98.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 151.
+ input line 98.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
  [76
 
@@ -2743,12 +2751,12 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 164.
+(epstopdf)             \includegraphics on input line 116.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 164.
+ input line 116.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
  [77
 
@@ -2762,20 +2770,39 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 189.
+(epstopdf)             \includegraphics on input line 138.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 189.
+ input line 138.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
  [78
 
 ]
-<Pics/snp1.png, id=516, 894.34125pt x 553.06625pt>
+Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
+(epstopdf)                    date: 2018-08-05 13:52:53
+(epstopdf)                    size: 310981 bytes
+(epstopdf)             Output file: <Imperial_1_Pantone_solid-eps-converted-to.
+pdf>
+(epstopdf)                    date: 2018-08-05 13:57:23
+(epstopdf)                    size: 16089 bytes
+(epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
+ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
+(epstopdf)             \includegraphics on input line 138.
+Package epstopdf Info: Output file is already uptodate.
+File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
+<use Imperial_1_Pantone_solid-eps-converted-to.pdf>
+Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
+ input line 138.
+(pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
+ [79
+
+]
+<Pics/snp1.png, id=521, 894.34125pt x 553.06625pt>
 File: Pics/snp1.png Graphic file (type png)
 <use Pics/snp1.png>
-Package pdftex.def Info: Pics/snp1.png  used on input line 199.
+Package pdftex.def Info: Pics/snp1.png  used on input line 147.
 (pdftex.def)             Requested size: 256.0748pt x 158.35971pt.
 Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
 (epstopdf)                    date: 2018-08-05 13:52:53
@@ -2786,20 +2813,20 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 199.
+(epstopdf)             \includegraphics on input line 147.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 199.
+ input line 147.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
- [79
+ [80
 
  <./Pics/snp1.png>]
-<Pics/snp2.png, id=523, 874.26625pt x 616.3025pt>
+<Pics/snp2.png, id=527, 874.26625pt x 616.3025pt>
 File: Pics/snp2.png Graphic file (type png)
 <use Pics/snp2.png>
-Package pdftex.def Info: Pics/snp2.png  used on input line 211.
+Package pdftex.def Info: Pics/snp2.png  used on input line 157.
 (pdftex.def)             Requested size: 256.0748pt x 180.5193pt.
 Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
 (epstopdf)                    date: 2018-08-05 13:52:53
@@ -2810,31 +2837,88 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 211.
+(epstopdf)             \includegraphics on input line 157.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 211.
+ input line 157.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
 
-Overfull \vbox (1.40453pt too high) detected at line 211
+Overfull \vbox (1.40453pt too high) detected at line 157
  []
 
-[80
+[81
 
- <./Pics/snp2.png>])
+ <./Pics/snp2.png>]
+Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
+(epstopdf)                    date: 2018-08-05 13:52:53
+(epstopdf)                    size: 310981 bytes
+(epstopdf)             Output file: <Imperial_1_Pantone_solid-eps-converted-to.
+pdf>
+(epstopdf)                    date: 2018-08-05 13:57:23
+(epstopdf)                    size: 16089 bytes
+(epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
+ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
+(epstopdf)             \includegraphics on input line 168.
+Package epstopdf Info: Output file is already uptodate.
+File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
+<use Imperial_1_Pantone_solid-eps-converted-to.pdf>
+Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
+ input line 168.
+(pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
+ [82
+
+]
+Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
+(epstopdf)                    date: 2018-08-05 13:52:53
+(epstopdf)                    size: 310981 bytes
+(epstopdf)             Output file: <Imperial_1_Pantone_solid-eps-converted-to.
+pdf>
+(epstopdf)                    date: 2018-08-05 13:57:23
+(epstopdf)                    size: 16089 bytes
+(epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
+ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
+(epstopdf)             \includegraphics on input line 191.
+Package epstopdf Info: Output file is already uptodate.
+File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
+<use Imperial_1_Pantone_solid-eps-converted-to.pdf>
+Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
+ input line 191.
+(pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
+ [83
+
+]
+Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
+(epstopdf)                    date: 2018-08-05 13:52:53
+(epstopdf)                    size: 310981 bytes
+(epstopdf)             Output file: <Imperial_1_Pantone_solid-eps-converted-to.
+pdf>
+(epstopdf)                    date: 2018-08-05 13:57:23
+(epstopdf)                    size: 16089 bytes
+(epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
+ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
+(epstopdf)             \includegraphics on input line 191.
+Package epstopdf Info: Output file is already uptodate.
+File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
+<use Imperial_1_Pantone_solid-eps-converted-to.pdf>
+Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
+ input line 191.
+(pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
+ [84
+
+])
 \openout2 = `imputation.aux'.
 
- (./imputation.tex [81
+ (./imputation.tex [85
 
 
 
 ]
-<Pics/impute_1.png, id=534, 959.585pt x 705.63625pt>
+<Pics/impute_1.png, id=556, 959.585pt x 705.63625pt>
 File: Pics/impute_1.png Graphic file (type png)
 <use Pics/impute_1.png>
-Package pdftex.def Info: Pics/impute_1.png  used on input line 15.
+Package pdftex.def Info: Pics/impute_1.png  used on input line 11.
 (pdftex.def)             Requested size: 256.0748pt x 188.3063pt.
 Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
 (epstopdf)                    date: 2018-08-05 13:52:53
@@ -2845,24 +2929,24 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 15.
+(epstopdf)             \includegraphics on input line 11.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 15.
+ input line 11.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
 
-Overfull \vbox (9.19153pt too high) detected at line 15
+Overfull \vbox (9.19153pt too high) detected at line 11
  []
 
-[82
+[86
 
  <./Pics/impute_1.png>]
-<Pics/impute_2.png, id=540, 958.58125pt x 694.595pt>
+<Pics/impute_2.png, id=562, 958.58125pt x 694.595pt>
 File: Pics/impute_2.png Graphic file (type png)
 <use Pics/impute_2.png>
-Package pdftex.def Info: Pics/impute_2.png  used on input line 27.
+Package pdftex.def Info: Pics/impute_2.png  used on input line 21.
 (pdftex.def)             Requested size: 256.0748pt x 185.55061pt.
 Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
 (epstopdf)                    date: 2018-08-05 13:52:53
@@ -2873,24 +2957,24 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 27.
+(epstopdf)             \includegraphics on input line 21.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 27.
+ input line 21.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
 
-Overfull \vbox (6.43584pt too high) detected at line 27
+Overfull \vbox (6.43584pt too high) detected at line 21
  []
 
-[83
+[87
 
  <./Pics/impute_2.png>]
-<Pics/impute_3.png, id=546, 956.57375pt x 704.6325pt>
+<Pics/impute_3.png, id=568, 956.57375pt x 704.6325pt>
 File: Pics/impute_3.png Graphic file (type png)
 <use Pics/impute_3.png>
-Package pdftex.def Info: Pics/impute_3.png  used on input line 39.
+Package pdftex.def Info: Pics/impute_3.png  used on input line 31.
 (pdftex.def)             Requested size: 256.0748pt x 188.62979pt.
 Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
 (epstopdf)                    date: 2018-08-05 13:52:53
@@ -2901,24 +2985,24 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 39.
+(epstopdf)             \includegraphics on input line 31.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 39.
+ input line 31.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
 
-Overfull \vbox (9.51501pt too high) detected at line 39
+Overfull \vbox (9.51501pt too high) detected at line 31
  []
 
-[84
+[88
 
  <./Pics/impute_3.png>]
-<Pics/impute_4.png, id=552, 958.58125pt x 689.57625pt>
+<Pics/impute_4.png, id=574, 958.58125pt x 689.57625pt>
 File: Pics/impute_4.png Graphic file (type png)
 <use Pics/impute_4.png>
-Package pdftex.def Info: Pics/impute_4.png  used on input line 51.
+Package pdftex.def Info: Pics/impute_4.png  used on input line 41.
 (pdftex.def)             Requested size: 256.0748pt x 184.20992pt.
 Package epstopdf Info: Source file: <Imperial_1_Pantone_solid.eps>
 (epstopdf)                    date: 2018-08-05 13:52:53
@@ -2929,18 +3013,18 @@ pdf>
 (epstopdf)                    size: 16089 bytes
 (epstopdf)             Command: <repstopdf --outfile=Imperial_1_Pantone_solid-e
 ps-converted-to.pdf Imperial_1_Pantone_solid.eps>
-(epstopdf)             \includegraphics on input line 51.
+(epstopdf)             \includegraphics on input line 41.
 Package epstopdf Info: Output file is already uptodate.
 File: Imperial_1_Pantone_solid-eps-converted-to.pdf Graphic file (type pdf)
 <use Imperial_1_Pantone_solid-eps-converted-to.pdf>
 Package pdftex.def Info: Imperial_1_Pantone_solid-eps-converted-to.pdf  used on
- input line 51.
+ input line 41.
 (pdftex.def)             Requested size: 75.68184pt x 19.91684pt.
 
-Overfull \vbox (5.09514pt too high) detected at line 51
+Overfull \vbox (5.09514pt too high) detected at line 41
  []
 
-[85
+[89
 
  <./Pics/impute_4.png>])
 \tf@nav=\write6
@@ -2962,8 +3046,8 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: C2C13C5A72367C42FD27EA2823519D2D;242.
  ) 
 Here is how much of TeX's memory you used:
- 19286 strings out of 494923
- 356259 string characters out of 6180742
+ 19294 strings out of 494923
+ 356335 string characters out of 6180742
  437429 words of memory out of 5000000
  21941 multiletter control sequences out of 15000+600000
  16491 words of font info for 61 fonts, out of 8000000 for 9000
@@ -2987,10 +3071,10 @@ mss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (85 pages, 3977270 bytes).
+Output written on main.pdf (89 pages, 3983323 bytes).
 PDF statistics:
- 662 PDF objects out of 1000 (max. 8388607)
- 509 compressed objects within 6 object streams
- 177 named destinations out of 1000 (max. 500000)
+ 685 PDF objects out of 1000 (max. 8388607)
+ 528 compressed objects within 6 object streams
+ 185 named destinations out of 1000 (max. 500000)
  245 words of extra memory for PDF output out of 10000 (max. 10000000)
 
