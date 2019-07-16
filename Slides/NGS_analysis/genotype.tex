@@ -1,31 +1,29 @@
 
 \section{Genotype calling}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \frame{\frametitle{Genotype calling}
 
 	\begin{columns}
 	
-    	\column{0.6\textwidth}   
+    		\column{0.6\textwidth}   
 
 		\begin{center}
 			\begin{tabular}{c | c}
-			Genotype & Likelihood (log10)\\
-    		\hline
-	    	AA & -2.49\\
-    		AC & -3.38\\
-    		AG & -1.22\\
-    		AT & -3.38\\
-            CC & -9.91\\
-            CG & -7.74\\
-            CT & -9.91\\
-            GG & -7.44\\
-            GT & -7.74\\
-            TT & -9.91\\
-        	\hline
+				Genotype & Likelihood (log10)\\
+    				\hline
+	    			AA & -2.49\\
+    				AC & -3.38\\
+    				AG & -1.22\\
+    				AT & -3.38\\
+            			CC & -9.91\\
+            			CG & -7.74\\
+            			CT & -9.91\\
+            			GG & -7.44\\
+            			GT & -7.74\\
+            			TT & -9.91\\
+        			\hline
 			\end{tabular}
-       	\end{center}
+       		\end{center}
 
 		\column{0.4\textwidth}
 
@@ -40,7 +38,6 @@
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Genotype calling}
 
@@ -81,7 +78,6 @@
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Major and minor alleles}
 
@@ -105,11 +101,10 @@
 		\end{tabular}
 	\end{center}
 
-	We can reduce the genotype space to 3 entries (from 10).
+	We can reduce the genotype space to 3 entries (from 10, for diploids).
     
 }    
     
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Genotype calling}
 
@@ -117,20 +112,21 @@
 
 	\begin{center}
 		\begin{tabular}{c | c}
-		Genotype & Likelihood\\
-    	\hline
-	    AA & -5.73\\
-    	AG & -2.80\\
-    	GG & -17.12\\
-        \hline
+			Genotype & Likelihood\\
+    			\hline
+	    		AA & -5.73\\
+    			AG & -2.80\\
+    			GG & -17.12\\
+        		\hline
 		\end{tabular}
 	\end{center}
 
-	Examples varying qualities and reads... open Julia script.
+       	\vskip 0.5cm
+	At what extent is the data affecting the called genotype and its \textbf{confidence}?
+
+	Open jupyter-notebook.
     
 }   
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Genotype likelihood ratio}
 
@@ -142,241 +138,187 @@
 
 	Pros and cons?
  	\begin{itemize}
- 	\item Yes:
-    \item No:
+ 		\item Yes: \pause genotype are called with higher \textbf{confidence}
+    		\item No: \pause more \textbf{missing} data
  	\end{itemize}
 
+	Practical: genotype likelihoods and (basic) genotype calling \\
+        \small{\url{https://github.com/mfumagalli/Copenhagen}}
+
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Genotype likelihood ratio}
+\frame{\frametitle{The monster dilemma}
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=4cm]{Pics/LochNessMonster.jpg}
+		\caption{Nessie, the Loch Ness Monster. True or fake news?}
+	\end{figure}
+
+}
+
+
+\frame{\frametitle{The monster dilemma - likelihood}
+
+	Let's denote $D$ (data) as the set of observations specifying whether I tell you that I saw
+	Nessie ($D=1$) or not ($D=0$).
+	
+       	$D$ is our sample space, the set of all possible outcomes of the experiment, and $D = \{0,1\}$.
+
+       	We want to make some inferences on the probability that Nessie exists, or that it is true that I saw it (her?).
+	Let's denote this probability as $N$.
+
+	\begin{itemize}
+		\item $D = \{0,1\}$, whether I tell you I saw Nessie or not.
+		\item $N = \{0,1\}$, whether Nessie exists or not.
+	\end{itemize}
+
+}
+
+\begin{frame}{The monster dilemma - likelihood}
+
+	\begin{block}{Questions}
+		\begin{itemize}
+			\item What are $p(D=1|N=1)$ and $p(D=1|N=0)$?
+			\item What is a Maximum Likelihood Estimate of $N$?
+			\item What is a statistical test for $N=1$?
+		\end{itemize}
+	\end{block}
+
+\end{frame}
+
+\begin{frame}{The monster dilemma - likelihood}
+
+	Let's assume that $p(D=1|N=0)=0.01$ and $p(D=1|N=1)=0.90$ are valid for each observer $l$, with $l=3$.
+
+	Then the log-likelihood of $N=0$ is given by $\sum_{l=1}^3 log(p(D=1|N=0))=-6.91$ while
+	the log-likelihood of $N=1$ is given by $\sum_{l=1}^3 log(p(D=1|N=1))=-0.32$.
+
+	With 3 observations of $D=1$ we obtained a likelihood ratio (LR, of $N=1$ vs $N=0$) of $6.59$.
+
+	\begin{block}{}
+		Does the Loch ness monster exist?
+	\end{block}
+
+\end{frame}
+
+\frame{\frametitle{"Eyes" thinking}
+
+       	What's "wrong"?\\
+	Our inference on $N$, our parameter, is driven solely by our observations, given by our likelihood function.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=5cm]{Pics/EyeOnly.png}
+		\caption{The eye: a "likelihood" organ.}
+	\end{figure}
+
+}
+
+
+\frame{\frametitle{"Blind Brain" thinking}
+
+	In real life we take many decisions based not only on what we observe but also on some believes of ours*.
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=5cm]{Pics/EyeBrain.png}
+		\caption{The brain: a "non-likelihood" organ.}
+		\label{Fig:EyeBrain}
+	\end{figure}
+
+	\small{* unfortunately in many cases}
+
+}
+
+
+\frame{\frametitle{Eyes+Brain thinking}
+
+	\begin{itemize}
+		\item with "eyes only" our intuition is that $p(N|D) \approx p(D|N)$
+		\item with "the brain" our intuition is that $p(N|D) \approx p(D|N)p(N)$
+	\end{itemize}
+
+	Our "belief" expresses the probability $p(N)$ \textbf{unconditional} of the data.
+
+	\begin{block}{Question}
+		How can we define $p(N)$?
+	\end{block}
+
+}
+
+
+\frame{\frametitle{"Eyes + Blind Brain"thinking}
+
+	\begin{block}{}
+		The "belief" function $p(N)$ is called \textbf{prior probability} and the joint product of the likelihood $p(D|N)$ and the prior is proportional to the \textbf{posterior probability} $p(N|D)$.
+	\end{block}
+
+	\begin{block}{}
+		The use of posterior probabilities for inferences is called Bayesian statistics.
+	\end{block}
+
+}
+
+\frame{\frametitle{Bayesian \textit{vs.} Likelihoodist}
+
+	\begin{itemize}
+		\item we derive "proper" probability distributions of our parameters rather than deriving a point estimate;
+		\item a probability is assigned to a hypothesis rather than a hypothesis is tested;
+		\item we can "accept" the null hypothesis rather than "fail to reject" it;
+		\item parsimony imposed in model choice rather than correcting for multiple tests.
+	\end{itemize}
+
+}
+
+\frame{\frametitle{Bayesian inference}
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=8cm]{Pics/bayesian.png}
+	\end{figure}
+
+}
+
+\frame{\frametitle{Bayes' Theorem}
 
 	\begin{equation*}
-		\log_{10} \frac{L_{G(1)}}{L_{G(2)}} > t
+		p(G|D) = \frac{f(D|G)\pi(G)}{\int f(D|G) \pi(G) dG}
 	\end{equation*}
 
-	i.e. $t=1$ meaning that the most likely genotype is 10 times more likely than the second most likely one
-
-	\begin{center}
-		Pros and cons?
- 		\begin{itemize}
- 		\item Yes: genotype are called with higher \textbf{confidence}
-    		\item No: more \textbf{missing} data
- 		\end{itemize}
-	\end{center}
-
-	Practical: genotype likelihoods and (basic) genotype calling \\
-	\url{https://github.com/mfumagalli/Copenhagen}
+	\begin{itemize}
+		\item $G$ is not a fixed parameter but a random quantity with prior distribution $\pi(G)$
+		\item $p(G|D)$ is the posterior probability distribution of $G$
+		\item ${\int p(G|D) dG} = 1$
+	\end{itemize}
 
 }
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Statistical thinking}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=4cm]{Pics/LochNessMonster.jpg}
-\caption{Nessie, the Loch Ness Monster. True or fake?}
-\end{figure}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Statistical thinking}
-
-\begin{itemize}
-\item $D = \{0,1\}$, whether I tell you I saw Nessie or not.
-\item $N = \{0,1\}$, whether Nessie exists or not.
-\end{itemize}
-
-\begin{block}{Questions}
-\begin{itemize}
-\item What are $p(D=1|N=1)$ and $p(D=1|N=0)$?
-\item What is a Maximum Likelihood Estimate of $N$?
-\end{itemize}
-\end{block}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Statistical thinking}
-
-Our inference on $N$, our parameter, is driven solely by our observations, given by our likelihood function.
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=5cm]{Pics/EyeOnly.png}
-\caption{The eye: a "likelihood" organ.}
-\end{figure}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Statistical thinking}
-
-In real life we take many decisions based not only on what we observe but also on some believes of ours.
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=5cm]{Pics/EyeBrain.png}
-\caption{The brain: a "non-likelihood" organ.}
-\label{Fig:EyeBrain}
-\end{figure}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Bayesian thinking}
-
-\begin{itemize}
-\item with "eyes only" our intuition is that $p(N|D) \approx p(D|N)$
-\item with "the brain" our intuition is that $p(N|D) \approx p(D|N)p(N)$
-\end{itemize}
-
-Our "belief" expresses the probability $p(N)$ \textbf{unconditional} of the data.
-
-\begin{block}{Question}
-How can we define $p(N)$?
-\end{block}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Bayesian thinking}
-
-\begin{block}{}
-The "belief" function $p(N)$ is called \textbf{prior probability} and the joint product of the likelihood $p(D|N)$ and the prior is proportional to the \textbf{posterior probability} $p(N|D)$.
-\end{block}
-
-\begin{block}{}
-The use of posterior probabilities for inferences is called Bayesian statistics.
-\end{block}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Statistical inference}
-
-If $D$ is the data and $\theta$ is your unknown parameter, then
-\begin{itemize}
-\item the frequentist conditions on parameters and integrates over the data, $p(D|\theta)$,
-\item the Bayesian conditions on the data and integrates over the parameters, $p(\theta|D)$.
-\end{itemize}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Statistical inference}
-
-\begin{block}{Bayesian \textit{vs.} Likelihoodist}
-\begin{itemize}
-\item we derive "proper" probability distributions of our parameters rather than deriving a point estimate;
-\item a probability is assigned to a hypothesis rather than a hypothesis is tested;
-\item we can "accept" the null hypothesis rather than "fail to reject" it;
-\item parsimony imposed in model choice rather than correcting for multiple tests.
-\end{itemize}
-\end{block}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Bayesian inference}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=8cm]{Pics/bayesian.png}
-\end{figure}
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Bayesian concepts}
-
-\begin{block}{Bayes' Theorem}
-
-\begin{equation}
-p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec{y})} = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{\int f(\vec{y}|\vec{\theta}) \pi(\vec{\theta}) d\vec{\theta}}
-\end{equation}
-\end{block}
-
-\begin{itemize}
-\item $\vec{\theta}$ is not a fixed parameter but a random quantity with prior distribution $\pi(\vec{\theta})$
-\item $p(\vec{\theta}|\vec{y})$ is the posterior probability distribution of $\vec{\theta}$
-\item $\int p(\vec{\theta}|\vec{y})d\vec{\theta}=1$
-\end{itemize}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Genotype posterior probability}
-
-	A\\A\\A\\G\\$\epsilon=0.01$\\A,G alleles
-
-	\begin{center}
-		\begin{tabular}{c | c | c | c}
-		Genotype & Likelihood (log) & Prior & Posterior\\
-    	\hline
-	    AA & -5.73 &  & \\
-    	AG & -2.80 &  & \\
-    	GG & -17.12 &  & \\
-        \hline
-		\end{tabular}
-	\end{center}
-
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Genotype posterior probability}
+\frame{\frametitle{Genotype posterior probability}
 
 	AAAG \& $\epsilon=0.01$ \& A,G alleles
 
 	\begin{center}
 		\begin{tabular}{c | c | c | c}
-		Genotype & Likelihood (log) & Prior & Posterior\\
-    	\hline
-	    AA & -5.73 & 1/3 & 0.05\\
-    	AG & -2.80 & 1/3 & 0.95\\
-    	GG & -17.12 & 1/3 & ~0\\
-        \hline
+			Genotype & Likelihood (log) & Prior & Posterior\\
+    			\hline
+	    		AA & -5.73 & \pause 1/3 & \pause 0.05\\
+    			AG & -2.80 & \pause 1/3 & 0.95\\
+    			GG & -17.12 & \pause 1/3 & ~0\\
+        		\hline
 		\end{tabular}
 	\end{center}
 
+       	What is the called genotype? What's its confidence?\\
+       	\pause
 	Only call genotypes if the largest probability is above a certain threshold (e.g. 0.95).
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-\frametitle{Genotype posterior probability}
+\frame{\frametitle{Genotype posterior probability}
 
 	AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{A is the reference allele}
 
@@ -384,111 +326,83 @@ p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec
 
 	\begin{center}
 		\begin{tabular}{c | c | c | c}
-		Genotype & Likelihood (log) & Prior & Posterior\\
-    	\hline
-	    AA & -5.73 & 0.80 & 0.22\\
-    	AG & -2.80 & 0.15 & 0.78\\
-    	GG & -17.12 & 0.05 & ~0\\
-        \hline
+			Genotype & Likelihood (log) & Prior & Posterior\\
+    			\hline
+	    		AA & -5.73 & \pause 0.80 & 0.22\\
+    			AG & -2.80 & \pause 0.15 & 0.78\\
+    			GG & -17.12 & \pause 0.05 & ~0\\
+        	\hline
 		\end{tabular}
 	\end{center}
     
-
-	The reference allele is just one of the possible alleles, often chosen arbitrarily: why give it so much weight?
+	\small{
+	Warning:
+	the reference allele is just one of the possible alleles, often chosen arbitrarily: why so much weight???
+	}
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{
-\frametitle{Genotype posterior probability}
+\frame{\frametitle{Genotype posterior probability}
 
 	AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.7$} from a reference panel
 
-	$P(AA)=?$;
-	$P(AG)=?$;
+        $P(AA)=?$\\
+    	$P(AG)=?$\\
     	$P(GG)=?$
-
-	\begin{center}
-		\begin{tabular}{c | c | c | c}
-		Genotype & Likelihood (log) & Prior & Posterior\\
-    	\hline
-	AA & -5.73 &  & \\
-    	AG & -2.80 &  & \\
-    	GG & -17.12 &  & \\
-        \hline
-		\end{tabular}
-	\end{center}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{
-\frametitle{Genotype posterior probability}
-
-        AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.7$} from a reference panel
-
-        $P(AA)=?$;
-    $P(AG)=?$;
-    $P(GG)=?$
 
         \begin{center}
                 \begin{tabular}{c | c | c | c}
                 Genotype & Likelihood (log) & Prior & Posterior\\
-        \hline
-            AA & -5.73 & 0.49 & 0.06\\
-        AG & -2.80 & 0.42 & 0.94\\
-        GG & -17.12 & 0.09 & ~0\\
-        \hline
+        	\hline
+            	AA & -5.73 & \pause 0.49 & 0.06\\
+        	AG & -2.80 & \pause 0.42 & 0.94\\
+        	GG & -17.12 & \pause 0.09 & ~0\\
+        	\hline
                 \end{tabular}
         \end{center}
-
-        If the assumption of HWE can be reasonably met.
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\frame{\frametitle{Empirical Bayesian inference}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=8cm]{Pics/statEB.png}
-\end{figure}
-
-
+	If the assumption of Hardy Weinberg Equilibrium can be reasonably met.
+	
+	What happens if that's not the case?\\
+       	\pause
+	Inbreeding can be incorporated: $f_{AA} = (1-f)^2 + (1-f)fF$ ...
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{"Eyes + non-Blind Brain" inference}
+
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=8cm]{Pics/statEB.png}
+	\end{figure}
+       	\centering
+       	\small{Empirical Bayesian}
+
+}
+
 
 \frame{\frametitle{Genotype posterior probability}
 
-	AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.6$} from the data itself
-
-	$P(AA)=?$;
-    $P(AG)=?$;
-    $P(GG)=?$
+	AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.7$} from the data itself
 
 	\begin{center}
 		\begin{tabular}{c | c | c | c}
-		Genotype & Likelihood (log) & Prior & Posterior\\
-    	\hline
-	    AA & -5.73 & 0.49 & 0.04\\
-    	AG & -2.80 & 0.42 & 0.96\\
-    	GG & -17.12 & 0.09 & ~0\\
-        \hline
+			Genotype & Likelihood (log) & Prior & Posterior\\
+    			\hline
+	    		AA & -5.73 & \pause 0.49 & 0.04\\
+    			AG & -2.80 & 0.42 & 0.96\\
+    			GG & -17.12 & 0.09 & ~0\\
+        		\hline
 		\end{tabular}
 	\end{center}
 
 	\begin{itemize}
-	\item if the assumption of HWE can be reasonably met
-    \item if you have enough samples to have a robust estimate of the allele frequencies
+		\item if the assumption of HWE(+-F) can be met (no population structure)
+    		\item if enough samples to have a robust estimate of the allele frequencies
 	\end{itemize}
 
-	Practical: genotype calling\\
+	Practical: (advanced) genotype calling\\
 	\url{https://github.com/mfumagalli/Copenhagen}
 	
 
@@ -497,26 +411,21 @@ p(\vec{\theta}|\vec{y}) = \frac{f(\vec{y}|\vec{\theta})\pi(\vec{\theta})}{m(\vec
 
 \frame{\frametitle{Genotype posterior probability}
 
-        AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.6$} from the data itself
+        AAAG \& $\epsilon=0.01$ \& A,G alleles \& \textbf{$f(A)=0.7$} from the data itself
 
         \begin{center}
                 \begin{tabular}{c | c | c | c}
                 Genotype & Likelihood (log) & Prior & Posterior\\
-        \hline
-            AA & -5.73 & 0.49 & 0.04\\
-        AG & -2.80 & 0.42 & 0.96\\
-        GG & -17.12 & 0.09 & ~0\\
-        \hline
+        	\hline
+            	AA & -5.73 & 0.49 & 0.04\\
+        	AG & -2.80 & 0.42 & 0.96\\
+        	GG & -17.12 & 0.09 & ~0\\
+        	\hline
                 \end{tabular}
         \end{center}
 
-        \begin{itemize}
-        \item if the assumption of HWE can be reasonably met
-    \item if you have enough samples to have a robust estimate of the allele frequencies
-        \end{itemize}
-
-        How can we estimate allele frequencies?
-
-
+       	\begin{block}{}
+        How can we estimate allele frequencies from NGS data?
+	\end{block}
 }
 
