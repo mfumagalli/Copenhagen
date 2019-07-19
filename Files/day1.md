@@ -36,7 +36,7 @@ The workflow for this practical looks like this
 which seems daunting! 
 However, that's not the case and we will go through each step to understand each one of them.
 
-The workflow is roughty divided into four steps:\\
+The workflow is roughty divided into four steps://
 0. Data filtering and I/O
 1. Genotype likelihoods
 2. Genotype calling
@@ -47,6 +47,8 @@ The workflow is roughty divided into four steps:\\
 #### 0. Data filtering and I/O
 
 First, we will learn **how to build a command line in ANGSD**.
+
+![stage0](./stage0.png)
 
 To see a full list of options in ANGSD type:
 ```
@@ -92,12 +94,12 @@ Examples:
 		'./angsd -bam list -GL 2 -doMaf 2 -out RES -doMajorMinor 1'
 ```
 
-ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input):\\
+ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input)://
 * BAM, CRAM, mpileup
 * VCF, GLF, beagle
 
 Here we show how ANGSD can also perform some basic filtering of the data.
-These filters are based on:\\
+These filters are based on://
 * quality and depth, see [here](http://www.popgen.dk/angsd/index.php/Filters)
 * SNP quality, see [here](http://popgen.dk/angsd/index.php/SnpFilters)
 * sites, see [here](http://popgen.dk/angsd/index.php/Sites)
@@ -178,7 +180,7 @@ A possible command line would contain the following filtering:
 #        -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 ...
 ```
-which corresponds to the following scenario:\\
+which corresponds to the following scenario://
 Parameter | Meaning |
 --- | --- |
 -minInd 5 | use only sites with data from at least N individuals |
@@ -191,7 +193,9 @@ More sophisticated filtering can be done, but this is outside the scope of this 
 
 #### 1. Genotype likelihoods
 
-We now wishare ready to calculate the ***genotype likelihoods*** for each site at each individual.
+![stage1](./stage1.png)
+
+We now wish to calculate the ***genotype likelihoods*** for each site at each individual.
 
 To do so you need to specify which genotype likelihood model to use.
 ```
@@ -250,7 +254,9 @@ less -S Results/EUR.glf.gz
 
 ------------------------------------------
 
-#### Genotype calling
+#### 2. Genotype calling
+
+![stage2](./stage2.png)
 
 Here we will explore several ways to call genotypes from sequencing data.
 We will also calculate genotypes probabilities to each site for each individual.
@@ -357,7 +363,6 @@ We will show later how to accurately estimate summary statistics with low-depth 
 
 --------------------------------
 
-
 **EXERCISE 1**
 
 If we assume HWE, then we can use this information as prior probability to calculate genotype posterior probabilities.
@@ -435,7 +440,9 @@ Why is it not at high frequency in the Latinos sample?
 
 ----------------------------
 
-#### Estimation of allele frequencies and SNP calling
+#### 3. SNP calling
+
+![stages](./stages.png)
 
 We now want to estimate allele frequencies at each site without relying on genotype calls.
 In other words, at each site we want to to estimate (or count) how many copies of different alleles (two in case of biallelic variants) we observe in our sample (across all sequenced individuals).
