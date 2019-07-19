@@ -31,7 +31,7 @@ mkdir Data
 
 The workflow for this practical looks like this
 
-![](stages.png)
+![stages](./stages.png)
 
 which seems daunting! 
 However, that's not the case and we will go through each step to understand each one of them.
