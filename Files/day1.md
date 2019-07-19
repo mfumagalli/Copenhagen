@@ -31,12 +31,12 @@ mkdir Data
 
 The workflow for this practical looks like this
 
-
+![](stages.png)
 
 which seems daunting! 
 However, that's not the case and we will go through each step to understand each one of them.
 
-The workflow is roughty divided into four steps:
+The workflow is roughty divided into four steps:\\
 0. Data filtering and I/O
 1. Genotype likelihoods
 2. Genotype calling
@@ -46,12 +46,7 @@ The workflow is roughty divided into four steps:
 
 #### 0. Data filtering and I/O
 
-
----------------------------------------------------
-
-#### Genotype likelihoods
-
-First, we will learn **how to build a command line in ANGSD**, with the specific example of calculating genotype likelihoods.
+First, we will learn **how to build a command line in ANGSD**.
 
 To see a full list of options in ANGSD type:
 ```
@@ -97,14 +92,12 @@ Examples:
 		'./angsd -bam list -GL 2 -doMaf 2 -out RES -doMajorMinor 1'
 ```
 
-ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input):
-
+ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input):\\
 * BAM, CRAM, mpileup
 * VCF, GLF, beagle
 
 Here we show how ANGSD can also perform some basic filtering of the data.
-These filters are based on:
-
+These filters are based on:\\
 * quality and depth, see [here](http://www.popgen.dk/angsd/index.php/Filters)
 * SNP quality, see [here](http://popgen.dk/angsd/index.php/SnpFilters)
 * sites, see [here](http://popgen.dk/angsd/index.php/Sites)
@@ -174,12 +167,8 @@ These filters will retain only uniquely mapping reads, not tagged as bad, consid
 
 Also, you may want to remove reads with low mapping quality and sites with low quality or covered by few reads (low depth).
 Under these circumnstances, the assignment of individual genotypes and SNPs is problematic, and can lead to errors.
-
 We may also want to remove sites where a fraction (half?) of the individuals have no data.
 This is achieved by the ```-minInd``` option.
-
-**QUESTION**
-Which values would you choose as sensible thresholds on quality score and depth (minimum and maximum)?
 
 A possible command line would contain the following filtering:
 ```
@@ -189,8 +178,7 @@ A possible command line would contain the following filtering:
 #        -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 ...
 ```
-which corresponds to the following scenario:
-
+which corresponds to the following scenario:\\
 Parameter | Meaning |
 --- | --- |
 -minInd 5 | use only sites with data from at least N individuals |
@@ -201,7 +189,9 @@ More sophisticated filtering can be done, but this is outside the scope of this 
 
 ---------------------------------------
 
-Now we are ready to calculate the ***genotype likelihoods*** for each site at each individual.
+#### 1. Genotype likelihoods
+
+We now wishare ready to calculate the ***genotype likelihoods*** for each site at each individual.
 
 To do so you need to specify which genotype likelihood model to use.
 ```
