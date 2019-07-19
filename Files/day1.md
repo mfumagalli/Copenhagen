@@ -172,6 +172,8 @@ Under these circumnstances, the assignment of individual genotypes and SNPs is p
 We may also want to remove sites where a fraction (half?) of the individuals have no data.
 This is achieved by the ```-minInd``` option.
 
+![stage0A](./stage0A.png)
+
 A possible command line would contain the following filtering:
 ```
 ...
@@ -188,8 +190,6 @@ Parameter | Meaning |
 -setMaxDepth 30 | maximum total depth |
 
 More sophisticated filtering can be done, but this is outside the scope of this practical.
-
-![stage0A](./stage0A.png)
 
 ---------------------------------------
 
@@ -241,6 +241,8 @@ where we specify:
 
 Ignore the various warning messages
 
+![stage1A](./stage1A.png)
+
 **QUESTION**
 What are the output files?
 What's the information inside them?
@@ -253,8 +255,6 @@ ls Results/EUR.*
 less -S Results/EUR.arg
 less -S Results/EUR.glf.gz
 ```
-
-![stage1A](./stage1A.png)
 
 ------------------------------------------
 
@@ -568,6 +568,8 @@ When accurate information on reference sequence or outgroup are available, one c
 Also, detecting variable sites based on their probability of being SNPs is generally a better choice than defining a threshold on the allele frequency.
 However, various cutoffs and a dedicated filtering should be perform to assess robustness of your called SNPs.
 
+![stage3A](./stage3A.png)
+
 **QUICK EXERCISE**
 
 Try varying the cutoff for SNP calling and record how many sites are predicted to be variable for each scenario.
@@ -604,8 +606,6 @@ evince Results/diffSnpCall.pdf
 ```
 What can you conclude from these results?
 Which frequencies are more difficult to estimate and therefore affect SNP calling?
-
-![stage3A](./stage3A.png)
 
 **EXERCISE 2**
 
