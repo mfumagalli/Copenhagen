@@ -189,6 +189,8 @@ Parameter | Meaning |
 
 More sophisticated filtering can be done, but this is outside the scope of this practical.
 
+![stage0A](./stage0A.png)
+
 ---------------------------------------
 
 #### 1. Genotype likelihoods
@@ -251,6 +253,8 @@ ls Results/EUR.*
 less -S Results/EUR.arg
 less -S Results/EUR.glf.gz
 ```
+
+![stage1A](./stage1A.png)
 
 ------------------------------------------
 
@@ -361,6 +365,9 @@ Setting this threshold depends on the mean sequencing depth of your data, as wel
 For some analyses you need to work only with high quality genotypes (e.g. measure of proportion of shared SNPs for gene flow estimate), while for others you can be more relaxed (e.g. estimate of overall nucleotide diversity).
 We will show later how to accurately estimate summary statistics with low-depth data.
 
+
+![stage2A](./stage2A.png)
+
 --------------------------------
 
 **EXERCISE 1**
@@ -442,7 +449,7 @@ Why is it not at high frequency in the Latinos sample?
 
 #### 3. SNP calling
 
-![stages](./stages.png)
+![stage3](./stage3.png)
 
 We now want to estimate allele frequencies at each site without relying on genotype calls.
 In other words, at each site we want to to estimate (or count) how many copies of different alleles (two in case of biallelic variants) we observe in our sample (across all sequenced individuals).
@@ -597,6 +604,8 @@ evince Results/diffSnpCall.pdf
 ```
 What can you conclude from these results?
 Which frequencies are more difficult to estimate and therefore affect SNP calling?
+
+![stage3A](./stage3A.png)
 
 **EXERCISE 2**
 
