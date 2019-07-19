@@ -1,17 +1,14 @@
 
-Here you will learn how to perform a scan for positive selection by calculating PBS (population branch statistic) in windows from low-depth data.
+Here you will learn how to perform a scan for positive selection by calculating several summary statistics in windows from low-depth NGS data.
 
-Specifically, you will learn how to estimate:
-- site frequency spectrum
-- population genetic differentiation
-- nucleotide diversity
+Specifically, you will learn how to estimate://
+1. site frequency spectrum
+2. population genetic differentiation
+3. nucleotide diversity
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
 ```
 NGS=/ricco/data/matteo/Software/ngsTools
-
-MS=/ricco/data/matteo/Software/ms
-SS=/ricco/data/matteo/Software/selscan/bin/linux
 
 DIR=/home/matteo/Copenhagen
 DATA=/ricco/data/matteo/Data
@@ -26,19 +23,12 @@ As reference, these are the labelling for each population:
 - EAS: East Asians
 - NAM: Native Americans
 
------------------------------
-
-### Allele frequency differentiation
-
-The joint Site Frequency Spectrum (SFS) can be considered as a summary statistics for the level of genetic differentiation between populations.
-We have seen how it can be used as prior information when computing FST (and related metrics) without relying on genotype calling.
-
 Here we see how to compute the 2D-SFS, FST, PBS, and other summary statistics from low-depth data using ANGSD.
 Our final goal is to detect signatures of selection in our data, with the specific example of EDAR gene in Native Americans.
 
-To compute FST/PBS we first need to estimate the marginal and joint sites frequency spectra for our populations.
+-----------------------------
 
--------------------------------
+#### 1. Site frequency spectrum
 
 One of the most important aspect of data analysis for population genetics is the estimate of the Site Frequency Spectrum (SFS).
 SFS records the proportions of sites at different allele frequencies. It can be folded or unfolded, and the latter case implies the use of an outgroup species to define the ancestral state.
@@ -51,6 +41,8 @@ From these quantities ANGSD computes posterior probabilities of Sample Allele Fr
 Finally, an estimate of the SFS is computed.
 
 These steps can be accomplished in ANGSD using `-doSaf 1/2` options and the program `realSFS`.
+
+![stats1](./stats1.png)
 
 ```
 $NGS/angsd/angsd -doSaf
@@ -202,6 +194,8 @@ Secondly, we need to estimate a **multi-dimensional SFS**, for instance the join
 This can be used for making inferences on their divergence process (time, migration rate and so on).
 However, here we are interested in estimating the 2D-SFS as prior information for our FST/PBS.
 
+![stats2](stats2.png)
+
 An important issue when doing this is to be sure that we are comparing the exactly same corresponding sites between populations.
 ANGSD does that automatically and considers only a set of overlapping sites.
 
@@ -235,6 +229,8 @@ $NGS/angsd/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.
 ```
 
 ------------------------------------
+
+#### 2. Population genetic differentiation
 
 Here we are going to calculate **allele frequency differentiation** using the PBS (population branch statistic) metric.
 Again, we can achieve this by avoid genotype calling using ANGSD.
