@@ -225,7 +225,7 @@ evince Results/AFR.NAM.sfs.pdf
 You can even estimate SFS with higher order of magnitude.
 This command may take some time and you should skip it if not interested.
 ```
-$NGS/angsd/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.idx > Results/AFR.EUR.NAM.sfs
+# $NGS/angsd/misc/realSFS Results/AFR.saf.idx Results/EUR.saf.idx Results/NAM.saf.idx > Results/AFR.EUR.NAM.sfs
 ```
 
 ------------------------------------
@@ -244,6 +244,8 @@ The 2D-SFS will be used as prior information for the joint allele frequency prob
 From these probabilities we will calculate the population branch statistic (PBS) using the NAM as target population and AFR and EUR as reference populations.
 Our goal is to detect selection in NAM in terms of allele frequency differentiation.
 
+![stats2_bis](stats2_bis.png)
+
 Specifically, we are computing a slinding windows scan, with windows of 50kbp and a step of 10kbp.
 This can be achieved using the following commands.
 
@@ -258,14 +260,16 @@ $NGS/angsd/misc/realSFS fst print Results/NAM.pbs.fst.idx | less -S
 where columns are: chromosome, position, (a), (a+b) values for the three FST comparisons, where FST is defined as a/(a+b).
 Note that FST on multiple SNPs is calculated as sum(a)/sum(a+b).
 
+![stats2_tris](stats2_tris.png)
+
 2) The next command will perform a sliding-window analysis:
 ```
-$NGS/angsd/misc/realSFS fst stats2 Results/NAM.pbs.fst.idx -win 50000 -step 10000 > Results/NAM.pbs.txt
+$NGS/angsd/misc/realSFS fst stats2 Results/NAM.pbs.fst.idx -win 50000 -step 10000 > Results/NAM.pbs.fst.txt
 ```
 
 Have a look at the output file:
 ```
-less -S Results/NAM.pbs.txt
+less -S Results/NAM.pbs.fst.txt
 ```
 The header is:
 ```
@@ -278,7 +282,7 @@ We are also provided with the individual FST values.
 You can see that high values of PBS2 are indeed associated with high values of both Fst02 and Fst12 but not Fst01.
 We can plot the results along with the gene annotation.
 ```
-Rscript $DIR/Scripts/plotPBS.R Results/NAM.pbs.txt Results/NAM.pbs.pdf
+Rscript $DIR/Scripts/plotPBS.R Results/NAM.pbs.fst.txt Results/NAM.pbs.pdf
 ```
 
 It will also print out the maximum PBS value observed as this value will be used in the next part.
@@ -294,7 +298,7 @@ Can you reproduce previous claims of selection EDAR using this approach?
 
 -------------------------
 
-**OPTIONAL**
+#### 3. Nucleotide diversity
 
 We are also interested in assessing whether an increase in allele frequency differentiation is also associated with a change of **nucleotide diversity** in NAM (or EAS).
 Again, we can achieve this using ANGSD by estimating levels of diversity without relying on called genotypes.
@@ -302,6 +306,8 @@ Again, we can achieve this using ANGSD by estimating levels of diversity without
 The procedure is similar to what done for PBS, and the SFS is again used as a prior to compute allele frequencies probabilities.
 From these quantities, expectations of various diversity indexes are compute.
 This can be achieved using the following pipeline.
+
+![thetas1](thetas1.png)
 
 First we compute the allele frequency posterior probabilities and associated statistics (-doThetas) using the SFS as prior information (-pest)
 ```
@@ -312,6 +318,9 @@ $NGS/angsd/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
 	-GL 1 -doSaf 1 \
 	-doThetas 1 -pest Results/$POP.sfs
 ```
+
+![thetas2](thetas2.png)
+
 Then we need to index these files and perform a sliding windows analysis using a window length of 50kbp and a step size of 10kbp.
 ```
 POP=NAM
@@ -329,7 +338,7 @@ less -S Results/NAM.thetas.windows.pestPG
 
 **EXERCISE**
 
-Replicate the previous findings of lower genetic diversity in EDAR for East Asians.
+Replicate the previous findings of lower genetic diversity in _EDAR_ for East Asians.
 
 ------------------------
 
