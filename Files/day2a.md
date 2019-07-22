@@ -1,7 +1,7 @@
 
 Here you will learn how to perform a scan for positive selection by calculating several summary statistics in windows from low-depth NGS data.
 
-Specifically, you will learn how to estimate://
+Specifically, you will learn how to estimate:\\
 1. site frequency spectrum
 2. population genetic differentiation
 3. nucleotide diversity
