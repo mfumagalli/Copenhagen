@@ -114,7 +114,7 @@ Goal day 2:
 
 #### Practical
 
-* Selection scan based on genetic [differentiation](Files/day2a.md) from low-depth data
+* Selection scan based on genetic [differentiation and diversity](Files/day2a.md) from low-depth data
 * Assessing significance through [simulations](Files/day2b.md)
 * Selection test based on [haplotype](Files/day2c.md) diversity
 * Example: detection of natural selection from low-depth sequencing data and haplotype data: the case of EDAR genetic variation in Native Americans
