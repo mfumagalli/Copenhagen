@@ -36,7 +36,8 @@ The workflow for this practical looks like this
 which seems daunting! 
 However, that's not the case and we will go through each step to understand each one of them.
 
-The workflow is roughty divided into four steps://
+The workflow is roughty divided into four steps:
+
 0. Data filtering and I/O
 1. Genotype likelihoods
 2. Genotype calling
@@ -94,12 +95,14 @@ Examples:
 		'./angsd -bam list -GL 2 -doMaf 2 -out RES -doMajorMinor 1'
 ```
 
-ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input)://
+ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input):
+
 * BAM, CRAM, mpileup
 * VCF, GLF, beagle
 
 Here we show how ANGSD can also perform some basic filtering of the data.
-These filters are based on://
+These filters are based on:
+
 * quality and depth, see [here](http://www.popgen.dk/angsd/index.php/Filters)
 * SNP quality, see [here](http://popgen.dk/angsd/index.php/SnpFilters)
 * sites, see [here](http://popgen.dk/angsd/index.php/Sites)
@@ -182,7 +185,8 @@ A possible command line would contain the following filtering:
 #        -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
 ...
 ```
-which corresponds to the following scenario://
+which corresponds to the following scenario:
+
 Parameter | Meaning |
 --- | --- |
 -minInd 5 | use only sites with data from at least N individuals |
