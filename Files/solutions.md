@@ -1,12 +1,15 @@
 
-# ex1
+# exercise 1 (genotype calling)
+
+In this example, I suppress filtering to ensure all genotypes are assigned
+
 ```
 for POP in AFR EUR EAS LAT NAM
 do
         echo $POP
-        $ANGSD/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
+        $NGS/angsd/angsd -b $DATA/$POP.bams -ref $REF -anc $ANC -out Results/$POP \
                 -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
-                -minMapQ 20 -minQ 20 -minInd 1 \
+                -minMapQ 20 -minQ 20 -minInd 1 -setMinDepth 1 -setMaxDepth 100 -doCounts 1 \
                 -GL 1 -doMajorMinor 5 -doMaf 1 -skipTriallelic 1 \
                 -doGeno 3 -doPost 1 -postCutoff 0.50 \
                 -sites Data/snp.txt
@@ -22,7 +25,7 @@ done
 ```
 
 For instance, you may have 0/20 in AFR and EUR, 20/20 in EAS, while there are only 4 called genotypes in NAM.
-Recall that we previously estimated a minor allele frequency of 0.84% in NAM without assigning individuals.
+Note that we have previously estimated a minor allele frequency of 0.84% in NAM without assigning individual genotypes.
 
 # quick
 

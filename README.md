@@ -1,14 +1,15 @@
 
-# Summer course in analyses of genotyping and NGS data in medical and population genetics 2019
+# Summer course in analysis of high throughput data for population genetics
+
 
 Tuesday - Analysis of NGS data and population structure
- - 9am - 12pm: Estimation of allele frequencies, SNP calling and genotype calling from NGS data (theory + practical)
+ - 9am - 12pm: Estimation of allele frequencies, SNP calling and genotype calling from NGS data (theory 9-10.15 + practical 10.30-12.00)
 
 Wednesday - Research lecture
  - 4.15pm - 5pm: Research lecture
 
 Thursday - Demography and selection
- - 1pm - 4pm: Detecting natural selection (theory + practical)
+ - 1pm - 4pm: Selection scans (theory 1-2.15 + practical 2.15-4)
 
 ## Material
 
@@ -100,7 +101,7 @@ Goal day 2:
 
 #### Research lecture
 
-* Diet, balancing selection and AI
+* Population genetic inferences using deep learning
 
 ### Thursday afternoon - detecting selection
 
@@ -121,6 +122,6 @@ Goal day 2:
 
 ## Credits
 
-Thanks to Thorfinn Korneliussen, Anders Albrechtsen, Tyler Linderoth, Filipe G. Vieira, Dean Ousby, Javier Mendoza, Ryan Waples.
+Thanks to Thorfinn Korneliussen, Anders Albrechtsen, Tyler Linderoth, Filipe G. Vieira, Dean Ousby, Javier Mendoza, Ryan Waples, and possibly many others I forgot to mention.
 
 

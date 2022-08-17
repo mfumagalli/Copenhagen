@@ -12,8 +12,8 @@ According to its website *ANGSD is a software for analyzing next generation sequ
 Please make sure to follow these preparatory instructions below before running these examples. 
 Briefly, you need to set the path to the software and various data that will be used.
 Also, you will have to create two folders on your working directory, one for your results and one for your intermediate data.
-```
 
+```bash
 NGS=/ricco/data/matteo/Software/ngsTools
 
 DIR=/home/matteo/Copenhagen
@@ -52,12 +52,14 @@ First, we will learn **how to build a command line in ANGSD**.
 ![stage0](./stage0.png)
 
 To see a full list of options in ANGSD type:
-```
+```bash
 $NGS/angsd/angsd
 ```
-and you should see something like
+
+<details>
+
+<summary> click here to see a full list options <\summary>
 ```
-...
 Overview of methods:
 	-GL		Estimate genotype likelihoods
 	-doCounts	Calculate various counts statistics
@@ -94,6 +96,7 @@ Examples:
 	Estimate MAF for bam files in 'list'
 		'./angsd -bam list -GL 2 -doMaf 2 -out RES -doMajorMinor 1'
 ```
+<\details>
 
 ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input):
 
@@ -107,17 +110,20 @@ These filters are based on:
 * SNP quality, see [here](http://popgen.dk/angsd/index.php/SnpFilters)
 * sites, see [here](http://popgen.dk/angsd/index.php/Sites)
 
-Have a look at our list of BAM files:
-```
+<details>
+<summary> click here to have a look at our list of BAM files <\summary>
+```bash
 cat $DATA/ALL.bams
 wc -l $DATA/ALL.bams
 ls $DATA/*.bams
 ```
+<\details>
 
-If the input file is in BAM format, the possible options are:
-```
-$NGS/angsd/angsd -bam
-...
+If the input file is in BAM format, the possible options are visible with `$NGS/angsd/angsd -bam`.
+
+<details>
+<summary> click here for BAM parsing options </summary>
+```bash
 parseArgs_bambi.cpp: bam reader:
 	-bam/-b		(null)	(list of BAM/CRAM files)
 	-i		(null)	(Single BAM/CRAM file)
@@ -150,6 +156,8 @@ Examples for region specification:
 		chr:start-stop	Use region from start to stop from chromosome: chr
 		chr:site	Use single site on chromosome: chr
 ```
+<\details>
+
 
 First we need to define input and output files (please note that here we do not run these intermediate steps, as you can see thare is a ```#``` in the front):
 ```
@@ -175,6 +183,23 @@ Under these circumnstances, the assignment of individual genotypes and SNPs is p
 We may also want to remove sites where a fraction (half?) of the individuals have no data.
 This is achieved by the ```-minInd``` option.
 
+In order to understan which filter to use, it is important to visualise the distribution of quality scores and depth.
+```bash
+$NGS/angsd/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
+        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
+        -minMapQ 20 \
+	-doQsDist 1 -doDepth 1 -doCounts 1 -maxDepth 40 &> /dev/null
+
+Rscript $NGS/Scripts/plotQC.R Results/EUR 2> /dev/null
+```
+
+Let's visuale the results.
+```bash
+
+less -S Results/EUR.info
+evince Results/EUR.pdf
+```
+
 ![stage0A](./stage0A.png)
 
 A possible command line would contain the following filtering:
@@ -189,9 +214,9 @@ which corresponds to the following scenario:
 
 Parameter | Meaning |
 --- | --- |
--minInd 5 | use only sites with data from at least N individuals |
--setMinDepth 7 | minimum total depth |
--setMaxDepth 30 | maximum total depth |
+-minInd 5 | use only sites with data from at least 5 individuals |
+-setMinDepth 7 | minimum total depth of 7 |
+-setMaxDepth 30 | maximum total depth of 30 |
 
 More sophisticated filtering can be done, but this is outside the scope of this practical.
 
@@ -204,9 +229,13 @@ More sophisticated filtering can be done, but this is outside the scope of this 
 We now wish to calculate the ***genotype likelihoods*** for each site at each individual.
 
 To do so you need to specify which genotype likelihood model to use.
-```
+```bash
 $NGS/angsd/angsd -GL
-...
+```
+
+<details>
+<summary> click here to see GL options <\summary>
+```
 -GL=0: 
 	1: SAMtools
 	2: GATK
@@ -227,17 +256,18 @@ Filedumping:
 	3: binary 3 times likelihood	.glf.gz
 	4: text version (10 log likes)	.glf.gz
 ```
+<\details>
 A description of these different implementation can be found [here](http://www.popgen.dk/angsd/index.php/Genotype_likelihoods).
 The GATK model refers to the first GATK paper, SAMtools is somehow more sophisticated (non-independence of errors), SOAPsnp requires a reference sequence for recalibration of quality scores, SYK is error-type specific.
 For most applications and data, GATK and SAMtools models should give similar results.
 
-Let's assume to work with European samples (Italians of course) only.
+Let's assume to analyse European (Italian, of course) samples only.
 A possible command line to estimate allele frequencies might be:
 ```
 $NGS/angsd/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
-        -GL 2 -doGlf 4
+        -GL 2 -doGlf 4 2> /dev/null
 ```
 where we specify:
 * -GL 2: genotype likelihood model as in GATK
@@ -249,16 +279,24 @@ Ignore the various warning messages
 
 **QUESTION**
 What are the output files?
-What's the information inside them?
 
-```
+<details>
+<summary> click here to show the answer <\summary>
+```bash
 ls Results/EUR.*
 ```
+<\details>
 
-```
+What's the information they contain?
+
+<details>
+<summary> click here to show the answer <\summary>
+```bash
 less -S Results/EUR.arg
 less -S Results/EUR.glf.gz
 ```
+<\details>
+
 
 ------------------------------------------
 
@@ -270,9 +308,13 @@ Here we will explore several ways to call genotypes from sequencing data.
 We will also calculate genotypes probabilities to each site for each individual.
 
 In ANGSD, the option to call genotypes is `-doGeno`:
-```
+```bash
 $NGS/angsd/angsd -doGeno
-...
+```
+
+<details>
+<summary> click here to see calling genotypes options <\summary>
+```
 -doGeno 0
         1: write major and minor
         2: write the called genotype encoded as -1,0,1,2, -1=not called
@@ -291,27 +333,36 @@ $NGS/angsd/angsd -doGeno
         NB geno_minDepth requires -doCounts
         NB geno_maxDepth requires -doCounts
 ```
+<\details>
 
-Therefore, if we set `-doGeno 2`, genotypes are coded as 0,1,2, as the number of alternate alleles.
+Therefore, if we set `-doGeno 2`, genotypes are coded as 0,1,2, as the number of alternate alleles. A value of -1 indicates a missing (uncalled) genotype.
 If we want to print the major and minor alleles as well then we set `-doGeno 3`.
 
 To calculate the posterior probability of genotypes we need to define a model.
-```
+```bash
 $NGS/angsd/angsd -doPost
-...
+```
+
+<details>
+<summary> click here to see genotype models <\summary>
+```
 -doPost 0       (Calculate posterior prob 3xgprob)
         1: Using frequency as prior
         2: Using uniform prior
         3: Using SFS as prior (still in development)
         4: Using reference panel as prior (still in development), requires a site file with chr pos major minor af ac an
-...
 ```
-`-doPost 2` uses a uniform prior.
+<\details>
+Therefore, `-doPost 2` uses a uniform prior.
 
 Furthermore, this calculation requires the specification of how to assign the major and minor alleles (if biallelic).
-```
+```bash
 $NGS/angsd/angsd -doMajorMinor
-...
+```
+
+<details>
+<summary> click here to see major/minor options <\summary>
+```
         -doMajorMinor   0
         1: Infer major and minor from GL
         2: Infer major and minor from allele counts
@@ -321,9 +372,10 @@ $NGS/angsd/angsd -doMajorMinor
         -rmTrans: remove transitions 0
         -skipTriallelic 0
 ```
+<\details>
 
 A typical command for genotype calling is (assuming we analyse our EUR samples):
-```
+```bash
 $NGS/angsd/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
 	-uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
@@ -341,34 +393,22 @@ less -S Results/EUR.geno.gz
 The columns are: chromosome, position, major allele, minor allele, genotypes is 0,1,2 format.
 
 **QUESTION**
-How many sites have at least one missing genotype?
-```
+How many sites have at least one missing genotype? Why is that?
+
+<details>
+<summary> click here to see the answer <\summary>
+```bash
 zcat Results/EUR.geno.gz | grep -1 - | wc -l
 ```
-Why is that?
-
+<\details>
 You can control how to set missing genotype when their confidence is low with `-postCutoff`.
-For instance, we can set as missing genotypes when their (highest) genotype posterior probability is below 0.95:
-```
-$NGS/angsd/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
-        -doMajorMinor 1 -doGeno 3 -doPost 2 -doMaf 1 -postCutoff 0.95
-```
-
-How many sites do we have in total?
-How many sites have at least one missing genotype now?
-```
-zcat Results/EUR.geno.gz | wc -l
-zcat Results/EUR.geno.gz | grep -1 - | wc -l
-```
 
 Why are there some many sites with missing genotypes?
 
 The mean depth per sample is around 2-3X, therefore genotypes cannot be assigned with very high confidence.
-
 Setting this threshold depends on the mean sequencing depth of your data, as well as your application.
 For some analyses you need to work only with high quality genotypes (e.g. measure of proportion of shared SNPs for gene flow estimate), while for others you can be more relaxed (e.g. estimate of overall nucleotide diversity).
 We will show later how to accurately estimate summary statistics with low-depth data.
-
 
 ![stage2A](./stage2A.png)
 
@@ -378,7 +418,7 @@ We will show later how to accurately estimate summary statistics with low-depth 
 
 If we assume HWE, then we can use this information as prior probability to calculate genotype posterior probabilities.
 The command line would be:
-```
+```bash
 $NGS/angsd/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR \
         -doMajorMinor 1 -doGeno 3 -doPost 1 -doMaf 1
 ```
@@ -438,6 +478,8 @@ but feel free to choose some parameters yourself.
 ...
 ```
 
+<summary> click ![here](./solutions.md) for a possible solution <\summary>
+
 Once done, open the output files and calculate the derived allele frequency by counting genotypes.
 What is the derived allele frequency for each population?
 
@@ -447,7 +489,7 @@ Do you see any allele frequency differentiation in the derived state?
 In the original paper, Authors state that *The G allele at rs3827760 is not present in Europeans and Africans but is seen at high frequency in East Asians and is essentially fixed in Native Americans.*
 Are your results in agreement with this?
 
-Why is it not at high frequency in the Latinos sample?
+Why is it not at high frequency in the Latino sample?
 
 ----------------------------
 
