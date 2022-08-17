@@ -57,8 +57,8 @@ $NGS/angsd/angsd
 ```
 
 <details>
+<summary> click here to see a full list options </summary>
 
-<summary> click here to see a full list options <\summary>
 ```
 Overview of methods:
 	-GL		Estimate genotype likelihoods
@@ -96,7 +96,7 @@ Examples:
 	Estimate MAF for bam files in 'list'
 		'./angsd -bam list -GL 2 -doMaf 2 -out RES -doMajorMinor 1'
 ```
-<\details>
+</details>
 
 ANGSD can accept several input files, as described [here](http://popgen.dk/angsd/index.php/Input):
 
@@ -111,13 +111,13 @@ These filters are based on:
 * sites, see [here](http://popgen.dk/angsd/index.php/Sites)
 
 <details>
-<summary> click here to have a look at our list of BAM files <\summary>
+<summary> click here to have a look at our list of BAM files </summary>
 ```bash
 cat $DATA/ALL.bams
 wc -l $DATA/ALL.bams
 ls $DATA/*.bams
 ```
-<\details>
+</details>
 
 If the input file is in BAM format, the possible options are visible with `$NGS/angsd/angsd -bam`.
 
@@ -156,11 +156,11 @@ Examples for region specification:
 		chr:start-stop	Use region from start to stop from chromosome: chr
 		chr:site	Use single site on chromosome: chr
 ```
-<\details>
+</details>
 
 
 First we need to define input and output files (please note that here we do not run these intermediate steps, as you can see thare is a ```#``` in the front):
-```
+```bash
 # $NGS/angsd/angsd -b ALL.bams -ref $REF -out Results/ALL \
 ...
 ```
@@ -170,7 +170,7 @@ with `-b` we give the file including paths to all BAM files we need to analyse.
 
 Next we need to define some basic filtering options.
 First we define filters based on reads quality.
-```
+```bash
 # $NGS/angsd/angsd -b ALL.bams -ref $REF -out Results/ALL \
 #        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
 ...
@@ -203,7 +203,7 @@ evince Results/EUR.pdf
 ![stage0A](./stage0A.png)
 
 A possible command line would contain the following filtering:
-```
+```bash
 ...
 # $NGS/angsd/angsd -b ALL.bams -ref $REF -out Results/ALL \
 #        -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
@@ -234,7 +234,7 @@ $NGS/angsd/angsd -GL
 ```
 
 <details>
-<summary> click here to see GL options <\summary>
+<summary> click here to see GL options </summary>
 ```
 -GL=0: 
 	1: SAMtools
@@ -256,14 +256,15 @@ Filedumping:
 	3: binary 3 times likelihood	.glf.gz
 	4: text version (10 log likes)	.glf.gz
 ```
-<\details>
+</details>
+
 A description of these different implementation can be found [here](http://www.popgen.dk/angsd/index.php/Genotype_likelihoods).
 The GATK model refers to the first GATK paper, SAMtools is somehow more sophisticated (non-independence of errors), SOAPsnp requires a reference sequence for recalibration of quality scores, SYK is error-type specific.
 For most applications and data, GATK and SAMtools models should give similar results.
 
 Let's assume to analyse European (Italian, of course) samples only.
 A possible command line to estimate allele frequencies might be:
-```
+```bash
 $NGS/angsd/angsd -b $DATA/EUR.bams -ref $REF -out Results/EUR \
         -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -trim 0 -C 50 -baq 1 \
         -minMapQ 20 -minQ 20 -minInd 5 -setMinDepth 7 -setMaxDepth 30 -doCounts 1 \
@@ -273,7 +274,7 @@ where we specify:
 * -GL 2: genotype likelihood model as in GATK
 * -doGlf 4: output in text format
 
-Ignore the various warning messages
+Ignore the various warning messages (if any).
 
 ![stage1A](./stage1A.png)
 
@@ -281,21 +282,21 @@ Ignore the various warning messages
 What are the output files?
 
 <details>
-<summary> click here to show the answer <\summary>
+<summary> click here to show the answer </summary>
 ```bash
 ls Results/EUR.*
 ```
-<\details>
+</details>
 
-What's the information they contain?
+What are the information they contain?
 
 <details>
-<summary> click here to show the answer <\summary>
+<summary> click here to show the answer </summary>
 ```bash
 less -S Results/EUR.arg
 less -S Results/EUR.glf.gz
 ```
-<\details>
+</details>
 
 
 ------------------------------------------
@@ -313,7 +314,7 @@ $NGS/angsd/angsd -doGeno
 ```
 
 <details>
-<summary> click here to see calling genotypes options <\summary>
+<summary> click here to see calling genotypes options </summary>
 ```
 -doGeno 0
         1: write major and minor
@@ -333,7 +334,7 @@ $NGS/angsd/angsd -doGeno
         NB geno_minDepth requires -doCounts
         NB geno_maxDepth requires -doCounts
 ```
-<\details>
+</details>
 
 Therefore, if we set `-doGeno 2`, genotypes are coded as 0,1,2, as the number of alternate alleles. A value of -1 indicates a missing (uncalled) genotype.
 If we want to print the major and minor alleles as well then we set `-doGeno 3`.
@@ -344,7 +345,7 @@ $NGS/angsd/angsd -doPost
 ```
 
 <details>
-<summary> click here to see genotype models <\summary>
+<summary> click here to see genotype models </summary>
 ```
 -doPost 0       (Calculate posterior prob 3xgprob)
         1: Using frequency as prior
@@ -352,7 +353,7 @@ $NGS/angsd/angsd -doPost
         3: Using SFS as prior (still in development)
         4: Using reference panel as prior (still in development), requires a site file with chr pos major minor af ac an
 ```
-<\details>
+</details>
 Therefore, `-doPost 2` uses a uniform prior.
 
 Furthermore, this calculation requires the specification of how to assign the major and minor alleles (if biallelic).
@@ -361,7 +362,7 @@ $NGS/angsd/angsd -doMajorMinor
 ```
 
 <details>
-<summary> click here to see major/minor options <\summary>
+<summary> click here to see major/minor options </summary>
 ```
         -doMajorMinor   0
         1: Infer major and minor from GL
@@ -372,7 +373,7 @@ $NGS/angsd/angsd -doMajorMinor
         -rmTrans: remove transitions 0
         -skipTriallelic 0
 ```
-<\details>
+</details>
 
 A typical command for genotype calling is (assuming we analyse our EUR samples):
 ```bash
@@ -387,7 +388,7 @@ $NGS/angsd/angsd -glf Results/EUR.glf.gz -fai $REF.fai -nInd 10 -out Results/EUR
 Let's ignore the `-doMaf` option now.
 
 Have a look at the output file:
-```
+```bash
 less -S Results/EUR.geno.gz
 ```
 The columns are: chromosome, position, major allele, minor allele, genotypes is 0,1,2 format.
@@ -396,11 +397,11 @@ The columns are: chromosome, position, major allele, minor allele, genotypes is 
 How many sites have at least one missing genotype? Why is that?
 
 <details>
-<summary> click here to see the answer <\summary>
+<summary> click here to see the answer </summary>
 ```bash
 zcat Results/EUR.geno.gz | grep -1 - | wc -l
 ```
-<\details>
+</details>
 You can control how to set missing genotype when their confidence is low with `-postCutoff`.
 
 Why are there some many sites with missing genotypes?
@@ -433,18 +434,18 @@ The genomic location of this SNP is `chr2:109513601-109513601`.
 
 In ANGSD we can restrict our analyses on a subset of positions of interest using the `-sites` option.
 The file with these positions need to be formatted as (chromosome positions).
-```
+```bash
 echo 2 109513601 > Data/snp.txt
 ```
 We need to index this file in order for ANGSD to process it.
-```
+```bash
 $NGS/angsd/angsd sites index Data/snp.txt
 ```
 
 We are interested in calculating the derived allele frequencies, so are using the ancestral sequence to polarise the alleles.
 We also want to compute the allele frequencies for each population separately.
 We need to use a different file for each population, with a different list of BAM files, as provided:
-```
+```bash
 ls $DATA/*.bams
 ```
 ```
@@ -474,11 +475,11 @@ As an indication, you can follow these guidelines:
 - use option `-sites Data/snp.txt` to restrict the analysis only on selected sites
 but feel free to choose some parameters yourself.
 
-```
+```bash
 ...
 ```
 
-<summary> click ![here](./solutions.md) for a possible solution <\summary>
+<summary> click ![here](./solutions.md) for a possible solution </summary>
 
 Once done, open the output files and calculate the derived allele frequency by counting genotypes.
 What is the derived allele frequency for each population?
