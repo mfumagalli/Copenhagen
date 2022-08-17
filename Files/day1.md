@@ -239,7 +239,9 @@ $NGS/angsd/angsd -GL
 ```
 
 <details>
+
 <summary> click here to see GL options </summary>
+
 ```
 -GL=0: 
 	1: SAMtools
@@ -287,7 +289,9 @@ Ignore the various warning messages (if any).
 What are the output files?
 
 <details>
+
 <summary> click here to show the answer </summary>
+
 ```bash
 ls Results/EUR.*
 ```
@@ -296,7 +300,9 @@ ls Results/EUR.*
 What are the information they contain?
 
 <details>
+
 <summary> click here to show the answer </summary>
+
 ```bash
 less -S Results/EUR.arg
 less -S Results/EUR.glf.gz
@@ -319,7 +325,9 @@ $NGS/angsd/angsd -doGeno
 ```
 
 <details>
+
 <summary> click here to see calling genotypes options </summary>
+
 ```
 -doGeno 0
         1: write major and minor
@@ -350,7 +358,9 @@ $NGS/angsd/angsd -doPost
 ```
 
 <details>
+
 <summary> click here to see genotype models </summary>
+
 ```
 -doPost 0       (Calculate posterior prob 3xgprob)
         1: Using frequency as prior
@@ -358,8 +368,8 @@ $NGS/angsd/angsd -doPost
         3: Using SFS as prior (still in development)
         4: Using reference panel as prior (still in development), requires a site file with chr pos major minor af ac an
 ```
-</details>
 Therefore, `-doPost 2` uses a uniform prior.
+</details>
 
 Furthermore, this calculation requires the specification of how to assign the major and minor alleles (if biallelic).
 ```bash
@@ -367,7 +377,9 @@ $NGS/angsd/angsd -doMajorMinor
 ```
 
 <details>
+
 <summary> click here to see major/minor options </summary>
+
 ```
         -doMajorMinor   0
         1: Infer major and minor from GL
@@ -402,12 +414,14 @@ The columns are: chromosome, position, major allele, minor allele, genotypes is 
 How many sites have at least one missing genotype? Why is that?
 
 <details>
+
 <summary> click here to see the answer </summary>
+
 ```bash
 zcat Results/EUR.geno.gz | grep -1 - | wc -l
 ```
-</details>
 You can control how to set missing genotype when their confidence is low with `-postCutoff`.
+</details>
 
 Why are there some many sites with missing genotypes?
 
