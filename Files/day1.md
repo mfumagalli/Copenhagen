@@ -111,18 +111,23 @@ These filters are based on:
 * sites, see [here](http://popgen.dk/angsd/index.php/Sites)
 
 <details>
+
 <summary> click here to have a look at our list of BAM files </summary>
+
 ```bash
 cat $DATA/ALL.bams
 wc -l $DATA/ALL.bams
 ls $DATA/*.bams
 ```
+
 </details>
 
 If the input file is in BAM format, the possible options are visible with `$NGS/angsd/angsd -bam`.
 
 <details>
+
 <summary> click here for BAM parsing options </summary>
+
 ```bash
 parseArgs_bambi.cpp: bam reader:
 	-bam/-b		(null)	(list of BAM/CRAM files)
