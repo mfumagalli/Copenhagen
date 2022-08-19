@@ -12,9 +12,8 @@ Our goal here is to add the history of Native Americans to this model, roughly f
 Thus, we will assume that Native Americans (their ancestors) splitted from East Asians 20kya and their effective population size is 2,000 from the split until present.
 
 Please make sure to follow the preparatory instructions on the main page before running these examples.
-```
+```bash
 MS=/ricco/data/matteo/Software/ms
-
 DIR=/home/matteo/Copenhagen
 ```
 
@@ -34,7 +33,7 @@ Next we need to define the mutation parameter Theta which is equal to `4*Ne*mu*L
 Similarly, we need to define a recombination rate parameter `-r rho length` (e.g. probability of recombination of 1.5e-8).
 
 Therefore our basic command line would be:
-```
+```bash
 $MS 80 1000 -t 34 -r 22 50000 | less -S
 ```
 Look at the output file. Alleles are coded as 0 (ancestor) or 1 (derived).
@@ -62,26 +61,15 @@ Therefore we need to set the following parameters:
 Assume that it is equal to 2,000. All population sizes are scaled to `Ne` reference, which here is equal to 7310.
 
 **QUESTION**
-
 Which value should you insert in `-n 4 ???`?
 
-Think...
+<details>
 
-...
-
-Think harder without looking at the solution below...
-
-...
-
-
-...
-
-
-...
-
-...
+<summary> click here to see the solution </summary>
 
 The solution is `2000/7310=0.24` so our command would be: `-n 4 0.24`.
+
+</details>
 
 * split event from East Asians (pop3) to Native Americans (pop4).
 For this purpose we need to assume that this event happened 20,000 years ago and our generation time is 25 years.
@@ -92,31 +80,30 @@ How many generations are in 20,000 years, assuming a generation time of 25 years
 Then, divide this number by 4 times our reference Ne (7310).
 
 **QUESTION**
-
 What is the value we should specify for the split time?
 
-Think...
+<details>
 
-...
+<summary> click here to see the solution </summary>
 
-...
+How many generations are in 20,000 years, assuming a generation time of 25 years?
 
-...
-
-...
+Then, divide this number by 4 times our reference Ne (7310).
 
 Thus, our command would be: `... -n 4 0.24 ... -ej 0.027 4 3`.
 
-Make sure you are in the same folder as yesterday. You should have a folder called `Results` in your current directory.
+</details>
+
+Make sure you are in the same folder as the previous analyses. You should have a folder called `Results` in your current directory.
 
 ![ms3](ms3.png)
 
 Our complete command line is:
-```
+```bash
 $MS 80 1000 -t 34 -r 22 50000 -I 4 20 20 20 20 -n 1 1.68 -n 2 3.73 -n 3 7.29 -n 4 0.25 -eg 0 2 116 -eg 0 3 160 -ma x 0.88 0.56 0.00 0.88 x 2.79 0.00 0.56 2.79 x 0.00 0.00 0.00 0.00 x -ej 0.027 4 3 -ej 0.029 3 2 -en 0.029 2 0.29 -en 0.30 1 1 > Results/ALL.ms
 ```
 Look at the results:
-```
+```bash
 less -S Results/ALL.ms
 ```
 
@@ -130,36 +117,34 @@ We are then going to test whether our observed value falls within or outside suc
 
 First, let's compute some summary statistics for each replication.
 This may take a while with 1,000 repetitions. Launch it and have a coffee/cigarette/beer break.
-```
+Alternatively, you can set up a lower number of simulations, say 100, with `Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms > Results/ALL.ms.txt`.
+```bash
 Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms > Results/ALL.ms.txt
 ```
 Have a look at the output file (and check how many lines we have):
-```
+```bash 
 wc -l Results/ALL.ms.txt
 less -S Results/ALL.ms.txt
 ```
 
 Now we can plot the expected distribution of PBS under neutrality and assess whether our observed value (for instance the top PBS value) is higher than a specific percentile (e.g. 95th or 99th).
 Replace `OBS` with the PBS you want to test for significance and plot the neutral distribution.
-```
+```bash
 OBS=0.63
 Rscript $DIR/Scripts/plotSim.R Results/ALL.ms.txt $OBS Results/NAM.pbs.hist.pdf
 ```
 Inspect the plot:
-```
+```bash
 evince Results/NAM.pbs.hist.pdf
 ```
 
 **QUESTION**
-
 What conclusions can we make? Can we reject the hypothesis of neutral evolution?
 
-Next we are going to investigate the patterns of haplotype diversity around the EDAR region from high-depth sequencing data.
+Next we are going to investigate the patterns of haplotype diversity around the _EDAR_ region from high-depth sequencing data.
 
 ------------------------
 
 [HOME](https://github.com/mfumagalli/Copenhagen)
-
-
 
 

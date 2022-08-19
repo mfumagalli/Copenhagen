@@ -5,6 +5,7 @@
 
 args=commandArgs(T)
 simfile=args[1]
+maxrep=as.numeric(as.character(args[2]))
 rm(args)
 
 source("/home/matteo/Copenhagen/Scripts/popgen.R")
@@ -12,7 +13,7 @@ source("/home/matteo/Copenhagen/Scripts/popgen.R")
 nsam=80 # change this eventually
 haplos=readMs2(simfile, nsam)
 
-nrep=length(haplos$hap)
+nrep=max(maxrep, length(haplos$hap))
 
 he=c("S","SS","TajimaD","FuLiDs","FuLiFs","H1", "H2", "H2/H1", "FST12", "FST13", "FST23", "PBS3")
 cat(he, sep="\t")

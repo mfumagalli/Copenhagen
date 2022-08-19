@@ -86,8 +86,8 @@ maxs=pos=rep(NA, length(starts))
 
 for (i in 1:(length(starts))) {
 
-	ind=which(nsl[,1]>=starts[i] & nsl[,1]<ends[i])
-	if (length(ind)>2) maxs[i]=max(nsl[ind,7], na.rm=T)
+	ind=which(nsl[,2]>=starts[i] & nsl[,2]<ends[i])
+	if (length(ind)>2) maxs[i]=max(nsl[ind,9], na.rm=T)
 	pos[i]=starts[i]+(len/2)
 
 }
