@@ -74,7 +74,7 @@ par(mar=c(0, 4, 4, 2) + 0.1)
 
 nsl <- read.table(fin, header=TRUE, stringsAsFact=F)
 
-cat("Maximum unstd XP_EHH value:", max(nsl[,7], na.rm=T), "\n")
+cat("Maximum std XP_EHH value:", max(nsl[,9], na.rm=T), "\n")
 
 len=5e4
 st=1e4
@@ -93,7 +93,7 @@ for (i in 1:(length(starts))) {
 }
 
 
-plot(x=pos/1e6, y=maxs, type ="l", col="orange",ylab = "XP-EHH", xlab="Chromosome", main="XP-EHH scan" , lwd=1, xaxt="n",cex.main = 0.9, cex.axis = 0.6, cex.lab = 0.68, xlim=c(109,110), ylim=c(0,2) ) #orange
+plot(x=pos/1e6, y=maxs, type ="l", col="orange",ylab = "XP-EHH", xlab="Chromosome", main="XP-EHH scan" , lwd=1, xaxt="n",cex.main = 0.9, cex.axis = 0.6, cex.lab = 0.68, xlim=c(109,110), ylim=c(0,2.2) ) #orange
 
 #Add a second panel showing the genes in that region
 par(mar=c(5, 4, 0.5, 2) + 0.1)
