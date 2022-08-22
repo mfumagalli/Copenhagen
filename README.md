@@ -101,7 +101,7 @@ Goal day 2:
 
 #### Research lecture
 
-* Population genetic inferences using deep learning
+* TBA
 
 ### Thursday afternoon - detecting selection
 
