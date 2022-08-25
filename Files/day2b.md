@@ -117,9 +117,9 @@ We are then going to test whether our observed value falls within or outside suc
 
 First, let's compute some summary statistics for each replication.
 This may take a while with 1,000 repetitions. Launch it and have a coffee/cigarette/beer break.
-Alternatively, you can set up a lower number of simulations, say 100, with `Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms > Results/ALL.ms.txt`.
+Alternatively, you can set up a lower number of simulations, say 100, with `Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms 100 > Results/ALL.ms.txt`.
 ```bash
-Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms > Results/ALL.ms.txt
+Rscript $DIR/Scripts/ms2stats.R Results/ALL.ms 1000 > Results/ALL.ms.txt
 ```
 Have a look at the output file (and check how many lines we have):
 ```bash 
